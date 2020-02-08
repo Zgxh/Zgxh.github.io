@@ -247,8 +247,9 @@ mark {
     margin-bottom: 0;
 }
 
+/* 修改背景的整体颜色 353636 */
 .bg-color {
-    background-image: linear-gradient(to right, #090a08 0%, #353636 100%);
+    background-image: linear-gradient(to right, #f80303 0%, #c4050f 100%);
 }
 
 .text-color {
