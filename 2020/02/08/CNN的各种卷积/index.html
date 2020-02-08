@@ -4,8 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CNN的各种卷积, Zgxh,">
-    <meta name="description" content="CNN的各种卷积 | Zgxh的博客">
+    <meta name="keywords" content="CNN中的各种卷积, Zgxh,">
+    <meta name="description" content="
+深度学习中的各种卷积
+3D卷积
+3D 过滤器可以在所有三个方向（图像的高度、宽度、通道）上移动。在每个位置，逐元素的乘法和加法都会提供一个数值。因为过滤器是滑过一个 3D 空间，所以输出数值也按 3D 空间排布。也就是说输出是一个 3D ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>CNN的各种卷积 | Zgxh的博客</title>
+    <title>CNN中的各种卷积 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CNN的各种卷积</h1>
+                    <h1 class="description center-align post-title">CNN中的各种卷积</h1>
                 </div>
             </div>
         </div>
@@ -423,9 +426,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CNN-%E5%8D%B7%E7%A7%AF-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">CNN,卷积,深度学习</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -451,7 +458,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    831
                 </div>
                 
 
@@ -464,7 +471,88 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <hr>
+<h3 id="深度学习中的各种卷积"><a href="#深度学习中的各种卷积" class="headerlink" title="深度学习中的各种卷积"></a>深度学习中的各种卷积</h3><hr>
+<h4 id="3D卷积"><a href="#3D卷积" class="headerlink" title="3D卷积"></a>3D卷积</h4><ul>
+<li>3D 过滤器可以在所有三个方向（图像的高度、宽度、通道）上移动。在每个位置，逐元素的乘法和加法都会提供一个数值。因为过滤器是滑过一个 3D 空间，所以输出数值也按 3D 空间排布。也就是说输出是一个 3D 数据。</li>
+</ul>
+<center>
+    <img src="./src/CNN-Filter/3d.jpg" width=400>
+</center>
+<center>3D卷积</center>
+
+<ul>
+<li>3D 卷积可以描述 3D 空间中目标的空间关系。</li>
+</ul>
+<hr>
+<h4 id="转置卷积（去卷积）"><a href="#转置卷积（去卷积）" class="headerlink" title="转置卷积（去卷积）"></a>转置卷积（去卷积）</h4><ul>
+<li>进行与普通卷积方向相反的转换，即小图变大图，执行上采样</li>
+<li>转置卷积在文献中也被称为去卷积或 fractionally strided convolution</li>
+</ul>
+<center>
+<figure class="half">
+    <img src="./src/CNN-Filter/转置卷积1.jpg" title="logo" width="200">
+    <img src="./src/CNN-Filter/转置卷积2.jpg" title="logo" width="200">
+</figure>
+</center>
+<center>转置卷积</center>
+
+<center>
+    <img src="./src/CNN-Filter/普通卷积的实现.jpg" width="500">
+</center>
+<center>普通卷积的实现</center>
+
+<center>
+    <img src="./src/CNN-Filter/转置卷积的实现.jpg" width="500">
+</center>
+<center>转置卷积的实现</center>
+
+<ul>
+<li>可以看出，转置卷积在计算机运算上的实现，相当于把sparse矩阵进行了转置。这也是转置卷积的由来。</li>
+</ul>
+<hr>
+<h4 id="扩张卷积（Atrous-卷积）"><a href="#扩张卷积（Atrous-卷积）" class="headerlink" title="扩张卷积（Atrous 卷积）"></a>扩张卷积（Atrous 卷积）</h4><ul>
+<li>直观而言，扩张卷积就是通过在核元素之间插入空格来使核「膨胀」。新增的参数 l（扩张率）表示我们希望将核加宽的程度。具体实现可能各不相同，但通常是在核元素之间插入 l-1 个空格。</li>
+</ul>
+<center>
+    <img src="./src/CNN-Filter/扩张卷积.jpg" width="300">
+</center>
+<center>扩张卷积</center>
+
+<hr>
+<h4 id="可分卷积"><a href="#可分卷积" class="headerlink" title="可分卷积"></a>可分卷积</h4><h5 id="空间可分卷积"><a href="#空间可分卷积" class="headerlink" title="空间可分卷积"></a>空间可分卷积</h5><ul>
+<li>空间可分卷积是将一个卷积分解为两个单独的运算。</li>
+<li>在卷积中，3×3 核直接与图像卷积。在空间可分卷积中，3×1 核首先与图像卷积，然后再应用 1×3 核。这样，执行同样的操作时仅需 6 个参数，而不是 9 个。<center>
+  <img src="./src/CNN-Filter/空间可分卷积.jpg" width="300">
+  <img src="./src/CNN-Filter/空间可分卷积2.jpg" width="500">
+</center>
+<center>空间可分卷积</center>
+
+</li>
+</ul>
+<h5 id="深度可分卷积"><a href="#深度可分卷积" class="headerlink" title="深度可分卷积"></a>深度可分卷积</h5><ul>
+<li><p>第一步：我们不使用 2D 卷积中大小为 3×3×3 的单个过滤器，而是分开使用 3 个核。每个过滤器的大小为 3×3×1。每个核与输入层的一个通道卷积（仅一个通道，而非所有通道！）。每个这样的卷积都能提供大小为 5×5×1 的映射图。然后我们将这些映射图堆叠在一起，创建一个 5×5×3 的图像。经过这个操作之后，我们得到大小为 5×5×3 的输出。</p>
+<center>
+  <img src="./src/CNN-Filter/深度可分卷积.jpg" width="700">
+</center>
+<center>深度可分卷积</center>
+</li>
+<li><p>第二步，为了扩展深度，我们应用一个核大小为 1×1×3 的 1×1 卷积。将 5×5×3 的输入图像与每个 1×1×3 的核卷积，可得到大小为 5×5×1 的映射图。在应用了 128 个 1×1 卷积之后，我们得到大小为 5×5×128 的层。</p>
+</li>
+<li><p>效率高！这样的成本大概仅有 2D 卷积的 12%！</p>
+</li>
+</ul>
+<hr>
+<h4 id="分组卷积"><a href="#分组卷积" class="headerlink" title="分组卷积"></a>分组卷积</h4><ul>
+<li>在每个过滤器分组中，每个过滤器的深度仅有名义上的 2D 卷积的一半。它们的深度是 Din/2。每个过滤器分组包含 Dout/2 个过滤器。第一个过滤器分组（红色）与输入层的前一半（[:, :, 0:Din/2]）卷积，而第二个过滤器分组（橙色）与输入层的后一半（[:, :, Din/2:Din]）卷积。因此，每个过滤器分组都会创建 Dout/2 个通道。整体而言，两个分组会创建 2×Dout/2 = Dout 个通道。然后我们将这些通道堆叠在一起，得到有 Dout 个通道的输出层。<center>
+  <img src="./src/CNN-Filter/分组卷积.jpg" width="500">
+</center>
+<center>分组卷积</center>
+
+</li>
+</ul>
+<hr>
+
             </div>
             <hr/>
 
@@ -526,7 +614,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/CNN-%E5%8D%B7%E7%A7%AF-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">CNN,卷积,深度学习</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
