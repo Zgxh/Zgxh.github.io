@@ -4,10 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="祝大家情人节牛批, Zgxh,">
-    <meta name="description" content="上邪，我欲与君相知，长命无绝衰。山无陵，江水为竭。冬雷震震，夏雨雪。天地合，乃敢与君绝。
-祝大家情人节牛批！
-">
+    <meta name="keywords" content="操作系统复习, Zgxh,">
+    <meta name="description" content="操作系统知识点复习进程与线程进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进程存在的唯一标志。进程定义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>祝大家情人节牛批 | Zgxh的博客</title>
+    <title>操作系统复习 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -305,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">祝大家情人节牛批</h1>
+                    <h1 class="description center-align post-title">操作系统复习</h1>
                 </div>
             </div>
         </div>
@@ -425,9 +423,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">计算机操作系统</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -439,21 +441,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-14
+                    2020-02-16
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-14
+                    2020-02-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    43
+                    731
                 </div>
                 
 
@@ -466,8 +468,65 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>上邪，<br>我欲与君相知，<br>长命无绝衰。<br>山无陵，<br>江水为竭。<br>冬雷震震，<br>夏雨雪。<br>天地合，<br>乃敢与君绝。</p>
-<p>祝大家情人节牛批！</p>
+                <h3 id="操作系统知识点复习"><a href="#操作系统知识点复习" class="headerlink" title="操作系统知识点复习"></a>操作系统知识点复习</h3><h4 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h4><p>进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。<br>进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进程存在的唯一标志。<br>进程定义：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。进程强调“动态性”。<br>进程的状态：运行态Running、就绪态Ready、阻塞态Blocked。另外两种：创建态、终止态。<br>进程的组织方式：链接方式（队列）、索引方式（表）<br>进程的控制：用“原语”实现，即“原子操作”。原语在执行时不允许中断，属于操作系统内核的一部分。<br>进程通信：</p>
+<ul>
+<li>共享存储：互斥的，同时只允许一个进程访问共享空间。</li>
+<li>消息传递<ul>
+<li>直接通信</li>
+<li>间接通信：先发到“信箱”</li>
+</ul>
+</li>
+<li>管道通信：在内存中开辟一个大小固定的缓冲区。<ul>
+<li>各个进程对管道的访问是互斥的；</li>
+<li>管道是半双工的，一个管道同一时刻只能单向传输。全双工要两个管道。</li>
+</ul>
+</li>
+</ul>
+<p>线程：</p>
+<ul>
+<li>每个进程可能包含多个线程，来提高并发度。</li>
+<li>线程是程序执行的最小单位。</li>
+<li>引入线程后，进程是系统资源分配的基本单位，线程是调度的基本单位。</li>
+<li>进程间并发，线程间并发。同一进程的线程间并发不用切换进程环境，减小了系统开销。</li>
+</ul>
+<p>线程的实现方式：</p>
+<ul>
+<li>用户级线程：对应操作系统的用户态。</li>
+<li>内核级线程：对应操作系统的核心态。<ul>
+<li>内核级线程才是处理机分配的单位，用户级线程先映射到内核级线程上。</li>
+<li>多线程模型：多对一、一对一、多对多。</li>
+</ul>
+</li>
+</ul>
+<p>进程调度：</p>
+<ul>
+<li>作业调度：高级调度 </li>
+<li>内存调度：中级调度 <ul>
+<li>挂起状态：除PCB外，某 进程资源暂时调到外存中等待。分为就绪挂起和阻塞挂起。</li>
+</ul>
+</li>
+<li>进程调度：低级调度 <center>
+  <img src="./进程调度.png" width=400>
+</center>
+<center>三层进程调度</center>
+
+</li>
+</ul>
+<h6 id="进程互斥"><a href="#进程互斥" class="headerlink" title="进程互斥"></a>进程互斥</h6><ul>
+<li>进程互斥：当一个进程访问某临界资源时，另一个要访问该资源的进程必须等待。<ul>
+<li>系统资源的两种共享方式：互斥共享、同时共享。</li>
+<li>临界资源：互斥共享，同一时间段只允许一个进程使用。</li>
+<li>对临界资源的互斥访问，在逻辑上分为四部分：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><figcaption><span>[互斥访问临界资源] [] [url] [link text] []</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    entry section; <span class="comment">// 进入区：检查是否可进入临界区，若可进入则上锁</span></span><br><span class="line">    critical section; <span class="comment">// 临界区：访问临界资源</span></span><br><span class="line">    exit section; <span class="comment">// 退出区：解锁</span></span><br><span class="line">    remainder section; <span class="comment">// 剩余区：其他处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+
+
+
+
+
+
 
             </div>
             <hr/>
@@ -493,7 +552,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/02/14/%E7%A5%9D%E5%A4%A7%E5%AE%B6%E6%83%85%E4%BA%BA%E8%8A%82%E7%89%9B%E6%89%B9/">https://Zgxh.github.io/2020/02/14/%E7%A5%9D%E5%A4%A7%E5%AE%B6%E6%83%85%E4%BA%BA%E8%8A%82%E7%89%9B%E6%89%B9/</a>
+                    <a href="https://Zgxh.github.io/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">https://Zgxh.github.io/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -530,7 +589,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">计算机操作系统</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -569,9 +632,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">
                     <div class="card-image">
@@ -589,9 +653,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -600,6 +664,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -618,25 +683,26 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/08/GCN%E5%8E%9F%E7%90%86/">
+                <a href="/2020/02/14/%E7%A5%9D%E5%A4%A7%E5%AE%B6%E6%83%85%E4%BA%BA%E8%8A%82%E7%89%9B%E6%89%B9/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="GCN的原理">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="祝大家情人节牛批">
                         
-                        <span class="card-title">GCN的原理</span>
+                        <span class="card-title">祝大家情人节牛批</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GCN的由来和最初的原理
-Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接矩阵。对L进行对称归一化：$$L = I - D^{-1/2} A D^{-1/2} $$ 拉普拉斯矩阵具有良好的性质，它是对称半正
+                            上邪，我欲与君相知，长命无绝衰。山无陵，江水为竭。冬雷震震，夏雨雪。天地合，乃敢与君绝。
+祝大家情人节牛批！
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-14
                             </span>
                         <span class="publish-author">
                             
@@ -645,14 +711,6 @@ Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接�
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/GCN-%E7%A7%91%E7%A0%94/">
-                        <span class="chip bg-color">GCN,科研</span>
-                    </a>
-                    
                 </div>
                 
             </div>
