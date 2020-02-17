@@ -426,8 +426,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">计算机操作系统</span>
+                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
                             </a>
                         
                     </div>
@@ -456,7 +456,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    942
+                    1.1k
                 </div>
                 
 
@@ -512,7 +512,7 @@
 
 </li>
 </ul>
-<h5 id="进程互斥"><a href="#进程互斥" class="headerlink" title="进程互斥"></a>进程互斥</h5><ul>
+<h5 id="进程互斥与进程同步"><a href="#进程互斥与进程同步" class="headerlink" title="进程互斥与进程同步"></a>进程互斥与进程同步</h5><ul>
 <li>进程互斥：当一个进程访问某临界资源时，另一个要访问该资源的进程必须等待。<ul>
 <li>系统资源的两种共享方式：互斥共享、同时共享。</li>
 <li>临界资源：互斥共享，同一时间段只允许一个进程使用。</li>
@@ -520,40 +520,102 @@
 </ul>
 </li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">do</span> <span class="token punctuation">{</span>
-    entry section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 进入区：检查是否可进入临界区，若可进入则上锁</span>
-    critical section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 临界区：访问临界资源</span>
-    exit section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 退出区：解锁</span>
-    remainder section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 剩余区：其他处理</span>
-<span class="token punctuation">}</span> <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-C"><code class="language-C">do {
+    entry section; // 进入区：检查是否可进入临界区，若可进入则上锁
+    critical section; // 临界区：访问临界资源
+    exit section; // 退出区：解锁
+    remainder section; // 剩余区：其他处理
+} while (true)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>进程互斥的原则：<ul>
+<li><p>进程互斥的原则：</p>
+<ul>
 <li>空闲让进：临界区空闲，允许一个进程立即进入</li>
 <li>忙则等待：临界区被锁，其他进程必须等待</li>
 <li>有限等待：保证要访问临界区的进程不会饥饿，能在有限时间内进入</li>
 <li>让权等待：若一个进程不能进入临界区，应立即释放处理机，防止忙等待</li>
 </ul>
 </li>
-<li>使用信号量机制避免“忙等”：<ul>
-<li>P、V操作对应 wait() 和 signal() 原语，实现系统资源的申请和释放<pre class="line-numbers language-C"><code class="language-C">/* 记录型信号量的定义 */
+<li><p>进程同步：并发的进程因直接制约而互相发送消息、进行相互合作、相互等待，使得各进程按一定的速度执行的过程。</p>
+</li>
+<li><p>使用信号量机制(P、V操作)实现进程互斥、进程同步：</p>
+<ul>
+<li>用进程阻塞避免了“忙等”</li>
+<li>P、V操作对应 wait() 和 signal() 原语，实现系统资源的申请和释放</li>
+<li>无资源可用则自我阻塞block()，用完资源后唤醒等待队列中的进程wakeup()</li>
+<li>实现互斥关系时，设置互斥信号量S的初始值为1，在临界区之前执行P(S)，在临界区之后执行V(S)</li>
+<li>实现同步关系时，即操作有先后，设置同步信号量S的初始值为0，要在“前操作”之后执行V(S)，在“后操作”之前执行P(S)，这样无论哪个进程先运行，都能保证同步</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-C"><code class="language-C">/* 记录型信号量的定义 */
 typedef struct {
-int value;          //剩余资源数
-struct process *L;  //等待队列
-} semaphore;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+    int value;          //剩余资源数
+    struct process *L;  //等待队列
+} semaphore;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-C"><code class="language-C">/* 某进程要是用资源时，使用wait()原语申请 */
+void wait (semaphore S) {
+    S.value--;
+    if (S.value < 0) {
+        block(S.L);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-C"><code class="language-C">/* 某进程使用完资源后，使用signal()原语释放资源 */
+void signal(semaphore S) {
+    S.value++;
+    if (S.value <= 0) {
+        wakeup(S.L);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="生产者消费者问题：进程互斥与进程同步"><a href="#生产者消费者问题：进程互斥与进程同步" class="headerlink" title="生产者消费者问题：进程互斥与进程同步"></a>生产者消费者问题：进程互斥与进程同步</h5><ul>
+<li>问题描述：<ul>
+<li>生产者、消费者共享一个初始为空、大小为n的缓冲区</li>
+<li>当缓冲区未满时，生产者可以生产产品并放入缓冲区，否则必须等待</li>
+<li>当缓冲区未空时，消费者可以从缓冲区中取走产品，否则必须等待</li>
+<li>缓冲区是临界资源，必须互斥访问</li>
 </ul>
 </li>
 </ul>
-<p>/* 某进程要是用资源时，使用wait()原语申请 */<br>void wait (semaphore S) {<br>    S.value–;<br>    if (S.value &lt; 0) {<br>        block(S.L);<br>    }<br>}</p>
-<p>/* 某进程使用完资源后，使用signal()原语释放资源 */<br>void signal(semaphore S) {<br>    S.value++;<br>    if (S.value &lt;= 0) {<br>        wakeup(S.L);<br>    }<br>}</p>
-<pre><code>
+<p>对于单生产者、单消费者问题：</p>
+<pre class="line-numbers language-C"><code class="language-C">semaphore mutex = 1;    //互斥信号量，互斥访问buffer
+semaphore empty = n;    //同步信号量，表示buffer中的空闲位置
+semaphore full = 0;     //同步信号量，表示buffer中的产品数
+producer() {
+    while (1) {
+        produce a product;
+        P(empty);   //有空闲位置才会生产
+        P(mutex);
+        put the product to buffer;
+        V(mutex);
+        V(full);
+    }
+}
+consumer() {
+    while (1) {
+        P(full);    //有产品才会消费
+        P(mutex);
+        take a product from buffer;
+        V(mutex);
+        V(empty);
+        consume the product;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>P、P和P、V不可颠倒，否则会引发死锁，V、V无所谓</li>
+<li>多生产者、多消费者问题类似，分析好相互之间的制约关系和对buffer的互斥关系</li>
+<li>生产者吸烟者问题：单生产者、多消费者问题，改变一下代码逻辑即可</li>
+</ul>
+<center>
+    <img src="./生产者吸烟者.png" >
+</center>
+<center>吸烟者轮流吸烟问题</center>
 
+<ul>
+<li><p>读者、写者问题：1个写者，n个读者；读写互斥；读者与读者不互斥；第一个开始读的负责加锁，最后一个读完的负责解锁。设置一个计数器count记录当前的读进程数。</p>
+</li>
+<li><p>该看26了</p>
+</li>
+</ul>
 
-
-
-
-</code></pre>
             </div>
             <hr/>
 
@@ -616,8 +678,8 @@ struct process *L;  //等待队列
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">计算机操作系统</span>
+                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
                                 </a>
                             
                         </div>
@@ -694,8 +756,8 @@ struct process *L;  //等待队列
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">计算机操作系统</span>
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
                     </a>
                     
                 </div>
