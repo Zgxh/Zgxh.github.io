@@ -26,7 +26,8 @@
     
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -448,14 +449,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-16
+                    2020-02-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    822
+                    942
                 </div>
                 
 
@@ -468,8 +469,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="操作系统知识点复习"><a href="#操作系统知识点复习" class="headerlink" title="操作系统知识点复习"></a>操作系统知识点复习</h3><h4 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h4><p>进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。<br>进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进程存在的唯一标志。<br>进程定义：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。进程强调“动态性”。<br>进程的状态：运行态Running、就绪态Ready、阻塞态Blocked。另外两种：创建态、终止态。<br>进程的组织方式：链接方式（队列）、索引方式（表）<br>进程的控制：用“原语”实现，即“原子操作”。原语在执行时不允许中断，属于操作系统内核的一部分。<br>进程通信：</p>
-<ul>
+                <h2 id="操作系统知识点复习"><a href="#操作系统知识点复习" class="headerlink" title="操作系统知识点复习"></a>操作系统知识点复习</h2><h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><p>进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。<br>进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进程存在的唯一标志。<br>进程定义：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。进程强调“动态性”。<br>进程的状态：运行态Running、就绪态Ready、阻塞态Blocked。另外两种：创建态、终止态。<br>进程的组织方式：链接方式（队列）、索引方式（表）<br>进程的控制：用“原语”实现，即“原子操作”。原语在执行时不允许中断，属于操作系统内核的一部分。</p>
+<h5 id="进程通信："><a href="#进程通信：" class="headerlink" title="进程通信："></a>进程通信：</h5><ul>
 <li>共享存储：互斥的，同时只允许一个进程访问共享空间。</li>
 <li>消息传递<ul>
 <li>直接通信</li>
@@ -482,8 +483,7 @@
 </ul>
 </li>
 </ul>
-<p>线程：</p>
-<ul>
+<h5 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h5><ul>
 <li>每个进程可能包含多个线程，来提高并发度。</li>
 <li>线程是程序执行的最小单位。</li>
 <li>引入线程后，进程是系统资源分配的基本单位，线程是调度的基本单位。</li>
@@ -512,7 +512,7 @@
 
 </li>
 </ul>
-<h6 id="进程互斥"><a href="#进程互斥" class="headerlink" title="进程互斥"></a>进程互斥</h6><ul>
+<h5 id="进程互斥"><a href="#进程互斥" class="headerlink" title="进程互斥"></a>进程互斥</h5><ul>
 <li>进程互斥：当一个进程访问某临界资源时，另一个要访问该资源的进程必须等待。<ul>
 <li>系统资源的两种共享方式：互斥共享、同时共享。</li>
 <li>临界资源：互斥共享，同一时间段只允许一个进程使用。</li>
@@ -520,18 +520,40 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    entry section; <span class="comment">// 进入区：检查是否可进入临界区，若可进入则上锁</span></span><br><span class="line">    critical section; <span class="comment">// 临界区：访问临界资源</span></span><br><span class="line">    exit section; <span class="comment">// 退出区：解锁</span></span><br><span class="line">    remainder section; <span class="comment">// 剩余区：其他处理</span></span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="keyword">true</span>)</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">do</span> <span class="token punctuation">{</span>
+    entry section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 进入区：检查是否可进入临界区，若可进入则上锁</span>
+    critical section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 临界区：访问临界资源</span>
+    exit section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 退出区：解锁</span>
+    remainder section<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 剩余区：其他处理</span>
+<span class="token punctuation">}</span> <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>进程互斥的原则<ul>
+<li>进程互斥的原则：<ul>
 <li>空闲让进：临界区空闲，允许一个进程立即进入</li>
 <li>忙则等待：临界区被锁，其他进程必须等待</li>
 <li>有限等待：保证要访问临界区的进程不会饥饿，能在有限时间内进入</li>
 <li>让权等待：若一个进程不能进入临界区，应立即释放处理机，防止忙等待</li>
 </ul>
 </li>
+<li>使用信号量机制避免“忙等”：<ul>
+<li>P、V操作对应 wait() 和 signal() 原语，实现系统资源的申请和释放<pre class="line-numbers language-C"><code class="language-C">/* 记录型信号量的定义 */
+typedef struct {
+int value;          //剩余资源数
+struct process *L;  //等待队列
+} semaphore;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
+</li>
+</ul>
+<p>/* 某进程要是用资源时，使用wait()原语申请 */<br>void wait (semaphore S) {<br>    S.value–;<br>    if (S.value &lt; 0) {<br>        block(S.L);<br>    }<br>}</p>
+<p>/* 某进程使用完资源后，使用signal()原语释放资源 */<br>void signal(semaphore S) {<br>    S.value++;<br>    if (S.value &lt;= 0) {<br>        wakeup(S.L);<br>    }<br>}</p>
+<pre><code>
 
+
+
+
+
+</code></pre>
             </div>
             <hr/>
 
