@@ -449,7 +449,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-17
+                    2020-02-18
                 </div>
                 
 
@@ -610,10 +610,81 @@ consumer() {
 <center>吸烟者轮流吸烟问题</center>
 
 <ul>
-<li><p>读者、写者问题：1个写者，n个读者；读写互斥；读者与读者不互斥；第一个开始读的负责加锁，最后一个读完的负责解锁。设置一个计数器count记录当前的读进程数。</p>
+<li>读者、写者问题：1个写者，n个读者；读写互斥；读者与读者不互斥；第一个开始读的负责加锁，最后一个读完的负责解锁。设置一个计数器count记录当前的读进程数。</li>
+</ul>
+<h5 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h5><ul>
+<li>管程的组成：<ul>
+<li>局部于管程的共享数据结构说明</li>
+<li>初始化共享数据的语句</li>
+<li>对共享数据进行操作的函数（过程）</li>
+<li>管程有一个名字</li>
+</ul>
 </li>
-<li><p>该看26了</p>
+<li>特征：<ul>
+<li>数据只能被这些过程访问</li>
+<li>进程对管程的访问是互斥的</li>
+<li>把同步、互斥等操作进行了封装，解决信号量机制麻烦易出错的问题</li>
+</ul>
 </li>
+</ul>
+<p>管程：</p>
+<pre class="line-numbers language-C"><code class="language-C">monitor ProducerConsumer 
+    condition full, empty;      //同步条件量
+    int count = 0;              //缓冲区产品数
+    void insert(Item item) {    //生产者把产品放入缓冲区
+        if (count == N) {       //若缓冲区满，则生产者进程阻塞
+            wait(full);
+        }
+        count++;
+        insert_item(item);
+        if (count == 1) {       //如果之前是空，唤醒消费者进程
+            signal(empty);
+        }
+    }
+    Item remove() {             //消费者从缓冲区取走产品
+        if (count == 0) {       //若缓冲区空，阻塞消费者进程
+            wait(empty);
+        }
+        count--;
+        if (count == N - 1) {   //若之前缓冲区满，唤醒生产者进程
+            signal(full);
+        }
+        return remove_item();
+    }
+end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>生产者进程：</p>
+<pre class="line-numbers language-C"><code class="language-C">producer() {
+    while (1) {
+        item = produce a product;
+        ProducerConsumer.insert(item);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>消费者进程：</p>
+<pre class="line-numbers language-C"><code class="language-C">consumer() {
+    while (1) {
+        item = ProducerConsumer.remove();
+        consume item;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>java中的 synchronized 关键字能实现类似于管程的机制</li>
+</ul>
+<h5 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h5><p>死锁：在并发环境下，各进程因竞争资源而造成相互循环等待，进而导致各进程都阻塞的现象。<br>饥饿：进程长期得不到资源，无法推进。</p>
+<ul>
+<li>银行家算法：避免死锁<ul>
+<li>检查此次申请是否超过了之前声明的最大需求数；</li>
+<li>检查此时系统剩余可用资源能否满足这次申请；</li>
+<li>试着分配，更改各数据结构；</li>
+<li>用安全性算法检查此次分配会不会导致系统进入“不安全状态”，如果会则阻塞该进程。</li>
+</ul>
+</li>
+<li>安全性算法：<ul>
+<li>检查当前剩余可用资源能否满足某个进程的最大需求；</li>
+<li>如果能，就把该进程加入安全序列；等进程结束，把该进程持有的资源全部回收。</li>
+<li>不断重复这个过程，看最终能否把所有进程都加入安全序列。</li>
+</ul>
+</li>
+<li>该看32了</li>
 </ul>
 
             </div>
