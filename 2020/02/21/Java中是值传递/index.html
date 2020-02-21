@@ -4,14 +4,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="操作系统复习, Zgxh,">
+    <meta name="keywords" content="Java中是值传递, Zgxh,">
     <meta name="description" content="
 
+Java中只有值传递
+今天看了一篇博客，对java中的参数传递有了进一步的认识。
 
 
-操作系统知识点复习
+之前的错误认识：传递的参数如果是普通类型，就是值传递；如果是对象，就是引用传递。
 
-操作系统之进程与线程进程进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进">
+值传递与引用传递
+值传递：调用函数时将实参复制一份传递给函数，如果">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +22,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>操作系统复习 | Zgxh的博客</title>
+    <title>Java中是值传递 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">操作系统复习</h1>
+                    <h1 class="description center-align post-title">Java中是值传递</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +435,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">操作系统</span>
+                            <a href="/tags/java/">
+                                <span class="chip bg-color">java</span>
                             </a>
                         
                     </div>
@@ -448,21 +451,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-16
+                    2020-02-21
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-20
+                    2020-02-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    397
                 </div>
                 
 
@@ -475,332 +478,72 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <font color=#0000FF>
+                <center>
 
-<center>
+<h1 id="Java中只有值传递"><a href="#Java中只有值传递" class="headerlink" title="Java中只有值传递"></a>Java中只有值传递</h1></center>
+今天看了一篇博客，对java中的参数传递有了进一步的认识。
 
-<h1 id="操作系统知识点复习"><a href="#操作系统知识点复习" class="headerlink" title="操作系统知识点复习"></a>操作系统知识点复习</h1></center>
+<blockquote>
+<p>之前的错误认识：传递的参数如果是普通类型，就是值传递；如果是对象，就是引用传递。</p>
+</blockquote>
+<h2 id="值传递与引用传递"><a href="#值传递与引用传递" class="headerlink" title="值传递与引用传递"></a>值传递与引用传递</h2><blockquote>
+<p>值传递：调用函数时将实参复制一份传递给函数，如果后续在函数中对这个参数进行了修改，不会影响被复制的实参。<br>引用传递：调用函数时直接把实参的地址传递给函数，如果后续在函数中对这个参数进行了修改，将直接影响到被传递的实参。</p>
+</blockquote>
+<p>假设有一个对象：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
 
-<h2 id="操作系统之进程与线程"><a href="#操作系统之进程与线程" class="headerlink" title="操作系统之进程与线程"></a>操作系统之进程与线程</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。<br>进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进程存在的唯一标志。<br>进程定义：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。进程强调“动态性”。<br>进程的状态：运行态Running、就绪态Ready、阻塞态Blocked。另外两种：创建态、终止态。<br>进程的组织方式：链接方式（队列）、索引方式（表）<br>进程的控制：用“原语”实现，即“原子操作”。原语在执行时不允许中断，属于操作系统内核的一部分。</p>
-<h3 id="进程通信："><a href="#进程通信：" class="headerlink" title="进程通信："></a>进程通信：</h3><ul>
-<li>共享存储：互斥的，同时只允许一个进程访问共享空间。</li>
-<li>消息传递<ul>
-<li>直接通信</li>
-<li>间接通信：先发到“信箱”</li>
-</ul>
-</li>
-<li>管道通信：在内存中开辟一个大小固定的缓冲区。<ul>
-<li>各个进程对管道的访问是互斥的；</li>
-<li>管道是半双工的，一个管道同一时刻只能单向传输。全双工要两个管道。</li>
-</ul>
-</li>
-</ul>
-<h3 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h3><ul>
-<li>每个进程可能包含多个线程，来提高并发度。</li>
-<li>线程是程序执行的最小单位。</li>
-<li>引入线程后，进程是系统资源分配的基本单位，线程是调度的基本单位。</li>
-<li>进程间并发，线程间并发。同一进程的线程间并发不用切换进程环境，减小了系统开销。</li>
-</ul>
-<p>线程的实现方式：</p>
-<ul>
-<li>用户级线程：对应操作系统的用户态。</li>
-<li>内核级线程：对应操作系统的核心态。<ul>
-<li>内核级线程才是处理机分配的单位，用户级线程先映射到内核级线程上。</li>
-<li>多线程模型：多对一、一对一、多对多。</li>
-</ul>
-</li>
-</ul>
-<p>进程调度：</p>
-<ul>
-<li>作业调度：高级调度 </li>
-<li>内存调度：中级调度 <ul>
-<li>挂起状态：除PCB外，某 进程资源暂时调到外存中等待。分为就绪挂起和阻塞挂起。</li>
-</ul>
-</li>
-<li>进程调度：低级调度 <center>
-  <img src="./进程调度.png" >
-</center>
-<center>三层进程调度</center>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> id<span class="token punctuation">;</span>
 
-</li>
-</ul>
-<h3 id="进程互斥与进程同步"><a href="#进程互斥与进程同步" class="headerlink" title="进程互斥与进程同步"></a>进程互斥与进程同步</h3><ul>
-<li>进程互斥：当一个进程访问某临界资源时，另一个要访问该资源的进程必须等待。<ul>
-<li>系统资源的两种共享方式：互斥共享、同时共享。</li>
-<li>临界资源：互斥共享，同一时间段只允许一个进程使用。</li>
-<li>对临界资源的互斥访问，在逻辑上分为四部分：</li>
-</ul>
-</li>
-</ul>
-<pre class="line-numbers language-C"><code class="language-C">do {
-    entry section; // 进入区：检查是否可进入临界区，若可进入则上锁
-    critical section; // 临界区：访问临界资源
-    exit section; // 退出区：解锁
-    remainder section; // 剩余区：其他处理
-} while (true)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li><p>进程互斥的原则：</p>
-<ul>
-<li>空闲让进：临界区空闲，允许一个进程立即进入</li>
-<li>忙则等待：临界区被锁，其他进程必须等待</li>
-<li>有限等待：保证要访问临界区的进程不会饥饿，能在有限时间内进入</li>
-<li>让权等待：若一个进程不能进入临界区，应立即释放处理机，防止忙等待</li>
-</ul>
-</li>
-<li><p>进程同步：并发的进程因直接制约而互相发送消息、进行相互合作、相互等待，使得各进程按一定的速度执行的过程。</p>
-</li>
-<li><p>使用信号量机制(P、V操作)实现进程互斥、进程同步：</p>
-<ul>
-<li>用进程阻塞避免了“忙等”</li>
-<li>P、V操作对应 wait() 和 signal() 原语，实现系统资源的申请和释放</li>
-<li>无资源可用则自我阻塞block()，用完资源后唤醒等待队列中的进程wakeup()</li>
-<li>实现互斥关系时，设置互斥信号量S的初始值为1，在临界区之前执行P(S)，在临界区之后执行V(S)</li>
-<li>实现同步关系时，即操作有先后，设置同步信号量S的初始值为0，要在“前操作”之后执行V(S)，在“后操作”之前执行P(S)，这样无论哪个进程先运行，都能保证同步</li>
-</ul>
-</li>
-</ul>
-<pre class="line-numbers language-C"><code class="language-C">/* 记录型信号量的定义 */
-typedef struct {
-    int value;          //剩余资源数
-    struct process *L;  //等待队列
-} semaphore;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-C"><code class="language-C">/* 某进程要是用资源时，使用wait()原语申请 */
-void wait (semaphore S) {
-    S.value--;
-    if (S.value < 0) {
-        block(S.L);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-C"><code class="language-C">/* 某进程使用完资源后，使用signal()原语释放资源 */
-void signal(semaphore S) {
-    S.value++;
-    if (S.value <= 0) {
-        wakeup(S.L);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="生产者消费者问题：进程互斥与进程同步"><a href="#生产者消费者问题：进程互斥与进程同步" class="headerlink" title="生产者消费者问题：进程互斥与进程同步"></a>生产者消费者问题：进程互斥与进程同步</h5><ul>
-<li>问题描述：<ul>
-<li>生产者、消费者共享一个初始为空、大小为n的缓冲区</li>
-<li>当缓冲区未满时，生产者可以生产产品并放入缓冲区，否则必须等待</li>
-<li>当缓冲区未空时，消费者可以从缓冲区中取走产品，否则必须等待</li>
-<li>缓冲区是临界资源，必须互斥访问</li>
-</ul>
-</li>
-</ul>
-<p>对于单生产者、单消费者问题：</p>
-<pre class="line-numbers language-C"><code class="language-C">semaphore mutex = 1;    //互斥信号量，互斥访问buffer
-semaphore empty = n;    //同步信号量，表示buffer中的空闲位置
-semaphore full = 0;     //同步信号量，表示buffer中的产品数
-producer() {
-    while (1) {
-        produce a product;
-        P(empty);   //有空闲位置才会生产
-        P(mutex);
-        put the product to buffer;
-        V(mutex);
-        V(full);
-    }
-}
-consumer() {
-    while (1) {
-        P(full);    //有产品才会消费
-        P(mutex);
-        take a product from buffer;
-        V(mutex);
-        V(empty);
-        consume the product;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>P、P和P、V不可颠倒，否则会引发死锁，V、V无所谓</li>
-<li>多生产者、多消费者问题类似，分析好相互之间的制约关系和对buffer的互斥关系</li>
-<li>生产者吸烟者问题：单生产者、多消费者问题，改变一下代码逻辑即可</li>
-</ul>
-<center>
-    <img src="./生产者吸烟者.png" >
-</center>
-<center>吸烟者轮流吸烟问题</center>
+    <span class="token keyword">public</span> String name<span class="token punctuation">;</span>
 
-<ul>
-<li>读者、写者问题：1个写者，n个读者；读写互斥；读者与读者不互斥；第一个开始读的负责加锁，最后一个读完的负责解锁。设置一个计数器count记录当前的读进程数。</li>
-</ul>
-<h3 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h3><ul>
-<li>管程的组成：<ul>
-<li>局部于管程的共享数据结构说明</li>
-<li>初始化共享数据的语句</li>
-<li>对共享数据进行操作的函数（过程）</li>
-<li>管程有一个名字</li>
-</ul>
-</li>
-<li>特征：<ul>
-<li>数据只能被这些过程访问</li>
-<li>进程对管程的访问是互斥的</li>
-<li>把同步、互斥等操作进行了封装，解决信号量机制麻烦易出错的问题</li>
-</ul>
-</li>
-</ul>
-<p>管程：</p>
-<pre class="line-numbers language-C"><code class="language-C">monitor ProducerConsumer 
-    condition full, empty;      //同步条件量
-    int count = 0;              //缓冲区产品数
-    void insert(Item item) {    //生产者把产品放入缓冲区
-        if (count == N) {       //若缓冲区满，则生产者进程阻塞
-            wait(full);
-        }
-        count++;
-        insert_item(item);
-        if (count == 1) {       //如果之前是空，唤醒消费者进程
-            signal(empty);
-        }
-    }
-    Item remove() {             //消费者从缓冲区取走产品
-        if (count == 0) {       //若缓冲区空，阻塞消费者进程
-            wait(empty);
-        }
-        count--;
-        if (count == N - 1) {   //若之前缓冲区满，唤醒生产者进程
-            signal(full);
-        }
-        return remove_item();
-    }
-end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>生产者进程：</p>
-<pre class="line-numbers language-C"><code class="language-C">producer() {
-    while (1) {
-        item = produce a product;
-        ProducerConsumer.insert(item);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>消费者进程：</p>
-<pre class="line-numbers language-C"><code class="language-C">consumer() {
-    while (1) {
-        item = ProducerConsumer.remove();
-        consume item;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>java中的 synchronized 关键字能实现类似于管程的机制</li>
-</ul>
-<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>死锁：在并发环境下，各进程因竞争资源而造成相互循环等待，进而导致各进程都阻塞的现象。<br>饥饿：进程长期得不到资源，无法推进。</p>
-<ul>
-<li>银行家算法：避免死锁<ul>
-<li>检查此次申请是否超过了之前声明的最大需求数；</li>
-<li>检查此时系统剩余可用资源能否满足这次申请；</li>
-<li>试着分配，更改各数据结构；</li>
-<li>用安全性算法检查此次分配会不会导致系统进入“不安全状态”，如果会则阻塞该进程。</li>
-</ul>
-</li>
-<li>安全性算法：<ul>
-<li>检查当前剩余可用资源能否满足某个进程的最大需求；</li>
-<li>如果能，就把该进程加入安全序列；等进程结束，把该进程持有的资源全部回收。</li>
-<li>不断重复这个过程，看最终能否把所有进程都加入安全序列。</li>
-</ul>
-</li>
-</ul>
-<font color=#FF0000>
+    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">,</span> String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>之前会迷惑人的例子，乍一看是引用传递：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Value</span> <span class="token punctuation">{</span>
 
-<h3 id="操作系统之进程问题集锦"><a href="#操作系统之进程问题集锦" class="headerlink" title="操作系统之进程问题集锦"></a>操作系统之进程问题集锦</h3><ol>
-<li><p>进程和线程以及它们的区别？</p>
-<ul>
-<li>进程是对运行时程序的封装，是系统进行资源调度和分配的基本单位，实现操作系统的并发。</li>
-<li>线程是进程的子任务，是CPU调度的基本单位，用于保证程序的实时性，实现进程内部的并发。</li>
-<li>一个程序至少一个进程，一个进程至少一个线程，线程依赖于进程存在。</li>
-<li>进程拥有独立的内存单元，同一个进程的不同线程间共享该进程的内存单元。</li>
-</ul>
-</li>
-<li><p>进程间通信的几种方式？</p>
-</li>
-<li><p>线程同步的方式？</p>
-</li>
-<li><p>死锁？</p>
-</li>
-</ol>
-</font>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        User mainUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"yuyang"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Value value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        value<span class="token punctuation">.</span><span class="token function">change</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">.</span>id <span class="token operator">+</span> mainUser<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-<h2 id="操作系统之内存管理"><a href="#操作系统之内存管理" class="headerlink" title="操作系统之内存管理"></a>操作系统之内存管理</h2><ul>
-<li><p>内存分为系统区和用户区。</p>
-</li>
-<li><p>内存管理：</p>
-<ul>
-<li>内存空间的分配与回收</li>
-<li>虚拟内存技术从逻辑上对内存空间进行扩充</li>
-<li>实现地址转换：逻辑地址与物理地址的转换</li>
-<li>内存保护，保证各进程之间互不干扰</li>
-</ul>
-</li>
-<li><p>交换技术：当内存空间紧张时，系统将内存中某些进程暂时换出外存，并把外存中某些已具备条件的进程换入内存。</p>
-<ul>
-<li>进程在内存与磁盘间动态调度。</li>
-<li>被调出内存的进程PCB会保留在内存中，用于记录外存位置等信息。</li>
-<li>被换出的进程数据被存放在磁盘的“对换区”，储存空间连续分配，I/O速度比文件区快。</li>
-<li>被调出内存的进程处于挂起态suspend。下面是进程的七状态模型：</li>
-</ul>
-</li>
-</ul>
-<center>
-    <img src="./进程七状态模型.png" >
-</center>
-<center>进程的七状态模型</center>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">change</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        user<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"zgxh"</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出：</p>
+<blockquote>
+<p>test.User@5594a1b5<br>test.User@5594a1b5<br>test.User@5594a1b5<br>1zgxh</p>
+</blockquote>
+<p>然而并不是真的引用传递。下面的例子说明虽然传递了对象，但没改变被传递变量：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Value</span> <span class="token punctuation">{</span>
 
-<ul>
-<li>内存的动态分区分配：不预先划分内存分区，而是在进程装入内存时，根据进程大小动态地建立分区，分区大小刚好满足进程需要。动态分区分配不会产生内部碎片，但有外部碎片。<ul>
-<li>内部碎片：分配给某进程的内存区域太大，有没被利用的部分。</li>
-<li>外部碎片：内存中的空闲分区由于空间太小而难以利用。</li>
-<li>外部碎片可以通过“紧凑技术”Compaction来进行合并，紧凑技术会把现有的进程的内存空间首尾相接，时间代价较高。</li>
-</ul>
-</li>
-</ul>
-<h3 id="分页存储"><a href="#分页存储" class="headerlink" title="分页存储"></a>分页存储</h3><ul>
-<li>基本分页存储管理：内存分为多个小空间的页框（内存块），把进程按页框大小分页，各个页面离散地分配到各个内存块中，这样有利于减小碎片。使用页表来保存页面地址。<ul>
-<li>地址变换机构实现目标内存单元的查找。</li>
-<li>在地址变换机构的基础上，加入“快表”，实质是一种缓存，加速地址变换。</li>
-<li>多级页表，避免单级页表占用内存中很多个连续的页框的问题。多级页表对原始页表进行分块，内存中只放入进程最近需要的页表。</li>
-</ul>
-</li>
-<li>请求分页存储管理：不一次把程序所有资源调入内存，需要使用时由操作系统调入内存，若内存不够则需要使用页面置换算法把当前不用的信息调出到外存。<h4 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h4></li>
-<li>最佳置换算法 OPT：每次选择淘汰的页面是以后永不使用或最长时间内不会被使用的。无法实现。</li>
-<li>先进先出置换算法 FIFO：每次淘汰的页面是最早进入内存的页面。使用队列实现。</li>
-<li>最近最久未使用置换算法 LRU：每次淘汰的页面是最近最久未使用的页面。在页表项中添加访问字段记录未访问的时间。</li>
-<li>时钟置换算法 CLOCK：每个页面设置一个访问位，把所有页面连成循环队列。当某页被访问时，访问位=1。当要淘汰一个页面时，检查循环队列的访问位，找第一个访问位=0的页换出；若遍历时该位是1，则置0。若第一遍遍历没找到=0的，再找第二遍，肯定能找到=0的。</li>
-<li>改进型的时钟置换算法：在CLOCK算法的基础上，还考虑页面有没有被修改过，避免被修改过的页面被换出时的I/O操作。<h4 id="页面分配策略"><a href="#页面分配策略" class="headerlink" title="页面分配策略"></a>页面分配策略</h4></li>
-<li>驻留集：请求分页存储管理中给进程分配的内存块的集合。</li>
-<li>策略：<ul>
-<li>固定分配、局部置换：程序运行前分配固定数量内存块，内存缺页时在自己进程内部换页。</li>
-<li>可变分配、全局置换：缺页时分配新物理块，可能来自空闲物理块或换出其他进程页面。</li>
-<li>可变分配、局部置换：应对频繁缺页的进程会多分配内存块，反之回收内存块。</li>
-</ul>
-</li>
-<li>颠簸（抖动）：页面频繁换入换出。主要原因是分给该进程的内存块不够。</li>
-</ul>
-<h3 id="分段存储"><a href="#分段存储" class="headerlink" title="分段存储"></a>分段存储</h3><ul>
-<li>定义：进程的地址空间，按照逻辑功能被划分为若干个段，每个段有自己的段名（方便用户编程），并且每个段从0开始编址</li>
-<li>内存分配规则：以段为单位进行内存分配，每个段在内存中占连续的地址空间，但各段之间可以不相邻。</li>
-<li>分段系统的逻辑地址：一个地址（假设32位，0~31）由高M位表示段号（比如16~31），低N位表示段内偏移（比如0~15）。段号的多少决定分段个数，段内偏移决定每个段长。</li>
-<li>分段存储的寻址：使用“段映射表”，简称段表。每个段对应段表中的一个项，记录该段在内存中的起始地址（基址）和段长。寻址过程：<ul>
-<li>拿到一个段的逻辑地址，在段表寄存器中查询该段号是否越界（段号与段表长度比较）。</li>
-<li>利用段表寄存器找到段表基址，再利用段号找到该段的基址。</li>
-<li>利用段表项判断段内偏移是否超过该段的长度，然后再计算物理地址。</li>
-</ul>
-</li>
-<li>分段、分页管理对比：<ul>
-<li>页是信息的物理单位。分页的目的是实现离散分配，提高内存的利用率。是系统行为，对用户不可见。</li>
-<li>段是信息的逻辑单位。分段的目的是满足用户需求，一个段通常包含一组逻辑模块的信息。分段对用户可见，用户编程需要显式地给出段名。</li>
-<li>页的大小固定；段的长度不固定，取决于用户编写的程序。</li>
-<li>分段按逻辑功能来分，更容易实现信息（指非临界资源）的共享和保护。</li>
-</ul>
-</li>
-<li>段页式管理：逻辑地址结构是二维的：段号、页号、页内地址。<ul>
-<li>分段对用户可见。</li>
-<li>分页由操作系统自己完成，对用户不可见。</li>
-<li>寻址：一个进程被分为N个段，先查段表，确定该段的页表位置，再查页表，确定存放的内存块号。</li>
-</ul>
-</li>
-</ul>
-<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>在程序装入内存时，将即将用到的部分先转入内存，暂时不用的留在外存；当所访问的信息不在内存时，操作系统负责将所需信息调入内存；当内存空间不够时，操作系统将内存中暂时不用的信息调出到外存。</p>
-<h2 id="操作系统之文件管理"><a href="#操作系统之文件管理" class="headerlink" title="操作系统之文件管理"></a>操作系统之文件管理</h2><ul>
-<li>47</li>
-</ul>
-</font>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        User mainUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"yuyang"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Value value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        value<span class="token punctuation">.</span><span class="token function">change</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mainUser<span class="token punctuation">.</span>id <span class="token operator">+</span> mainUser<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">change</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"zgxh"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出：</p>
+<blockquote>
+<p>test.User@5594a1b5<br>test.User@6a5fc7f7<br>test.User@5594a1b5<br>1yuyang</p>
+</blockquote>
+<p><strong>总结：Java中只有值传递，对于对象参数，值的内容是对象引用的地址。</strong></p>
 
             </div>
             <hr/>
@@ -826,7 +569,7 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">https://Zgxh.github.io/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/</a>
+                    <a href="https://Zgxh.github.io/2020/02/21/Java%E4%B8%AD%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/">https://Zgxh.github.io/2020/02/21/Java%E4%B8%AD%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -864,8 +607,8 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">操作系统</span>
+                                <a href="/tags/java/">
+                                    <span class="chip bg-color">java</span>
                                 </a>
                             
                         </div>
@@ -906,9 +649,10 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/02/21/Java%E4%B8%AD%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/">
                     <div class="card-image">
@@ -935,9 +679,9 @@ Java中只有值传递
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -946,6 +690,7 @@ Java中只有值传递
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -964,26 +709,30 @@ Java中只有值传递
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/14/%E7%A5%9D%E5%A4%A7%E5%AE%B6%E6%83%85%E4%BA%BA%E8%8A%82%E7%89%9B%E6%89%B9/">
+                <a href="/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="祝大家情人节牛批">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="操作系统复习">
                         
-                        <span class="card-title">祝大家情人节牛批</span>
+                        <span class="card-title">操作系统复习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            上邪，我欲与君相知，长命无绝衰。山无陵，江水为竭。冬雷震震，夏雨雪。天地合，乃敢与君绝。
-祝大家情人节牛批！
+                            
 
+
+
+操作系统知识点复习
+
+操作系统之进程与线程进程进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-16
                             </span>
                         <span class="publish-author">
                             
@@ -992,6 +741,14 @@ Java中只有值传递
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
                 </div>
                 
             </div>
