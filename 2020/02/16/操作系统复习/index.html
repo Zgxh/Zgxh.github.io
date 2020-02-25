@@ -455,7 +455,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-24
+                    2020-02-25
                 </div>
                 
 
@@ -520,7 +520,7 @@
 <li>进程调度：低级调度 <center>
   <img src="./进程调度.png" >
 </center>
-<center>三层进程调度</center>
+<center>图1 三层进程调度</center>
 
 </li>
 </ul>
@@ -619,7 +619,7 @@ consumer() {
 <center>
     <img src="./生产者吸烟者.png" >
 </center>
-<center>吸烟者轮流吸烟问题</center>
+<center>图2 吸烟者轮流吸烟问题</center>
 
 <ul>
 <li>读者、写者问题：1个写者，n个读者；读写互斥；读者与读者不互斥；第一个开始读的负责加锁，最后一个读完的负责解锁。设置一个计数器count记录当前的读进程数。</li>
@@ -740,7 +740,7 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <center>
     <img src="./进程七状态模型.png" >
 </center>
-<center>进程的七状态模型</center>
+<center>图3 进程的七状态模型</center>
 
 <ul>
 <li>内存的动态分区分配：不预先划分内存分区，而是在进程装入内存时，根据进程大小动态地建立分区，分区大小刚好满足进程需要。动态分区分配不会产生内部碎片，但有外部碎片。<ul>
@@ -798,8 +798,7 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 </ul>
 <h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>在程序装入内存时，将即将用到的部分先转入内存，暂时不用的留在外存；当所访问的信息不在内存时，操作系统负责将所需信息调入内存；当内存空间不够时，操作系统将内存中暂时不用的信息调出到外存。</p>
 <h2 id="操作系统之文件管理"><a href="#操作系统之文件管理" class="headerlink" title="操作系统之文件管理"></a>操作系统之文件管理</h2><h3 id="文件的逻辑结构"><a href="#文件的逻辑结构" class="headerlink" title="文件的逻辑结构"></a>文件的逻辑结构</h3><ul>
-<li><p>文件按逻辑结构可分为：</p>
-<ul>
+<li>文件按逻辑结构可分为：<ul>
 <li>无结构文件：由二进制流或字符流组成，无明显逻辑结构。如txt文件。</li>
 <li>有结构文件：由记录组成，分为定长记录、可变长记录。<ul>
 <li>顺序文件：若为定长记录，则可以快速检索和实现随机存取。</li>
@@ -809,16 +808,14 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 </li>
 </ul>
 </li>
-<li><p>文件目录结构：</p>
-<ul>
+<li>文件目录结构：<ul>
 <li>单级目录：不允许文件重名</li>
 <li>两级目录：不能对文件进行分类</li>
 <li>树形目录：不方便文件共享</li>
 <li>无环图目录<h3 id="文件的物理结构"><a href="#文件的物理结构" class="headerlink" title="文件的物理结构"></a>文件的物理结构</h3></li>
 </ul>
 </li>
-<li><p>文件分配方式：</p>
-<ul>
+<li>文件分配方式：<ul>
 <li>连续分配：为文件分配连续磁盘块。</li>
 <li>链接分配<ul>
 <li>隐式链接：每个盘块存放指向下个盘块的指针。</li>
@@ -833,13 +830,11 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 </li>
 </ul>
 </li>
-<li><p>磁盘在逻辑上分为文件卷，每个文件卷又课分为目录区、文件区</p>
-<ul>
+<li>磁盘在逻辑上分为文件卷，每个文件卷又课分为目录区、文件区<ul>
 <li>目录区：包含文件目录、空闲表、位示图、超级块等用于文件管理的数据</li>
 </ul>
 </li>
-<li><p>文件的存储空间管理方法：</p>
-<ul>
+<li>文件的存储空间管理方法：<ul>
 <li>空闲表法：空闲表记录连续空闲区的起始盘块号和盘块数，回收时把相邻的空闲区合并</li>
 <li>空闲链表法：采用链表连接各个空闲区间<ul>
 <li>空闲盘块链：以盘块为单位连接</li>
@@ -854,8 +849,34 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 </li>
 </ul>
 </li>
-<li><p>53</p>
+<li>文件的基本操作<ul>
+<li>创建</li>
+<li>删除</li>
+<li>打开：打开文件表，每个进程有自己的打开文件表，系统有总的打开文件表</li>
+<li>关闭：删除进程打开文件表中的表项，然后系统的打开文件表中打开计数器减1</li>
+<li>读</li>
+<li>写</li>
+</ul>
 </li>
+<li>文件共享<ul>
+<li>硬链接：某用户删除文件时，只删除该用户的目录项，链接计数器-1，当删到链接计数器为0才真正删除该文件</li>
+<li>软链接：用link型文件记录该共享文件的存放路径，访问该文件时按路径查询多级目录，访问速度比硬链接慢，相当于Windows操作系统中的快捷方式</li>
+</ul>
+</li>
+<li>文件保护<ul>
+<li>口令保护</li>
+<li>加密保护</li>
+<li>访问控制：使用访问控制表ACL记录各个用户对文件的权限</li>
+</ul>
+</li>
+</ul>
+<center>
+    <img src="./文件的层次结构.png" >
+</center>
+<center>图4 文件的层次结构</center>
+
+<ul>
+<li>57</li>
 </ul>
 </font>
 
