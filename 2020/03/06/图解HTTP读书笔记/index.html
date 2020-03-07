@@ -462,7 +462,7 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    893
+                    1.1k
                 </div>
                 
 
@@ -569,6 +569,16 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
     <img src="./HTTP报文2.png" >
 </center>
 
+<h2 id="压缩编码传输"><a href="#压缩编码传输" class="headerlink" title="压缩编码传输"></a>压缩编码传输</h2><p>报文主体和实体主体的差异：</p>
+<ul>
+<li>报文 message：HTTP通信中的基本单位，由 8 bit组字节流 组成，通过HTTP通信传输。</li>
+<li>实体 entity：传输中的有效载荷数据，包括实体首部和实体主体。</li>
+<li>HTTP报文主体用于传输请求或响应的实体主体。通常二者相等，当编码后，实体主体内容变化，二者则产生差异。</li>
+</ul>
+<p>分块传输编码：在传输大数据时，把数据分块，让浏览器逐步显示页面。</p>
+<ul>
+<li>每个块用十六进制标记大小，最后一块用 0(CR+LF) 标记</li>
+</ul>
 
             </div>
             <hr/>
