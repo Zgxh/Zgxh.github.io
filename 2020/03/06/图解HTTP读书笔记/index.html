@@ -455,14 +455,14 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-03-07
+                    2020-03-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.3k
                 </div>
                 
 
@@ -562,11 +562,11 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
 <li>其他：Cookie等</li>
 </ul>
 <center>
-    <img src="./HTTP报文.png" >
+    <img src="./HTTP报文.jpg" >
 </center>
 
 <center>
-    <img src="./HTTP报文2.png" >
+    <img src="./HTTP报文2.jpg" >
 </center>
 
 <h2 id="压缩编码传输"><a href="#压缩编码传输" class="headerlink" title="压缩编码传输"></a>压缩编码传输</h2><p>报文主体和实体主体的差异：</p>
@@ -579,7 +579,25 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
 <ul>
 <li>每个块用十六进制标记大小，最后一块用 0(CR+LF) 标记</li>
 </ul>
-
+<h2 id="范围请求"><a href="#范围请求" class="headerlink" title="范围请求"></a>范围请求</h2><p>指定请求的范围，只获取部分资源。</p>
+<ul>
+<li>对于范围请求，响应会返回状态码 206 Partial Content</li>
+<li>对于多重范围的 范围请求，响应先在首部content-type标明multipart/byteranges，再返回报文。</li>
+<li>HTTP首部的Content-Type对应Spring MVC中RequestMapping的consumes参数，表示HTTP请求中的媒体类型，二者需对应。</li>
+</ul>
+<h2 id="内容协商"><a href="#内容协商" class="headerlink" title="内容协商"></a>内容协商</h2><p>Client与Server交涉响应资源内容，然后Server提供给Client最合适的资源形式。</p>
+<ul>
+<li>判断基准包括：语言、字符集、编码方式等。</li>
+<li>包括首部字段：Accept, Accept-Charset, Accept-Encoding, Accept-Language, Content-Language</li>
+<li>Accept字段对应Spring MVC中RequestMapping的produces参数，当Accept字段包含produces指定的返回内容类型时才可返回。</li>
+</ul>
+<p>协商类型：</p>
+<ul>
+<li>服务器驱动协商 Server-driven Negotiation：服务器自动参考请求首部</li>
+<li>客户端驱动协商 Client-driven Negotiation：用户自选浏览器选项，或者js脚本自动选择，如按os类型或web浏览器类型选择。</li>
+<li>透明协商 Transparent Negotiation：Server和Client各自进行内容协商。</li>
+</ul>
+<h1 id="第四章-返回结果的HTTP状态"><a href="#第四章-返回结果的HTTP状态" class="headerlink" title="第四章 返回结果的HTTP状态"></a>第四章 返回结果的HTTP状态</h1>
             </div>
             <hr/>
 
