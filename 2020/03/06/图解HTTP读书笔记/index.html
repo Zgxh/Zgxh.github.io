@@ -455,14 +455,14 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-03-08
+                    2020-03-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    2.2k
                 </div>
                 
 
@@ -644,7 +644,34 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
 <h3 id="404-Not-Found"><a href="#404-Not-Found" class="headerlink" title="404 Not Found"></a>404 Not Found</h3><p>表明服务器上无法找到请求的资源。</p>
 <h3 id="500-Internet-Server-Error"><a href="#500-Internet-Server-Error" class="headerlink" title="500 Internet Server Error"></a>500 Internet Server Error</h3><p>表示Server端在执行请求时发生了错误。</p>
 <h3 id="503-Service-Unavailable"><a href="#503-Service-Unavailable" class="headerlink" title="503 Service Unavailable"></a>503 Service Unavailable</h3><p>表示服务器暂时超负载，或正在进行停机维护，无法处理请求。</p>
-<h1 id="第五章-Web服务器"><a href="#第五章-Web服务器" class="headerlink" title="第五章 Web服务器"></a>第五章 Web服务器</h1>
+<h1 id="第五章-Web服务器"><a href="#第五章-Web服务器" class="headerlink" title="第五章 Web服务器"></a>第五章 Web服务器</h1><h2 id="虚拟主机"><a href="#虚拟主机" class="headerlink" title="虚拟主机"></a>虚拟主机</h2><p>一台服务器搭建多个web站点。</p>
+<ul>
+<li>此时多个web站点域名由DNS解析后对应同一个IP，所以在发送HTTP请求时，须在Host首部完整指定主机名或URI。</li>
+</ul>
+<h2 id="通信数据转发"><a href="#通信数据转发" class="headerlink" title="通信数据转发"></a>通信数据转发</h2><h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>位于Server与Client之间，接收Client的请求转发给Server，同时接收Server的响应转发给Client。</p>
+<center>
+    <img src="./代理.jpg" >
+</center>
+
+<ul>
+<li><strong>缓存代理</strong>：代理转发服务器响应时保存缓存，再次收到对相同资源的请求时直接从代理缓存返回响应。<ul>
+<li>缓存服务器是代理服务器的一种。</li>
+<li>即使存在缓存，也会因为Client要求、缓存有效期等因素向源服务器确认资源有效性。若缓存过期则重新从源服务器获取资源。</li>
+<li>另一种缓存是<strong>客户端浏览器缓存</strong>，若过期则重新请求资源。</li>
+</ul>
+</li>
+<li><strong>透明代理</strong>：转发请求或响应时，不对报文加工处理。反之，非透明代理。</li>
+</ul>
+<h3 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h3><p>网关是转发其他服务器通信数据的服务器。</p>
+<ul>
+<li>网关能使服务器提供非HTTP协议服务。</li>
+<li>利用网关能提高通信的安全性。（在Client与网关之间加密来确保连接安全）</li>
+</ul>
+<h3 id="隧道"><a href="#隧道" class="headerlink" title="隧道"></a>隧道</h3><p>隧道可按要求建立一条Client到Server的通信线路，并使用SSL等手段进行加密。</p>
+<ul>
+<li>确保Client与Server之间安全通信。</li>
+</ul>
+<h1 id="第六章-HTTP首部"><a href="#第六章-HTTP首部" class="headerlink" title="第六章 HTTP首部"></a>第六章 HTTP首部</h1>
             </div>
             <hr/>
 
