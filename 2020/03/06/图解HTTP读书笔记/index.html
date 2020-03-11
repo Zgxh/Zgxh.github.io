@@ -462,7 +462,7 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.2k
+                    3.7k
                 </div>
                 
 
@@ -768,7 +768,42 @@ Connection<span class="token operator">:</span> Upgrade     <span class="token c
 </center>
 
 <p>使用<strong>公开密钥证书</strong>来确保公开密钥的正确性。</p>
+<h2 id="HTTPS通信步骤"><a href="#HTTPS通信步骤" class="headerlink" title="HTTPS通信步骤"></a>HTTPS通信步骤</h2><center>
+    <img src="./HTTPS通信步骤.jpg" >
+</center>
 
+<ol>
+<li>Client发送Client Hello报文来开始SSL通信。（报文中包括Client支持的SSL版本、加密组件列表(加密算法、密钥长度等)）</li>
+<li>Server回复Server Hello报文。（内容同样包括SSL版本、<strong>筛选的</strong>加密组件）</li>
+<li>Server发送Certificate报文。（包含<strong>公钥</strong>，之后Client发送的报文会以该公钥进行加密）</li>
+<li>Server发送Server Hello Done报文，代表最初阶段的SSL第一次握手协商结束。</li>
+<li>Client发送Client Key Exchange报文。（包含Pre-master secret随机密码串）</li>
+<li>Client发送Change Cipher Spec报文，提示Server之后的通信采用Pre-master secret加密。</li>
+<li>Client发送Finished报文。（包含从连接开始的全部报文的整体校验值）</li>
+<li>Server发送Change Cipher Spec报文。</li>
+<li>Server发送Finished报文。</li>
+<li>服务器与客户端Finished报文交换完毕，<strong>SSL连接成功建立</strong>。开始在SSL的保护下进行应用层协议通信，发送HTTP请求。</li>
+<li>应用层协议通信，回复HTTP响应。</li>
+<li>HTTP通信结束时由客户端断开连接，通过发送close_notify报文。之后发送TCP FIN报文来关闭与TCP的通信。</li>
+</ol>
+<ul>
+<li>为了保护报文的完整性，在应用层发送数据时附加MAC （Message Authentication Code）的报文摘要来检测报文是否被篡改。</li>
+</ul>
+<center>
+    <img src="./HTTPS通信细节.jpg" >
+</center>
+
+<h2 id="TLS和SSL"><a href="#TLS和SSL" class="headerlink" title="TLS和SSL"></a>TLS和SSL</h2><p>HTTPS通信使用SSL和TLS两个协议。</p>
+<ul>
+<li>TLS是以SSL 3.0为原型开发的协议，可与SSL统称为SSL。</li>
+<li>目前主流版本是SSL 3.0 和 TLS 1.0</li>
+</ul>
+<h2 id="HTTPS比HTTP慢2-100倍"><a href="#HTTPS比HTTP慢2-100倍" class="headerlink" title="HTTPS比HTTP慢2~100倍"></a>HTTPS比HTTP慢2~100倍</h2><ol>
+<li>通信慢，需要额外进行SSL通信，消耗网络资源大。</li>
+<li>HTTPS需要做服务器、客户端双方加密、解密，消耗CPU、内存等硬件资源。</li>
+</ol>
+<p>所以一般只在包含个人信息等敏感数据时，才进行HTTPS加密通信。</p>
+<h1 id="第八章-认证机制"><a href="#第八章-认证机制" class="headerlink" title="第八章 认证机制"></a>第八章 认证机制</h1>
             </div>
             <hr/>
 
