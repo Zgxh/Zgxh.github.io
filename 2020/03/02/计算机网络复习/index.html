@@ -5,7 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="计算机网络复习, Zgxh,">
-    <meta name="description" content="计算机网络复习">
+    <meta name="description" content="计算机网络复习多HTTP请求问题
+收到的 HTML 如果包含几十个图片标签，这些图片是以什么方式、什么顺序、建立了多少连接、使用什么协议被下载下来的呢？
+
+答：前提条件：从HTTP/1.1开始，TCP连接是默认持续连接的，首部字段Conne">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -449,14 +452,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-03-02
+                    2020-03-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7
+                    317
                 </div>
                 
 
@@ -469,7 +472,16 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="计算机网络复习"><a href="#计算机网络复习" class="headerlink" title="计算机网络复习"></a>计算机网络复习</h1>
+                <h1 id="计算机网络复习"><a href="#计算机网络复习" class="headerlink" title="计算机网络复习"></a>计算机网络复习</h1><h3 id="多HTTP请求问题"><a href="#多HTTP请求问题" class="headerlink" title="多HTTP请求问题"></a>多HTTP请求问题</h3><ol>
+<li>收到的 HTML 如果包含几十个图片标签，这些图片是以什么方式、什么顺序、建立了多少连接、使用什么协议被下载下来的呢？</li>
+</ol>
+<p>答：<br>前提条件：从HTTP/1.1开始，TCP连接是默认持续连接的，首部字段Connection:keep-alive，关闭时请求中写明Connection:close。</p>
+<p>如果图片都是 HTTPS 连接并且在同一个域名下，那么浏览器在 SSL 握手之后会和服务器商量能不能用 HTTP/2：</p>
+<ul>
+<li>如果能则使用 Multiplexing 在该连接上进行多路传输（不过未必所有挂在该域名的资源都使用同一个 TCP 连接获取，但 Multiplexing 很可能被用到）；</li>
+<li>如果不能使用 HTTP/2，或者使用不了HTTPS （因为HTTP/2都是在HTTPS上实现的），则即为HTTP/1.1，HTTP/1.1的每个TCP连接在同一时刻只处理一个请求，则浏览器会在一个Host上建立多个TCP连接，连接的最大数量取决于浏览器设置。这些TCP连接会在空闲的时候被浏览器用来发送新的请求，若所有的TCP连接都在占用，则只能等待。</li>
+</ul>
+
             </div>
             <hr/>
 
