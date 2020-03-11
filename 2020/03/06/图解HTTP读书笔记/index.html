@@ -455,14 +455,14 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-03-10
+                    2020-03-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    3.2k
                 </div>
                 
 
@@ -731,13 +731,43 @@ Connection<span class="token operator">:</span> Upgrade     <span class="token c
     <img src="./响应首部字段.jpg" >
 </center>
 
+<h4 id="Age"><a href="#Age" class="headerlink" title="Age"></a>Age</h4><p>告知Client，源服务器在多久前创建了响应。</p>
+<ul>
+<li>若创建该响应的服务器是缓存服务器，则Age值是指缓存后的响应再次发起认证到认证完成的时间。</li>
+<li>创建代理响应时必须加上首部字段Age。</li>
+</ul>
 <h3 id="实体首部字段"><a href="#实体首部字段" class="headerlink" title="实体首部字段"></a>实体首部字段</h3><center>
     <img src="./实体首部字段.jpg" >
 </center>
 
-<h2 id="其他高频首部字段"><a href="#其他高频首部字段" class="headerlink" title="其他高频首部字段"></a>其他高频首部字段</h2><p>Cookie、Set-Cookie、Content-Disposition等</p>
-<h1 id="第七章-HTTPS"><a href="#第七章-HTTPS" class="headerlink" title="第七章 HTTPS"></a>第七章 HTTPS</h1><p>SSL： Secure Socket Layer， 安全套接层<br>TLS： Transport Layer Security， 安全层传输协议</p>
-<p>与SSL组合使用的HTTP称为HTTPS （HTTP Secure，超文本安全传输协议）</p>
+<h4 id="Content-Location"><a href="#Content-Location" class="headerlink" title="Content-Location"></a>Content-Location</h4><p>当返回资源与实际请求的对象内容不同时，Content-Location会注明报文主体返回资源对应的URI。</p>
+<h4 id="Content-MD5"><a href="#Content-MD5" class="headerlink" title="Content-MD5"></a>Content-MD5</h4><p>是一串由MD5算法生成的值，目的在于检查报文主体在传输过程中是否保持完整，以及确认传输到达。</p>
+<ul>
+<li>但其对内容的改变无从查证，也无法检测传输过程中的恶意篡改。</li>
+</ul>
+<h2 id="其他高频首部字段"><a href="#其他高频首部字段" class="headerlink" title="其他高频首部字段"></a>其他高频首部字段</h2><p>Cookie：请求首部字段。Client想获得HTTP状态管理支持时，就会在请求中包含从Server接收到的Cookie。<br>Set-Cookie：响应首部字段。是服务器开始管理Client时，告知Client的Cookie信息。</p>
+<h1 id="第七章-HTTPS"><a href="#第七章-HTTPS" class="headerlink" title="第七章 HTTPS"></a>第七章 HTTPS</h1><p><strong>SSL： Secure Socket Layer， 安全套接层<br>TLS： Transport Layer Security， 安全层传输协议</strong></p>
+<p>SSL是独立于HTTP的协议，是当今世界上应用最为广泛的网络安全技术。</p>
+<p>与SSL组合使用的HTTP称为<strong>HTTPS （HTTP Secure，超文本安全传输协议）</strong>。<br>HTTP over SSL</p>
+<p>SSL提供了证书手段来确认服务器。证书由值得信任的第三方机构颁发，来证明服务器和客户端的身份。</p>
+<h2 id="HTTPS-HTTP-加密-认证-完整性保护"><a href="#HTTPS-HTTP-加密-认证-完整性保护" class="headerlink" title="HTTPS=HTTP+加密+认证+完整性保护"></a>HTTPS=HTTP+加密+认证+完整性保护</h2><p>HTTP直接和TCP通信。<br>HTTPS则使用了SSL，HTTP先和SSL通信，SSL再和TCP通信。</p>
+<center>
+    <img src="./HTTPS.jpg" >
+</center>
+
+<p>共享密钥加密：加密和解密使用同一个密钥。</p>
+<p>SSL采用了<strong>公开密钥加密</strong> （Public-Key cryptography），使用非对称密钥。</p>
+<ul>
+<li>私有密钥 private key</li>
+<li>公开密钥 public key</li>
+<li><strong>发送密文方使用对方的公开密钥进行加密，对方收到密文后，用自己的私有密钥进行解密。</strong></li>
+</ul>
+<h3 id="HTTPS采用混合加密机制"><a href="#HTTPS采用混合加密机制" class="headerlink" title="HTTPS采用混合加密机制"></a>HTTPS采用混合加密机制</h3><p>共享密钥加密 + 公开密钥加密</p>
+<center>
+    <img src="./HTTPS混合加密机制.jpg" >
+</center>
+
+<p>使用<strong>公开密钥证书</strong>来确保公开密钥的正确性。</p>
 
             </div>
             <hr/>
