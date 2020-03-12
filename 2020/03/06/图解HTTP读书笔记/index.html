@@ -455,14 +455,14 @@ TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-03-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.7k
+                    4.1k
                 </div>
                 
 
@@ -803,7 +803,48 @@ Connection<span class="token operator">:</span> Upgrade     <span class="token c
 <li>HTTPS需要做服务器、客户端双方加密、解密，消耗CPU、内存等硬件资源。</li>
 </ol>
 <p>所以一般只在包含个人信息等敏感数据时，才进行HTTPS加密通信。</p>
-<h1 id="第八章-认证机制"><a href="#第八章-认证机制" class="headerlink" title="第八章 认证机制"></a>第八章 认证机制</h1>
+<h1 id="第八章-认证机制"><a href="#第八章-认证机制" class="headerlink" title="第八章 认证机制"></a>第八章 认证机制</h1><p>HTTP/1.1使用的认证方式：</p>
+<ul>
+<li>BASIC认证<ul>
+<li>采用Base64编码，解码不需要任何附加信息，安全性差。</li>
+</ul>
+</li>
+<li>DIGEST认证</li>
+<li>SSL客户端认证<ul>
+<li>利用HTTPS的客户端证书进行认证客户端，客户端证书要钱</li>
+<li>再利用密码来确定用户本人</li>
+</ul>
+</li>
+<li>FormBase认证（基于表单认证）<ul>
+<li>由Web应用各自实现，没有标准</li>
+</ul>
+</li>
+</ul>
+<h1 id="第九章-基于HTTP的功能追加协议"><a href="#第九章-基于HTTP的功能追加协议" class="headerlink" title="第九章 基于HTTP的功能追加协议"></a>第九章 基于HTTP的功能追加协议</h1><h2 id="Ajax-技术"><a href="#Ajax-技术" class="headerlink" title="Ajax 技术"></a>Ajax 技术</h2><p>Asynchronous JavaScript and XML， 异步JS与XML技术，从已加载完毕的Web页面上发起HTTP请求，只更新局部页面，但可能导致大量请求产生。</p>
+<h2 id="Comet-技术"><a href="#Comet-技术" class="headerlink" title="Comet 技术"></a>Comet 技术</h2><p>客户端发送内容更新请求时，Server先挂起响应，一旦Server有内容更新，直接主动给客户端返回响应，实现实时更新。</p>
+<ul>
+<li>但为了维持TCP连接会消耗更多资源。</li>
+</ul>
+<h2 id="SPDY-协议"><a href="#SPDY-协议" class="headerlink" title="SPDY 协议"></a>SPDY 协议</h2><p>为了在协议级别消除HTTP的瓶颈。<br>没有完全改写HTTP，而是在TCP/IP的应用层与传输层之间新加入会话层，控制数据流动；但还是采用HTTP进行通信连接。</p>
+<center>
+    <img src="./SPDY.jpg" >
+</center>
+
+<ul>
+<li>通过单一TCP连接，可无限制处理多个HTTP请求。</li>
+<li>可给请求逐个分配优先级。</li>
+<li>压缩HTTP请求和响应的首部。</li>
+<li>支持服务器向客户端的推送。</li>
+<li>服务器可主动提示客户端请求所需的资源。</li>
+</ul>
+<h2 id="WebSocket：全双工通信标准"><a href="#WebSocket：全双工通信标准" class="headerlink" title="WebSocket：全双工通信标准"></a>WebSocket：全双工通信标准</h2><ul>
+<li>支持Server到Client的推送。</li>
+<li>建立起WebSocket连接后，一直保持连接状态，通信时开销减少；WebSocket首部信息小，通信量也减少。</li>
+<li>在HTTP连接建立后，进行一次握手来实现WebSocket通信。</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">Upgrade<span class="token operator">:</span> websocket
+Connection<span class="token operator">:</span> Upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 
