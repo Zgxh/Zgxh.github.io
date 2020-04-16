@@ -4,11 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CNN中的各种卷积, Zgxh,">
-    <meta name="description" content="
-深度学习中的各种卷积
-3D卷积
-3D 过滤器可以在所有三个方向（图像的高度、宽度、通道）上移动。在每个位置，逐元素的乘法和加法都会提供一个数值。因为过滤器是滑过一个 3D 空间，所以输出数值也按 3D 空间排布。也就是说输出是一个 3D ">
+    <meta name="keywords" content="GNN需要解决的关键问题, Zgxh,">
+    <meta name="description" content="“图神经网络在线研讨会2020” 笔记1. 从同质到异质目前很多图神经网络主要是基于同质信息网络，同质信息网络只有一种类型的节点和边；
+在实际应用中，会存在大量由不同节点和边构成的交互系统，例如文献数据、电影数据、以及社交网络知识图谱等，在">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>CNN中的各种卷积 | Zgxh的博客</title>
+    <title>GNN需要解决的关键问题 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -307,12 +305,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CNN中的各种卷积</h1>
+                    <h1 class="description center-align post-title">GNN需要解决的关键问题</h1>
                 </div>
             </div>
         </div>
@@ -445,21 +443,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-08
+                    2020-04-16
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-06
+                    2020-04-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    831
+                    4.2k
                 </div>
                 
 
@@ -472,87 +470,130 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
-<h3 id="深度学习中的各种卷积"><a href="#深度学习中的各种卷积" class="headerlink" title="深度学习中的各种卷积"></a>深度学习中的各种卷积</h3><hr>
-<h4 id="3D卷积"><a href="#3D卷积" class="headerlink" title="3D卷积"></a>3D卷积</h4><ul>
-<li>3D 过滤器可以在所有三个方向（图像的高度、宽度、通道）上移动。在每个位置，逐元素的乘法和加法都会提供一个数值。因为过滤器是滑过一个 3D 空间，所以输出数值也按 3D 空间排布。也就是说输出是一个 3D 数据。</li>
-</ul>
+                <h1 id="“图神经网络在线研讨会2020”-笔记"><a href="#“图神经网络在线研讨会2020”-笔记" class="headerlink" title="“图神经网络在线研讨会2020” 笔记"></a>“图神经网络在线研讨会2020” 笔记</h1><h2 id="1-从同质到异质"><a href="#1-从同质到异质" class="headerlink" title="1. 从同质到异质"></a>1. 从同质到异质</h2><p>目前很多图神经网络主要是基于同质信息网络，同质信息网络只有一种类型的节点和边；</p>
+<p>在实际应用中，会存在大量由不同节点和边构成的交互系统，例如文献数据、电影数据、以及社交网络知识图谱等，在这些网络中，不同类型的对象相互交互。不同类型的对象性质不同，交互关系的特性不同会导致很大差异的分析，所以在异质网络中，需要考虑不同类型的对象交互关系对结果的影响。</p>
+<p>在异质信息网络中，网络模式是对一个网络的元级描述，刻画了网络中包含了不同类型的对象和不同类型的关系。例如在图 1 的网络实例中，描述了作者撰写论文，论文发表在会议上；这个网络实例就包含三类对象：作者、论文和会议，以及他们之间的相互交互关系。</p>
 <center>
-    <img src="./3d.jpg" width=400>
-</center>
-<center>3D卷积</center>
 
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icdwveTm3DV8picININawtSibDUFicuoyNh6DnxhxTVNnGFlWIwLyrpOoHg/640?wx_fmt=png" alt=""></p>
+<p>图 1：异质信息网络实例</p>
+</center>
+
+<h3 id="元路径"><a href="#元路径" class="headerlink" title="元路径"></a>元路径</h3><p>元路径是异质信息网络中另外一个很重要的概念。简而言之，元路径就是连接两个对象的一个关系序列。</p>
+<p>如图 2 所示，连接两个 author 可以有不同的元路径。例如：author-&gt;paper-&gt;author，描述的是两个作者之间的合作关系；还可以有 author-&gt;paper-&gt;venue-&gt;paper-&gt;author，这条元路径描述的是两个作者参加同一个会议这么一个关系。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icIYG6IA8nEH1G7xTLGdJmRRzPSqtM6iclKRWWdnVnwT8ddHaDlE8fLrA/640?wx_fmt=png" alt=""></p>
+<p>图 2：异质信息网络中的元路径</p>
+</center>
+
+<p>也提出了很多其他一些概念，例如元图，元结构，以及有约束的元路径等一些概念，它可以更细致的描述网络里面的属性信息。</p>
+<p>石川指出，异质信息网络表示学习目前存在一些挑战，例如如何解决异质性、如何融合信息以及捕捉丰富的语义信息等，主要的解决方案有<strong>经典浅层模型</strong>和<strong>深度模型</strong>两个方面。</p>
+<h2 id="2-浅层模型"><a href="#2-浅层模型" class="headerlink" title="2. 浅层模型"></a>2. 浅层模型</h2><p>在同质网络中，有一些很经典的浅层模型，例如 DeepWalk、Line 等一系列方法，这些方法的核心思想是基于随机游走产生一个节点序列，然后类比于自然语言处理单词序列的方法，通过 skip-gram 的方法来学习网络表示。</p>
+<p>在异质网络中也是采用类似的思路，为了高效的随机游走，一般是采用元路径的随机游走方式，元路径在游走的过程中可以把节点类型信息和边类型信息固定下来。图 3 为基于元路径随机游走的范式，给以一个元路径，如果是按照给定元路径游走的话，转移概率就是指定类型节点的邻居数目分之一，不按照元路径游走的话，转移概率就是 0。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icmFl5gia2CcLtJwvxuF6K6vyXfAG45nZPKljCKX21ZrfZCiaibqq40eeMA/640?wx_fmt=png" alt=""></p>
+<p>图 3：基于元路径的随机游走  </p>
+</center>
+
+<p>针对元路径的随机游走，然后采用 skim-gram 来进行目标优化，metapath2vec 和 metapath2vec++ 有一个区别如图 4 所示。在 soft-max 操作中，metapath2vec++ 在分母中是按照下一个节点类型中的所有节点求和的，而 metapath2vec 是不考虑节点类型，直接对所有节点求和。metapath2vec++ 的优点在于考虑下一个节点的节点类型可以使游走概率的值大一些，在很多情况下效果会好一些。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icmYnOlGUjAFnQicdYvyljLbQuqfHibR8onSPvVH2en6RQc5xib2bA9Ee3g/640?wx_fmt=png" alt=""></p>
+<p>图 4：计算概率中 metapath2vector（上）和 metapath2vec++（下）</p>
+<p>Metapath2vec 是基于元路径随机游走和 skim-gram 的方式解决异质性，也基本上奠基了这个方向研究的基本思路。</p>
+<p>HERec[2] 是另外一种处理异质信息网络的浅层模型，它的基本思路是通过一些对称的元路径将异质图变成同质图，然后在同质图中用 DeepWalk、Line 等方法学习到网络表示。另外一种基于游走的方法是 HIN2Vec[3]，首先 HIN2Vec 在异质网络中游走，抽取点边序列，即节点 X、Y 和它们之间对应的关系 R，在游走的过程中点边序列抽取出来就可以构成序列样本，然后就可以通过判断节点 X、Y 是否具有关系 R 把原来的问题变成分类问题，将分类问题作为优化目标学习网络表示。</p>
+<p>Metapath2vec、HERec 和 HIN2Vec 是异质信息网络表示的三个早期的工作，给后来的工作奠定了基础。最近几年也有一些比较优秀的工作。MCRec[4] 通过刻画 user 和 item 的丰富的交互关系来学习节点表示。为了找到有代表性的负样本，HeGAN[5] 根据关系类型用 GAN 生成好的负样本。RHINE[6] 为了区分异质信息网络中不同类型的关系，借鉴知识表示的思想学习网络表示。</p>
+<h2 id="3-深层模型"><a href="#3-深层模型" class="headerlink" title="3. 深层模型"></a>3. 深层模型</h2><p>深层模型就是用神经网络进行深度建模。在推荐领域，一般主要分析 user 和 item 之间的交互矩阵来得到 user 和 item 之间的隐含特征，但是考虑到异质信息网络实际上包含了不同方面的交互信息，NeuACF[7] 尝试将不同方面的信息融合。如图 5 所示，先通过一些不同方面的元路径抽取不同维度的信息。例如，通过 UIU 和 IUI 抽取用户购买记录方面的特征，UIBIU 和 IBI 元路径可以抽取出品牌方面的信息。然后构造出 aspect-level 的相似性矩阵，然后用 MLP 学习 aspect-level 的潜在因子，最后用 attention 机制将 aspect-level 的潜在因子融合，得到损失函数。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icas3JGGoiaxiaT9CeU9hB1Nxns09uwIp5wgia0XM9ew8tibZ5HYDSyocHqQ/640?wx_fmt=png" alt=""></p>
+<p>图 5：NeuACF 的框架示意图</p>
+</center>
+
+<h3 id="Attention-机制"><a href="#Attention-机制" class="headerlink" title="Attention 机制"></a>Attention 机制</h3><p>Attention 机制在图神经网络中有着重要的应用，但是在异质信息网络中应用 attention 需要两方面的考虑：一个是节点级别的 attention，考虑节点与邻居之间的 attention；另外一个是语义级别的 attention，即在元路径上将节点信息通过 attention 聚合。基于此，HAN 模型将 attention 机制应用到异质信息网络中。如图 6 所示，HAN[8] 首先把节点映射到相同的特征空间，然后用一个 node 级别的 attention 机制，把这些邻居节点聚合起来，再用 semantic attention 机制将元路径信息融合。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9ic8Sr3NxfcPWEmaxow1K7MFE6HVy4MEa4PmSzKPyAL00SGx8xVCrTtbA/640?wx_fmt=png" alt=""></p>
+<p>图 6：HAN 框架示意图</p>
+</center>
+
+<p>在异质图中，不同类型的节点有不同类型的属性特征。HetGNN 将节点的属性信息融合到异质信息网络中。如图 7 所示，HetGNN[9] 先考虑某一类型节点的属性信息，通过神经网络将节点不同模态的属性信息融合起来，然后将节点的一跳邻居中同一类型的节点用 BLSTM 融合起来，最后再将不同类型的节点信息通过神经网络聚合。HetGNN 可以处理异质关系和异质属性。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icePnrRnxAIkldibTXpj9zoicjpzJ3eOiaRslFTSWJmFq1urtfTWWj7LrTw/640?wx_fmt=png" alt=""></p>
+<p>图 7：HetGNN 架构示意图</p>
+</center>
+
+<h3 id="元路径选择"><a href="#元路径选择" class="headerlink" title="元路径选择"></a>元路径选择</h3><p>元路径选择是异质信息网络分析的基本步骤，一般来说，都是选择连接关系比较丰富、语义特性比较强的元路径。但是找到这样的元路径需要比较多的领域知识，在实际操作中也会存在一些问题。为此，石川给出了三种解决思路：</p>
+<ol>
+<li><p>把元路径提纯，不同的元路径表示不同方面的信息，再把不同方面纯化后的信息融合起来；</p>
+</li>
+<li><p>可以舍弃元路径，元路径之所以重要是因为它能抽取高阶关系，如果不用元路径也可以通过保持网络模式的结构特性学习到高阶关系；</p>
+</li>
+<li><p>自动找寻元路径，例如知识图谱里面有些节点之间存在内在关系，可以借鉴知识补全的思路自动生成元路径。</p>
+</li>
+</ol>
+<h2 id="4-异质图神经网络的应用"><a href="#4-异质图神经网络的应用" class="headerlink" title="4. 异质图神经网络的应用"></a>4. 异质图神经网络的应用</h2><h3 id="4-1-套现用户检测"><a href="#4-1-套现用户检测" class="headerlink" title="4.1 套现用户检测"></a>4.1 套现用户检测</h3><p>套现是套取现金的简称，一般是指用违法或虚假的手段交换取得现金利益。如图８所示，判断一个用户是不是套现用户，传统方法是把套现用户检测看成一个分类问题，通过抽取出用户特征，然后用分类器来进行分类。这个过程的一个关键问题是怎么才能够抽取出足够丰富的特征。而在电商特别是互联网金融方面，用户特征大量蕴含在交互行为里面，那么怎么从这种交互行为里面抽取出用户特征，是这个问题的关键。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icicORhazwu7WUicAZicjaMJk56s3CMyCHsx2AbMPlQrg3mm1ahoQ3icNjHg/640?wx_fmt=png" alt=""></p>
+<p>图8：套现用户检测的关键问题和传统解决方案  </p>
+</center>
+
+<p>对此，[10] 提出把用户、商家、设备等信息的交互关系构建为一个<strong>异质网络</strong>，网络要学出用户的特征表示。进一步提出的模型首先考虑用户的自然属性信息，以及用户基于不同元路径的邻居。更进一步把用户的不同 Feature 和其邻居特征通过 Feature attention 机制融合起来，最后利用 Path 相关的 Attention，把基于不同元路径的特征融合起来。模型的相关结构说明如图 8 所示 [MOU1] 。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icOeSy2cIYD8hEXLZy3UMVXUWJYVGtWKt7xl4LrBJwCDtJDJkcCRTW0A/640?wx_fmt=png" alt=""></p>
+<p>图 9：用户套现用户检测模型的相关说明</p>
+</center>
+
+<h3 id="4-2-意图推荐"><a href="#4-2-意图推荐" class="headerlink" title="4.2 意图推荐"></a>4.2 意图推荐</h3><p>意图推荐就是分析用户的潜在意图。</p>
+<p>可以设计一个异质网络来解决这个问题 [11]。如图 9 所示，网络中刻划了用户、物品和查询词三者之间的交互关系，模型来学习 user、item、query 之间的表示，然后看看针对一个用户来推荐什么样的 query。我们同样是基于元路径来聚合邻居信息，在这个过程中可以利用不同的元路径来聚合不同的邻居信息。实际问题当中，user、item、query 的量级是相当大的，在亿级的规模。但是用于组成它们的 word 的数量实际上是不大的，大概是十万级别的。那么仅仅学习 word 的特征表示，然后 query 和 item 的特征由一些 word 拼接而成的，这样就减少了计算量。通过和工业界的算法对比，提出的方法利用增加的元路径信息得到了性能的稳步提升。</p>
+<center>
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9ictxic6OoMbEm7xcBIicl2360xxbB7Z7oIedpysRkexicFPMadibWHSJib0Zg/640?wx_fmt=png" alt=""></p>
+<p>图 10：用于意图推荐的异质图神经网络</p>
+</center>
+
+<h3 id="4-3-用户聚类"><a href="#4-3-用户聚类" class="headerlink" title="4.3 用户聚类"></a>4.3 用户聚类</h3><p>用户聚类是利用用户的特征信息，以及用户的社交连接关系对用户做一个类别划分，对广告推荐是很有帮助的。目前深度学习已经广泛应用于推荐、聚类任务当中。</p>
+<p>聚类主要是分析用户的特征信息，特征实际上也包含有结构信息，把结构和特征两方面联合起来做聚类：</p>
+<p>[12] 首先用深度神经网络学得用户的隐含特征表示，这是深度聚类里面常用的做法。 <strong>另一方面，根据用户的社交关系，构造 KNN 图得到用户的关联图，学得表示过程中，把 DNN 里面学的每一层的特征和 GCN 里面的节点特征表示拼合起来再做聚合。</strong>  如图 10 所示，在这个过程当中，由于这里的 GCN 需要有监督信息，我们把在 DNN 里面做的聚类做一个软划分，得到 Q 分布，进而取平方得到 P 分布，这里的 P 分布当作一个伪标签来指导 GNN 学习，取得了比较明显的效果。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZkgfUziaPIO27tLwdPiaqjuwQqgjSG0x9icmPwSfGAlNcj9tQg97ErEfZvgcc9Mm8x7iaGhUng41oyDs5HESZtchFw/640?wx_fmt=png" alt=""></p>
+<p>图 11：用户聚类模型中 GNN 的监督学习</p>
+<p>除了上面的介绍之外，还有一些其他的应用。如共享推荐中一个用户是否把新闻或者商品推荐给他的朋友；基于朋友关系的推荐中根据朋友的点赞信息决定是否给用户推荐。对于这些含有丰富交互信息的应用场景都可以采用异质网络建模和采用图神经网络进行分析。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>关于异质信息网络特别是异质图网络的未来研究方向：</p>
 <ul>
-<li>3D 卷积可以描述 3D 空间中目标的空间关系。</li>
-</ul>
-<hr>
-<h4 id="转置卷积（去卷积）"><a href="#转置卷积（去卷积）" class="headerlink" title="转置卷积（去卷积）"></a>转置卷积（去卷积）</h4><ul>
-<li>进行与普通卷积方向相反的转换，即小图变大图，执行上采样</li>
-<li>转置卷积在文献中也被称为去卷积或 fractionally strided convolution</li>
-</ul>
-<center>
-<figure class="half">
-    <img src="./转置卷积1.jpg" title="logo" width="200">
-    <img src="./转置卷积2.jpg" title="logo" width="200">
-</figure>
-</center>
-<center>转置卷积</center>
-
-<center>
-    <img src="./普通卷积的实现.jpg" width="500">
-</center>
-<center>普通卷积的实现</center>
-
-<center>
-    <img src="./转置卷积的实现.jpg" width="500">
-</center>
-<center>转置卷积的实现</center>
-
-<ul>
-<li>可以看出，转置卷积在计算机运算上的实现，相当于把sparse矩阵进行了转置。这也是转置卷积的由来。</li>
-</ul>
-<hr>
-<h4 id="扩张卷积（Atrous-卷积）"><a href="#扩张卷积（Atrous-卷积）" class="headerlink" title="扩张卷积（Atrous 卷积）"></a>扩张卷积（Atrous 卷积）</h4><ul>
-<li>直观而言，扩张卷积就是通过在核元素之间插入空格来使核「膨胀」。新增的参数 l（扩张率）表示我们希望将核加宽的程度。具体实现可能各不相同，但通常是在核元素之间插入 l-1 个空格。</li>
-</ul>
-<center>
-    <img src="./扩张卷积.jpg" width="300">
-</center>
-<center>扩张卷积</center>
-
-<hr>
-<h4 id="可分卷积"><a href="#可分卷积" class="headerlink" title="可分卷积"></a>可分卷积</h4><h5 id="空间可分卷积"><a href="#空间可分卷积" class="headerlink" title="空间可分卷积"></a>空间可分卷积</h5><ul>
-<li>空间可分卷积是将一个卷积分解为两个单独的运算。</li>
-<li>在卷积中，3×3 核直接与图像卷积。在空间可分卷积中，3×1 核首先与图像卷积，然后再应用 1×3 核。这样，执行同样的操作时仅需 6 个参数，而不是 9 个。<center>
-  <img src="./空间可分卷积.jpg" width="300">
-  <img src="./空间可分卷积2.jpg" width="500">
-</center>
-<center>空间可分卷积</center>
-
+<li><p>异质图神经网络内在学习机理</p>
+</li>
+<li><p>动态网络</p>
+</li>
+<li><p>多模态数据处理</p>
 </li>
 </ul>
-<h5 id="深度可分卷积"><a href="#深度可分卷积" class="headerlink" title="深度可分卷积"></a>深度可分卷积</h5><ul>
-<li><p>第一步：我们不使用 2D 卷积中大小为 3×3×3 的单个过滤器，而是分开使用 3 个核。每个过滤器的大小为 3×3×1。每个核与输入层的一个通道卷积（仅一个通道，而非所有通道！）。每个这样的卷积都能提供大小为 5×5×1 的映射图。然后我们将这些映射图堆叠在一起，创建一个 5×5×3 的图像。经过这个操作之后，我们得到大小为 5×5×3 的输出。</p>
-<center>
-  <img src="./深度可分卷积.jpg" width="700">
-</center>
-<center>深度可分卷积</center>
-</li>
-<li><p>第二步，为了扩展深度，我们应用一个核大小为 1×1×3 的 1×1 卷积。将 5×5×3 的输入图像与每个 1×1×3 的核卷积，可得到大小为 5×5×1 的映射图。在应用了 128 个 1×1 卷积之后，我们得到大小为 5×5×128 的层。</p>
-</li>
-<li><p>效率高！这样的成本大概仅有 2D 卷积的 12%！</p>
-</li>
-</ul>
-<hr>
-<h4 id="分组卷积"><a href="#分组卷积" class="headerlink" title="分组卷积"></a>分组卷积</h4><ul>
-<li>在每个过滤器分组中，每个过滤器的深度仅有名义上的 2D 卷积的一半。它们的深度是 Din/2。每个过滤器分组包含 Dout/2 个过滤器。第一个过滤器分组（红色）与输入层的前一半（[:, :, 0:Din/2]）卷积，而第二个过滤器分组（橙色）与输入层的后一半（[:, :, Din/2:Din]）卷积。因此，每个过滤器分组都会创建 Dout/2 个通道。整体而言，两个分组会创建 2×Dout/2 = Dout 个通道。然后我们将这些通道堆叠在一起，得到有 Dout 个通道的输出层。<center>
-  <img src="./分组卷积.jpg" width="500">
-</center>
-<center>分组卷积</center>
-
-</li>
-</ul>
-<hr>
+<p>异质信息网络的更多资料可以访问网站：<a href="http://www.shichuan.org" target="_blank" rel="noopener">www.shichuan.org</a>.</p>
+<p><strong>Q&amp;A：</strong></p>
+<p><strong>Q1: 为什么知识图谱表示学习方法很少用到异质网络表示学习中？</strong></p>
+<p>A1: 我认为知识图谱可以看成是一种异质网络，它是一种模式丰富的异质网络，那么在这种网络里面，它有很多不同类型的结点，有很多不同类型的关系。这个的话实际上是传统的异质网络很少分析的，也是很难分析的。网络表示学习和知识图谱的表示学习，是两种不同的角度来做不同的事情，其实我觉得二者是可以相互借鉴、相互结合的，但是目前还没有什么太多太好的工作。</p>
+<p><strong>Q2: 网络表示学习的结果如何与结点的属性特征、描述类的文本特征进行融合，难点在哪里？以及如何自动发现元路径？</strong></p>
+<p>A2: 一般的话还是要根据领域知识来选择一些语意，选择语意明确、结构丰富的这样一些元路径，这样选出的路径对于实际问题一般来说效果都还不错。</p>
+<p><strong>Q3: 广度学习主要是通过定义元路径来实现的吗？可以谈一谈广度学习和图神经网络的关系以及二者今后如何发展情况吗？</strong></p>
+<p>A3: 广度学习是近些年 Philip S Yu 教授倡导的一个研究方向，里面的主要一种技术方法也是用异质信息网络，异质信息网络可以很自然的把不同方面的信息关联起来，起到一个信息融合的作用。在这里面我们可以用元路径，那么就是说可以融合不同方面的信息，抽取不同方面的这种子结构。所以这是里面一个很重要的方法。</p>
+<p><strong>Q4: 异质信息网络下一步的发展方向是什么？</strong></p>
+<p>A3: 一个是我前面说到的，元路径选择的困境，实际上这是长期困扰这个领域的一个事情。因为这个领域的分析是严重依赖于元路径，怎么能够不依赖于元路径，或者设计一些更好的方法，能够探索语意信息，这是一个方向。在异质图神经网络里面如何更好的做聚合，实际上是研究也才刚刚开始。然后还有像这种动态网络的，在异质图里面怎么考虑这种动态性等等，都值得深入研究。</p>
+<p><strong>参考文献</strong></p>
+<p>[1] YuXiao Dong,Nitesh V. Chawla,Ananthram Swami. Metapath2vec: Scalable Representation Learning for Heterogeneous Networks. KDD， 2017.</p>
+<p>[2] Chuan Shi, Binbin Hu, Wayne XinZhao, Philip S. Yu. Heterogeneous Information Network Embedding for Recommendation.TKDE,2018.</p>
+<p>[3] Tao-yang Fu, Wang-Chien Lee, ZhenLei. HIN2Vec: Explore Meta-paths in Heterogeneous Information Networks for Representation Learning. CIKM,2017.</p>
+<p>[4] Binbin Hu, Chuan Shi, Wayne XinZhao, Philip S. Yu. Leveraging Meta-path based Context for Top-N Recommendation with A Neural Co-Attention Model. KDD,2018.</p>
+<p>[5] Binbin Hu, Yuan Fang, Chuan Shi.Adversarial Learning on Heterogeneous Information Networks. KDD,2019.</p>
+<p>[6] Chuan Shi, Yuanfu Lu, Linmei Hu,Zhiyuan Liu et al. RHINE: Relation Structure-Aware Heterogeneous Information Network Embedding. TKDE, 2020</p>
+<p>[7] Xiaotian Han, Chuan Shi, SenzhangWang, Philip S. Yu, Li Song.Aspect-Level Deep Collaborative Filtering viaHeterogeneous Information Networks. IJCAI,2018.</p>
+<p>[8] Wang, Xiao, Houye Ji, Chuan Shi,Bai Wang, Yanfang Ye, Peng Cui, and Philip S. Yu. Heterogeneous Graph Attention Network. WWW,2019.</p>
+<p>[9] Chuxu Zhang, Dongjin Song, Chao Huang, Ananthram Swami, Nitesh V. Chawla. Heterogeneous Graph Neural Network.KDD,2019.</p>
+<p>[10] Binbin Hu, Zhiqiang Zhang, Chuan Shi, Jun Zhou, XiaoLong Li, Yuan Qi Cash-out User Detection based on Attributed HeterogeneousInformation Network with a Hierarchical Attention Mechanism. AAAI,2019.</p>
+<p>[11] Shaohua Fan, Junxiong Zhu, Xiaotian Han, Chuan Shi,Linmei Hu, Biyu Ma, Yongliang Li Metapath-guided Heterogeneous Graph NeuralNetwork for Intent Recommendation. KDD,2019.</p>
+<p>[12] Deyu Bo, Xiao Wang, Chuan Shi, Meiqi Zhu, Emiao Lu, PengCui. Structural Deep Clustering Network. WWW,2020. </p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://mp.weixin.qq.com/s?__biz=MzU5ODg0MTAwMw==&mid=2247486047&idx=1&sn=2052f3f96135cbe48ddfa96841bc404d&chksm=febf499bc9c8c08d99bbf2cc6fee48414b4d920bdaa01ec9c68c9fba74fd634331274af10f09&mpshare=1&scene=23&srcid=&sharer_sharetime=1586774527616&sharer_shareid=fc06814c3a0ce2f45e4998813d787a8f#rd" target="_blank" rel="noopener">北邮教授石川：图神经网络需要解决的几个关键问题</a></p>
 
             </div>
             <hr/>
@@ -578,7 +619,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/02/08/CNN%E5%8D%B7%E7%A7%AF/">https://Zgxh.github.io/2020/02/08/CNN%E5%8D%B7%E7%A7%AF/</a>
+                    <a href="https://Zgxh.github.io/2020/04/16/GNN%E9%9C%80%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98/">https://Zgxh.github.io/2020/04/16/GNN%E9%9C%80%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -658,30 +699,31 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/08/GCN%E5%8E%9F%E7%90%86/">
+                <a href="/2020/04/16/GNN%E9%9C%80%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="GCN的原理">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="GNN需要解决的关键问题">
                         
-                        <span class="card-title">GCN的原理</span>
+                        <span class="card-title">GNN需要解决的关键问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GCN的由来和最初的原理
-Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接矩阵。对L进行对称归一化：$$L = I - D^{-1/2} A D^{-1/2} $$ 拉普拉斯矩阵具有良好的性质，它是对称半正
+                            “图神经网络在线研讨会2020” 笔记1. 从同质到异质目前很多图神经网络主要是基于同质信息网络，同质信息网络只有一种类型的节点和边；
+在实际应用中，会存在大量由不同节点和边构成的交互系统，例如文献数据、电影数据、以及社交网络知识图谱等，在
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -690,6 +732,7 @@ Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接�
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -705,30 +748,27 @@ Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接�
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/08/CNN%E5%8D%B7%E7%A7%AF/">
+                <a href="/2020/04/06/%E5%8F%AF%E8%A7%86%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CNN中的各种卷积">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="可视化">
                         
-                        <span class="card-title">CNN中的各种卷积</span>
+                        <span class="card-title">可视化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-深度学习中的各种卷积
-3D卷积
-3D 过滤器可以在所有三个方向（图像的高度、宽度、通道）上移动。在每个位置，逐元素的乘法和加法都会提供一个数值。因为过滤器是滑过一个 3D 空间，所以输出数值也按 3D 空间排布。也就是说输出是一个 3D 
+                            t-SNE 算法对每个数据点近邻的分布进行建模，其中近邻是指相互靠近数据点的集合。在原始高维空间中，我们将高维空间建模为高斯分布，而在二维输出空间中，我们可以将其建模为 t 分布。该过程的目标是找到将高维空间映射到二维空间的变换，并且最小化
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-06
                             </span>
                         <span class="publish-author">
                             
@@ -738,7 +778,6 @@ Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接�
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
