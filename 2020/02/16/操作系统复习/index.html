@@ -455,7 +455,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-25
+                    2020-05-31
                 </div>
                 
 
@@ -879,6 +879,16 @@ end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <li>57</li>
 </ul>
 </font>
+
+
+<h2 id="issues"><a href="#issues" class="headerlink" title="issues"></a>issues</h2><ol>
+<li>不同操作系统的CPU竞争策略与 <code>Thread.Sleep(0)</code>。</li>
+</ol>
+<ul>
+<li>Unix系统使用时间片算法：所有进程组成进程队列，操作系统按照顺序给进程分配CPU使用时间；如果时间片结束时进程还在运行，则CPU被剥夺并分配给另一个进程，然后该进程被移到队尾。</li>
+<li>Windows系统使用抢占式算法：操作系统根据各进程的优先级、节时间来确定程序运行顺序；在进程执行完毕或者主动挂起后，操作系统会重新计算总优先级。</li>
+<li><code>Thread.Sleep(0)</code>的作用就是触发操作系统立即进行一次CPU竞争。</li>
+</ul>
 
             </div>
             <hr/>
