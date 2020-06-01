@@ -450,7 +450,7 @@ Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-06-01
                 </div>
                 
 
@@ -507,7 +507,8 @@ Graph上的拉普拉斯矩阵L：$$L = D - A$$ 其中D是度矩阵，A是邻接�
 <center>Simple-GCN原理图</center>
 
 <h5 id="图卷积的线性化："><a href="#图卷积的线性化：" class="headerlink" title="图卷积的线性化："></a>图卷积的线性化：</h5><p>$$Y = softmax(S\dots SSX \theta^{(1)}\dots \theta^{(k)})$$ 所有的S都是一样的，可以用$S^K$表示。然后后面的所有变换矩阵乘起来变成了一个矩阵$\theta = \theta^{(1)}\dots \theta^{(k)}$。<br>然后就变成了一个多分类的逻辑回归：<br>$$Y = softmax(S^K X \theta)$$<br>$S^K$可以在预处理阶段就可完成，因为需要用到的东西都是已知的。这样，<br>$$\tilde{X} = S^K X$$ 然后$softmax(\tilde{X} \theta)$就变成了单纯的多分类逻辑回归。优化可以直接利用逻辑回归的优化方法，如随机梯度下降（SGD）等。</p>
-<p>这边还得整。</p>
+<h3 id="GCN优化"><a href="#GCN优化" class="headerlink" title="GCN优化"></a>GCN优化</h3><h4 id="DeepGCNs-系列"><a href="#DeepGCNs-系列" class="headerlink" title="DeepGCNs 系列"></a>DeepGCNs 系列</h4><p>GCN初始版本，kpif&amp;welling那个，在core数据集上只用到了2-hop近邻。其实GCN深度增加会降低模型效果，因为过度平滑问题，所有最初的GCN层数不能很深。</p>
+<p>后来有人讨论了GCN的模型深度问题，用了ResGCN，DenseGCN，加深了网络层数，并提高了performance。</p>
 
             </div>
             <hr/>
