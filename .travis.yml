@@ -18,7 +18,7 @@ after_script:
   - git config user.name "Zgxh"
   - git config user.email "1227814546@qq.com"
   - git add .
-  - git commit -m "Update docs"
+  - git commit -m "Add new articles"
   - git push --force --quiet "https://${zgxhblog}@${GH_REF}" master:master
 # E: Build LifeCycle
 
