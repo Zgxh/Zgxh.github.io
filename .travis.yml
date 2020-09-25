@@ -1,6 +1,11 @@
 language: node_js
 node_js: stable
 
+before_install:
+- export TZ='Asia/Shanghai' #设定时区
+- npm install -g hexo
+- npm install -g hexo-cli
+
 # S: Build Lifecycle
 install:
   - npm install
