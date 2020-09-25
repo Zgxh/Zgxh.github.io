@@ -29,3 +29,4 @@ branches:
 env:
  global:
    - GH_REF: github.com/Zgxh/Zgxh.github.io.git
+   - secure: ebdf0c7f3fd7352fa7b40d9ff6bc54980011ff33
