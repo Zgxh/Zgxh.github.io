@@ -1,29 +1,37 @@
 language: node_js
 node_js: stable
 
+branches:
+  only:
+    - dev
+
 before_install:
-  - npm install -g hexo-cli
+  - git config --global user.name "Zgxh"
+  - git config --global user.email "1227814546@qq.com"
+  - sed -i'' "s~https://github.com/Zgxh/Zgxh.github.io.git~https://${zgxhblog}@github.com/Zgxh/Zgxh.github.io.git~" _config.yml
 
-# S: Build Lifecycle
 install:
-  - npm install
-
+- npm install hexo-cli -g
+- npm install
 
 #before_script:
  # - npm install -g gulp
 
 script:
-  - hexo clean
-  - hexo g
+- npm run deploy
 
-after_script:
-  - cd ./public
-  - git init
-  - git config user.name "Zgxh"
-  - git config user.email "1227814546@qq.com"
-  - git add .
-  - git commit -m "Add new articles"
-  - git push --force --quiet "https://${zgxhblog}@github.com/Zgxh/Zgxh.github.io" master:master
+# script:
+#   - hexo clean
+#   - hexo g
+
+# after_script:
+#   - cd ./public
+#   - git init
+#   - git config user.name "Zgxh"
+#   - git config user.email "1227814546@qq.com"
+#   - git add .
+#   - git commit -m "Add new articles"
+#   - git push --force --quiet "https://${zgxhblog}@github.com/Zgxh/Zgxh.github.io" master:master
 
 # after_success:                # script 阶段成功时执行，构建失败不会执行，其他同上
 #   - git config --local user.name "Zgxh"
@@ -32,10 +40,8 @@ after_script:
 #   - hexo deploy
 # E: Build LifeCycle
 
-branches:
-  only:
-    - dev
-env:
- global:
-   - GH_REF: github.com/Zgxh/Zgxh.github.io.git
+
+# env:
+#  global:
+#    - GH_REF: github.com/Zgxh/Zgxh.github.io.git
 #    - secure: ebdf0c7f3fd7352fa7b40d9ff6bc54980011ff33

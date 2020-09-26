@@ -104,5 +104,6 @@ theme: hexo-theme-matery
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Zgxh/Zgxh.github.io.git
+  # repo: git@github.com:Zgxh/Zgxh.github.io.git
+  repo: https://github.com/Zgxh/Zgxh.github.io.git
   branch: master
