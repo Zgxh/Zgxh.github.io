@@ -1,0 +1,1319 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="《图解HTTP》读书笔记, Zgxh,">
+    <meta name="description" content="第一章 Web基础
+客户端：通过发送请求来获取服务器资源的web浏览器等
+HTTP：HyperText Transfer Protocol
+
+TCP/IPTCP/IP协议族按层次分为：应用层、传输层、网络层、数据链路层
+
+应用层：决定了向用">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>《图解HTTP》读书笔记 | Zgxh的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Zgxh的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zgxh的博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Zgxh" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Zgxh" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">《图解HTTP》读书笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">计算机网络</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%B8%93%E4%B8%9A%E8%AF%BE/" class="post-category">
+                                专业课
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-06
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-09-26
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.1k
+                </div>
+                
+
+                
+				
+                
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="第一章-Web基础"><a href="#第一章-Web基础" class="headerlink" title="第一章 Web基础"></a>第一章 Web基础</h1><ul>
+<li>客户端：通过发送请求来获取服务器资源的web浏览器等</li>
+<li>HTTP：HyperText Transfer Protocol</li>
+</ul>
+<h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><p>TCP/IP协议族按层次分为：应用层、传输层、网络层、数据链路层</p>
+<ul>
+<li>应用层：决定了向用户提供应用服务时通信的活动。<ul>
+<li>FTP(File Transfer protocol)、DNS服务(Domain Name System)、HTTP协议等</li>
+</ul>
+</li>
+<li>传输层：提供处于网络连接中的两台计算机之间的数据传输。<ul>
+<li>TCP协议(Transmission Control Protocol)、UDP协议(User Data Protocol)</li>
+</ul>
+</li>
+<li>网络层：选择传输路线来处理数据包，数据包是网络传输的最小数据单位。<ul>
+<li>IP协议(Internet Protocol)</li>
+</ul>
+</li>
+<li>数据链路层：处理连接网络的硬件部分。</li>
+</ul>
+<h2 id="与HTTP密切相关的协议"><a href="#与HTTP密切相关的协议" class="headerlink" title="与HTTP密切相关的协议"></a>与HTTP密切相关的协议</h2><h3 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h3><ul>
+<li>位于网络层，负责传输数据包。</li>
+<li>传输根据IP地址和MAC地址。</li>
+<li>使用ARP协议(Address Resolution Protocol)来解析地址：ARP协议可以通过IP地址反查出MAC地址。</li>
+<li>网络通信的中转机制称为 路由选择。</li>
+</ul>
+<h3 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h3><ul>
+<li>提供可靠的字节流服务。<ul>
+<li>把大块数据分割成以报文段为单位的数据包</li>
+<li>可以保证传输的准确可靠性</li>
+</ul>
+</li>
+<li>三次握手：发送端首先发送一个带 SYN 标志的数据包给对方。接收端收到后，回传一个带有 SYN/ACK 标志的数据包以示传达确认信息。最后，发送端再回传一个带 ACK 标志的数据包，代表“握手”结束。</li>
+</ul>
+<h3 id="DNS服务"><a href="#DNS服务" class="headerlink" title="DNS服务"></a>DNS服务</h3><p>DNS协议通过域名找IP地址，或者通过IP地址反查域名。</p>
+<h2 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h2><p>URI：Uniform Resource Indentifier 统一资源标识符<br>URI用字符串标识某一互联网资源，URL标识资源在互联网上所处的位置。</p>
+<ul>
+<li>URL是URI的子集</li>
+</ul>
+<h1 id="第二章-简单的HTTP协议"><a href="#第二章-简单的HTTP协议" class="headerlink" title="第二章 简单的HTTP协议"></a>第二章 简单的HTTP协议</h1><ul>
+<li>HTTP请求的报文包括：请求方法、请求URI、协议版本、可选的请求head字段、内容实体。</li>
+<li>响应报文包括：协议版本、状态码、状态码对应的原因短语、可选的相应head字段、实体主体。</li>
+<li>HTTP协议是无状态协议，对发送过的请求或响应不做持久化处理。<ul>
+<li>为了实现状态保持，引入了Cookie技术。</li>
+</ul>
+</li>
+<li>HTTP/1.1支持的请求方法：<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>HEAD</li>
+<li>DELETE</li>
+<li>OPTIONS请求方法：查询指定URI支持的方法。</li>
+<li>TRACE:追踪路径</li>
+<li>CONNECT:用隧道协议连接代理</li>
+</ul>
+</li>
+</ul>
+<h2 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h2><p>HTTP Persistent Connections，只要任意一端没有明确提出断开连接，则保持TCP连接状态。</p>
+<ul>
+<li>减少了TCP连接重复建立和断开的额外开销。</li>
+</ul>
+<p>管线化 pipelining：并行发送HTTP请求。</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie技术通过在请求和响应报文中写入Cookie信息来控制客户端的状态。</p>
+<ul>
+<li>Cookie会根据Server端反馈的响应报文中的一个叫做Set-Cookie字段，通知Client端保存Cookie，当下次Client再往Server发送HTTP请求时，Client会自动在请求报文中加入Cookie值。</li>
+<li>Server端收到Client发送的Cookie后，检查是哪个Client发送的连接请求，然后对比Server上的记录，得到之前的状态信息。</li>
+</ul>
+<h1 id="第三章-HTTP报文"><a href="#第三章-HTTP报文" class="headerlink" title="第三章 HTTP报文"></a>第三章 HTTP报文</h1><h2 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h2><p>HTTP报文结构：</p>
+<ul>
+<li>报文首部</li>
+<li>空行 CR+LF， 回车并换行</li>
+<li>报文主体</li>
+</ul>
+<p>请求报文首部：</p>
+<ul>
+<li>请求行：请求方法 + URI + HTTP版本</li>
+<li>首部字段：请求首部、通用首部、实体首部</li>
+<li>其他：Cookie等</li>
+</ul>
+<p>响应报文首部：</p>
+<ul>
+<li>状态行：响应状态码 + 原因短语 + HTTP版本</li>
+<li>首部字段：响应首部、通用首部、实体首部</li>
+<li>其他：Cookie等</li>
+</ul>
+<center>
+    <img src="./HTTP报文.jpg" >
+</center>
+
+<center>
+    <img src="./HTTP报文2.jpg" >
+</center>
+
+<h2 id="压缩编码传输"><a href="#压缩编码传输" class="headerlink" title="压缩编码传输"></a>压缩编码传输</h2><p>报文主体和实体主体的差异：</p>
+<ul>
+<li>报文 message：HTTP通信中的基本单位，由 8 bit组字节流 组成，通过HTTP通信传输。</li>
+<li>实体 entity：传输中的有效载荷数据，包括实体首部和实体主体。</li>
+<li>HTTP报文主体用于传输请求或响应的实体主体。通常二者相等，当编码后，实体主体内容变化，二者则产生差异。</li>
+</ul>
+<p>分块传输编码：在传输大数据时，把数据分块，让浏览器逐步显示页面。</p>
+<ul>
+<li>每个块用十六进制标记大小，最后一块用 0(CR+LF) 标记</li>
+</ul>
+<h2 id="范围请求"><a href="#范围请求" class="headerlink" title="范围请求"></a>范围请求</h2><p>指定请求的范围，只获取部分资源。</p>
+<ul>
+<li>对于范围请求，响应会返回状态码 206 Partial Content</li>
+<li>对于多重范围的 范围请求，响应先在首部content-type标明multipart/byteranges，再返回报文。</li>
+<li>HTTP首部的Content-Type对应Spring MVC中RequestMapping的consumes参数，表示HTTP请求中的媒体类型，二者需对应。</li>
+</ul>
+<h2 id="内容协商"><a href="#内容协商" class="headerlink" title="内容协商"></a>内容协商</h2><p>Client与Server交涉响应资源内容，然后Server提供给Client最合适的资源形式。</p>
+<ul>
+<li>判断基准包括：语言、字符集、编码方式等。</li>
+<li>包括首部字段：Accept, Accept-Charset, Accept-Encoding, Accept-Language, Content-Language</li>
+<li>Accept字段对应Spring MVC中RequestMapping的produces参数，当Accept字段包含produces指定的返回内容类型时才可返回。</li>
+</ul>
+<p>协商类型：</p>
+<ul>
+<li>服务器驱动协商 Server-driven Negotiation：服务器自动参考请求首部</li>
+<li>客户端驱动协商 Client-driven Negotiation：用户自选浏览器选项，或者js脚本自动选择，如按os类型或web浏览器类型选择。</li>
+<li>透明协商 Transparent Negotiation：Server和Client各自进行内容协商。</li>
+</ul>
+<h1 id="第四章-HTTP状态码"><a href="#第四章-HTTP状态码" class="headerlink" title="第四章 HTTP状态码"></a>第四章 HTTP状态码</h1><p>正常：2XX<br>错误：4XX，5XX</p>
+<center>
+    <img src="./HTTP状态码.jpg" >
+</center>
+
+<h2 id="常使用的14种状态码"><a href="#常使用的14种状态码" class="headerlink" title="常使用的14种状态码"></a>常使用的14种状态码</h2><h3 id="200-OK"><a href="#200-OK" class="headerlink" title="200 OK"></a>200 OK</h3><ul>
+<li>请求成功处理，内容正常返回。</li>
+</ul>
+<h3 id="204-No-Content"><a href="#204-No-Content" class="headerlink" title="204 No Content"></a>204 No Content</h3><ul>
+<li>请求成功处理，但响应报文不含实体主体，即没有资源返回。</li>
+<li>浏览器页面不更新。</li>
+</ul>
+<h3 id="206-Partial-Content"><a href="#206-Partial-Content" class="headerlink" title="206 Partial Content"></a>206 Partial Content</h3><ul>
+<li>客服端进行了范围请求，服务器成功执行了这部分GET请求。</li>
+<li>响应报文中包含Content-Range指定的范围内容。</li>
+</ul>
+<h3 id="301-Moved-Permanently"><a href="#301-Moved-Permanently" class="headerlink" title="301 Moved Permanently"></a>301 Moved Permanently</h3><ul>
+<li>永久性重定向。</li>
+<li>表示请求的资源已被分配了新的URI。</li>
+</ul>
+<h3 id="302-Found"><a href="#302-Found" class="headerlink" title="302 Found"></a>302 Found</h3><ul>
+<li>临时性重定向。</li>
+<li>表示请求的资源被临时分配了新的URI，希望用户本次能用新的URI访问。</li>
+</ul>
+<h3 id="303-See-Other"><a href="#303-See-Other" class="headerlink" title="303 See Other"></a>303 See Other</h3><p>与302类似，不过303明确提示客户端应该用 GET 方法去另一URI获取资源。</p>
+<p><strong>当 301、302、303 响应状态码返回时，几乎所有的浏览器都会把POST 改成 GET，并删除请求报文内的主体，之后请求会自动再次发送。</strong></p>
+<h3 id="304-Not-Modified"><a href="#304-Not-Modified" class="headerlink" title="304 Not Modified"></a>304 Not Modified</h3><p>客户端发送了带条件的请求，服务器允许访问，但没找到符合条件的资源。</p>
+<ul>
+<li>虽然在3XX类别中，但与重定向无关。</li>
+<li>附带的条件指GET请求包含：If-Match, If-Modified-Since, If-None-Match, If-Range, If-Unmodiried-Since</li>
+</ul>
+<h3 id="307-Temporary-Redirect"><a href="#307-Temporary-Redirect" class="headerlink" title="307 Temporary Redirect"></a>307 Temporary Redirect</h3><p>临时重定向，与302含义相同。</p>
+<ul>
+<li>307会遵守标准，不会把POST变成GET</li>
+</ul>
+<h3 id="400-Bad-Request"><a href="#400-Bad-Request" class="headerlink" title="400 Bad Request"></a>400 Bad Request</h3><p>表示请求报文中存在语法错误。</p>
+<h3 id="401-Unauthorized"><a href="#401-Unauthorized" class="headerlink" title="401 Unauthorized"></a>401 Unauthorized</h3><p>表示发送的请求需要有认证信息。</p>
+<ul>
+<li>HTTP认证、BASIC认证、DIGEST认证</li>
+</ul>
+<h3 id="403-Forbidden"><a href="#403-Forbidden" class="headerlink" title="403 Forbidden"></a>403 Forbidden</h3><p>请求的资源被服务器拒绝。</p>
+<ul>
+<li>原因：如没有访问权限等。</li>
+</ul>
+<h3 id="404-Not-Found"><a href="#404-Not-Found" class="headerlink" title="404 Not Found"></a>404 Not Found</h3><p>表明服务器上无法找到请求的资源。</p>
+<h3 id="500-Internet-Server-Error"><a href="#500-Internet-Server-Error" class="headerlink" title="500 Internet Server Error"></a>500 Internet Server Error</h3><p>表示Server端在执行请求时发生了错误。</p>
+<h3 id="503-Service-Unavailable"><a href="#503-Service-Unavailable" class="headerlink" title="503 Service Unavailable"></a>503 Service Unavailable</h3><p>表示服务器暂时超负载，或正在进行停机维护，无法处理请求。</p>
+<h1 id="第五章-Web服务器"><a href="#第五章-Web服务器" class="headerlink" title="第五章 Web服务器"></a>第五章 Web服务器</h1><h2 id="虚拟主机"><a href="#虚拟主机" class="headerlink" title="虚拟主机"></a>虚拟主机</h2><p>一台服务器搭建多个web站点。</p>
+<ul>
+<li>此时多个web站点域名由DNS解析后对应同一个IP，所以在发送HTTP请求时，须在Host首部完整指定主机名或URI。</li>
+</ul>
+<h2 id="通信数据转发"><a href="#通信数据转发" class="headerlink" title="通信数据转发"></a>通信数据转发</h2><h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>位于Server与Client之间，接收Client的请求转发给Server，同时接收Server的响应转发给Client。</p>
+<center>
+    <img src="./代理.jpg" >
+</center>
+
+<ul>
+<li><strong>缓存代理</strong>：代理转发服务器响应时保存缓存，再次收到对相同资源的请求时直接从代理缓存返回响应。<ul>
+<li>缓存服务器是代理服务器的一种。</li>
+<li>即使存在缓存，也会因为Client要求、缓存有效期等因素向源服务器确认资源有效性。若缓存过期则重新从源服务器获取资源。</li>
+<li>另一种缓存是<strong>客户端浏览器缓存</strong>，若过期则重新请求资源。</li>
+</ul>
+</li>
+<li><strong>透明代理</strong>：转发请求或响应时，不对报文加工处理。反之，非透明代理。</li>
+</ul>
+<h3 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h3><p>网关是转发其他服务器通信数据的服务器。</p>
+<ul>
+<li>网关能使服务器提供非HTTP协议服务。</li>
+<li>利用网关能提高通信的安全性。（在Client与网关之间加密来确保连接安全）</li>
+</ul>
+<h3 id="隧道"><a href="#隧道" class="headerlink" title="隧道"></a>隧道</h3><p>隧道可按要求建立一条Client到Server的通信线路，并使用SSL等手段进行加密。</p>
+<ul>
+<li>确保Client与Server之间安全通信。</li>
+</ul>
+<h1 id="第六章-HTTP首部"><a href="#第六章-HTTP首部" class="headerlink" title="第六章 HTTP首部"></a>第六章 HTTP首部</h1><h2 id="HTTP-1-1-首部字段-47种"><a href="#HTTP-1-1-首部字段-47种" class="headerlink" title="HTTP/1.1 首部字段 47种"></a>HTTP/1.1 首部字段 47种</h2><h3 id="通用首部字段"><a href="#通用首部字段" class="headerlink" title="通用首部字段"></a>通用首部字段</h3><center>
+    <img src="./通用首部字段.jpg" >
+</center>
+
+<h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><p>用于控制缓存行为。</p>
+<center>
+    <img src="./缓存请求指令.jpg" >
+</center>
+
+<center>
+    <img src="./缓存响应指令.jpg" >
+</center>
+
+<h4 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h4><ul>
+<li>控制不再转发给代理的首部字段</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">Connection<span class="token operator">:</span> 不再转发的首部字段名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>管理持久连接: HTTP/1.1默认连接为持久连接，当Server想断开连接时，则指定Connection字段为close。</li>
+</ul>
+<h4 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h4><p>表明创建HTTP报文的日期和时间。</p>
+<h4 id="Pragma"><a href="#Pragma" class="headerlink" title="Pragma"></a>Pragma</h4><p>为与HTTP/1.0兼容而保留。</p>
+<pre class="line-numbers language-java"><code class="language-java">Cache<span class="token operator">-</span>Control<span class="token operator">:</span> no<span class="token operator">-</span>cache
+Pragma<span class="token operator">:</span> no<span class="token operator">-</span>cache        <span class="token comment" spellcheck="true">// 兼容HTTP/1.1之前的版本</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="Upgrade"><a href="#Upgrade" class="headerlink" title="Upgrade"></a>Upgrade</h4><p>检测HTTP协议或其他协议是否可用更高版本进行通信。</p>
+<h4 id="Transfer-Encoding"><a href="#Transfer-Encoding" class="headerlink" title="Transfer-Encoding"></a>Transfer-Encoding</h4><p>规定传输报文主体时采用的编码方式，HTTP/1.1的传输编码方式只对分块传输编码有效。</p>
+<pre class="line-numbers language-java"><code class="language-java">Upgrade<span class="token operator">:</span> TLS<span class="token operator">/</span><span class="token number">1.0</span>        <span class="token comment" spellcheck="true">// Upgrade字段仅限于Client与邻接服务器之间</span>
+Connection<span class="token operator">:</span> Upgrade     <span class="token comment" spellcheck="true">// 所以使用Upgrade时需要额外指定这句话</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="Via"><a href="#Via" class="headerlink" title="Via"></a>Via</h4><ul>
+<li>追踪报文的传输路径，每经过代理或网关，现在Via字段中附加该服务器信息，然后再转发</li>
+<li>避免请求回环的发生</li>
+</ul>
+<h3 id="请求首部字段"><a href="#请求首部字段" class="headerlink" title="请求首部字段"></a>请求首部字段</h3><center>
+    <img src="./请求首部字段.jpg" >
+</center>
+
+<h4 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h4><p>通知Server用户代理能够处理的媒体类型、及优先级。</p>
+<ul>
+<li>用q=xx来指定优先级权重。</li>
+<li>优先返回权重高的媒体类型。</li>
+</ul>
+<h4 id="Accept-Charset"><a href="#Accept-Charset" class="headerlink" title="Accept-Charset"></a>Accept-Charset</h4><p>通知服务器用户代理支持的字符集及字符集的相对优先顺序.</p>
+<h4 id="Accept-Encoding"><a href="#Accept-Encoding" class="headerlink" title="Accept-Encoding"></a>Accept-Encoding</h4><p>用来告知服务器用户代理支持的内容编码及内容编码的优先级顺序。</p>
+<ul>
+<li>可一次性指定多种内容编码。</li>
+</ul>
+<h4 id="Accept-Language"><a href="#Accept-Language" class="headerlink" title="Accept-Language"></a>Accept-Language</h4><p>用来告知服务器用户代理能够处理的自然语言集（指中文或英文等）.</p>
+<h4 id="Authorization"><a href="#Authorization" class="headerlink" title="Authorization"></a>Authorization</h4><p>告知服务器，用户代理的认证信息。</p>
+<ul>
+<li>一般，想要通过Server认证的用户代理会在接收到服务器的401状态码响应后，把Authorization字段加入到请求中。</li>
+</ul>
+<h4 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h4><p>告知服务器，请求的资源所处的互联网主机名和端口号。</p>
+<ul>
+<li>与虚拟主机的工作机制有关。</li>
+</ul>
+<h4 id="If-Range"><a href="#If-Range" class="headerlink" title="If-Range"></a>If-Range</h4><p>若指定的If-Range字段值（ETag或时间）和请求资源的ETag值或时间相一致时，则作为范围请求处理。反之，返回全部资源。</p>
+<h3 id="响应首部字段"><a href="#响应首部字段" class="headerlink" title="响应首部字段"></a>响应首部字段</h3><center>
+    <img src="./响应首部字段.jpg" >
+</center>
+
+<h4 id="Age"><a href="#Age" class="headerlink" title="Age"></a>Age</h4><p>告知Client，源服务器在多久前创建了响应。</p>
+<ul>
+<li>若创建该响应的服务器是缓存服务器，则Age值是指缓存后的响应再次发起认证到认证完成的时间。</li>
+<li>创建代理响应时必须加上首部字段Age。</li>
+</ul>
+<h3 id="实体首部字段"><a href="#实体首部字段" class="headerlink" title="实体首部字段"></a>实体首部字段</h3><center>
+    <img src="./实体首部字段.jpg" >
+</center>
+
+<h4 id="Content-Location"><a href="#Content-Location" class="headerlink" title="Content-Location"></a>Content-Location</h4><p>当返回资源与实际请求的对象内容不同时，Content-Location会注明报文主体返回资源对应的URI。</p>
+<h4 id="Content-MD5"><a href="#Content-MD5" class="headerlink" title="Content-MD5"></a>Content-MD5</h4><p>是一串由MD5算法生成的值，目的在于检查报文主体在传输过程中是否保持完整，以及确认传输到达。</p>
+<ul>
+<li>但其对内容的改变无从查证，也无法检测传输过程中的恶意篡改。</li>
+</ul>
+<h2 id="其他高频首部字段"><a href="#其他高频首部字段" class="headerlink" title="其他高频首部字段"></a>其他高频首部字段</h2><p>Cookie：请求首部字段。Client想获得HTTP状态管理支持时，就会在请求中包含从Server接收到的Cookie。<br>Set-Cookie：响应首部字段。是服务器开始管理Client时，告知Client的Cookie信息。</p>
+<h1 id="第七章-HTTPS"><a href="#第七章-HTTPS" class="headerlink" title="第七章 HTTPS"></a>第七章 HTTPS</h1><p><strong>SSL： Secure Socket Layer， 安全套接层<br>TLS： Transport Layer Security， 安全层传输协议</strong></p>
+<p>SSL是独立于HTTP的协议，是当今世界上应用最为广泛的网络安全技术。</p>
+<p>与SSL组合使用的HTTP称为<strong>HTTPS （HTTP Secure，超文本安全传输协议）</strong>。<br>HTTP over SSL</p>
+<p>SSL提供了证书手段来确认服务器。证书由值得信任的第三方机构颁发，来证明服务器和客户端的身份。</p>
+<h2 id="HTTPS-HTTP-加密-认证-完整性保护"><a href="#HTTPS-HTTP-加密-认证-完整性保护" class="headerlink" title="HTTPS=HTTP+加密+认证+完整性保护"></a>HTTPS=HTTP+加密+认证+完整性保护</h2><p>HTTP直接和TCP通信。<br>HTTPS则使用了SSL，HTTP先和SSL通信，SSL再和TCP通信。</p>
+<center>
+    <img src="./HTTPS.jpg" >
+</center>
+
+<p>共享密钥加密：加密和解密使用同一个密钥。</p>
+<p>SSL采用了<strong>公开密钥加密</strong> （Public-Key cryptography），使用非对称密钥。</p>
+<ul>
+<li>私有密钥 private key</li>
+<li>公开密钥 public key</li>
+<li><strong>发送密文方使用对方的公开密钥进行加密，对方收到密文后，用自己的私有密钥进行解密。</strong></li>
+</ul>
+<h3 id="HTTPS采用混合加密机制"><a href="#HTTPS采用混合加密机制" class="headerlink" title="HTTPS采用混合加密机制"></a>HTTPS采用混合加密机制</h3><p>共享密钥加密 + 公开密钥加密</p>
+<center>
+    <img src="./HTTPS混合加密机制.jpg" >
+</center>
+
+<p>使用<strong>公开密钥证书</strong>来确保公开密钥的正确性。</p>
+<h2 id="HTTPS通信步骤"><a href="#HTTPS通信步骤" class="headerlink" title="HTTPS通信步骤"></a>HTTPS通信步骤</h2><center>
+    <img src="./HTTPS通信步骤.jpg" >
+</center>
+
+<ol>
+<li>Client发送Client Hello报文来开始SSL通信。（报文中包括Client支持的SSL版本、加密组件列表(加密算法、密钥长度等)）</li>
+<li>Server回复Server Hello报文。（内容同样包括SSL版本、<strong>筛选的</strong>加密组件）</li>
+<li>Server发送Certificate报文。（包含<strong>公钥</strong>，之后Client发送的报文会以该公钥进行加密）</li>
+<li>Server发送Server Hello Done报文，代表最初阶段的SSL第一次握手协商结束。</li>
+<li>Client发送Client Key Exchange报文。（包含Pre-master secret随机密码串）</li>
+<li>Client发送Change Cipher Spec报文，提示Server之后的通信采用Pre-master secret加密。</li>
+<li>Client发送Finished报文。（包含从连接开始的全部报文的整体校验值）</li>
+<li>Server发送Change Cipher Spec报文。</li>
+<li>Server发送Finished报文。</li>
+<li>服务器与客户端Finished报文交换完毕，<strong>SSL连接成功建立</strong>。开始在SSL的保护下进行应用层协议通信，发送HTTP请求。</li>
+<li>应用层协议通信，回复HTTP响应。</li>
+<li>HTTP通信结束时由客户端断开连接，通过发送close_notify报文。之后发送TCP FIN报文来关闭与TCP的通信。</li>
+</ol>
+<ul>
+<li>为了保护报文的完整性，在应用层发送数据时附加MAC （Message Authentication Code）的报文摘要来检测报文是否被篡改。</li>
+</ul>
+<center>
+    <img src="./HTTPS通信细节.jpg" >
+</center>
+
+<h2 id="TLS和SSL"><a href="#TLS和SSL" class="headerlink" title="TLS和SSL"></a>TLS和SSL</h2><p>HTTPS通信使用SSL和TLS两个协议。</p>
+<ul>
+<li>TLS是以SSL 3.0为原型开发的协议，可与SSL统称为SSL。</li>
+</ul>
+<h2 id="HTTPS比HTTP慢2-100倍"><a href="#HTTPS比HTTP慢2-100倍" class="headerlink" title="HTTPS比HTTP慢2~100倍"></a>HTTPS比HTTP慢2~100倍</h2><ol>
+<li>通信慢，需要额外进行SSL通信，消耗网络资源大。</li>
+<li>HTTPS需要做服务器、客户端双方加密、解密，消耗CPU、内存等硬件资源。</li>
+</ol>
+<p>所以一般只在包含个人信息等敏感数据时，才进行HTTPS加密通信。</p>
+<h1 id="第八章-认证机制"><a href="#第八章-认证机制" class="headerlink" title="第八章 认证机制"></a>第八章 认证机制</h1><p>HTTP/1.1使用的认证方式：</p>
+<ul>
+<li>BASIC认证<ul>
+<li>采用Base64编码，解码不需要任何附加信息，安全性差。</li>
+</ul>
+</li>
+<li>DIGEST认证</li>
+<li>SSL客户端认证<ul>
+<li>利用HTTPS的客户端证书进行认证客户端，客户端证书要钱</li>
+<li>再利用密码来确定用户本人</li>
+</ul>
+</li>
+<li>FormBase认证（基于表单认证）<ul>
+<li>由Web应用各自实现，没有标准</li>
+</ul>
+</li>
+</ul>
+<h1 id="第九章-基于HTTP的功能追加协议"><a href="#第九章-基于HTTP的功能追加协议" class="headerlink" title="第九章 基于HTTP的功能追加协议"></a>第九章 基于HTTP的功能追加协议</h1><h2 id="Ajax-技术"><a href="#Ajax-技术" class="headerlink" title="Ajax 技术"></a>Ajax 技术</h2><p>Asynchronous JavaScript and XML， 异步JS与XML技术，从已加载完毕的Web页面上发起HTTP请求，只更新局部页面，但可能导致大量请求产生。</p>
+<h2 id="Comet-技术"><a href="#Comet-技术" class="headerlink" title="Comet 技术"></a>Comet 技术</h2><p>客户端发送内容更新请求时，Server先挂起响应，一旦Server有内容更新，直接主动给客户端返回响应，实现实时更新。</p>
+<ul>
+<li>但为了维持TCP连接会消耗更多资源。</li>
+</ul>
+<h2 id="SPDY-协议"><a href="#SPDY-协议" class="headerlink" title="SPDY 协议"></a>SPDY 协议</h2><p>为了在协议级别消除HTTP的瓶颈。<br>没有完全改写HTTP，而是在TCP/IP的应用层与传输层之间新加入会话层，控制数据流动；但还是采用HTTP进行通信连接。</p>
+<center>
+    <img src="./SPDY.jpg" >
+</center>
+
+<ul>
+<li>通过单一TCP连接，可无限制处理多个HTTP请求。</li>
+<li>可给请求逐个分配优先级。</li>
+<li>压缩HTTP请求和响应的首部。</li>
+<li>支持服务器向客户端的推送。</li>
+<li>服务器可主动提示客户端请求所需的资源。</li>
+</ul>
+<h2 id="WebSocket：全双工通信标准"><a href="#WebSocket：全双工通信标准" class="headerlink" title="WebSocket：全双工通信标准"></a>WebSocket：全双工通信标准</h2><ul>
+<li>支持Server到Client的推送。</li>
+<li>建立起WebSocket连接后，一直保持连接状态，通信时开销减少；WebSocket首部信息小，通信量也减少。</li>
+<li>在HTTP连接建立后，进行一次握手来实现WebSocket通信。</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">Upgrade<span class="token operator">:</span> websocket
+Connection<span class="token operator">:</span> Upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://Zgxh.github.io" rel="external nofollow noreferrer">Yu Yang</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://Zgxh.github.io/2020/03/06/%E5%9B%BE%E8%A7%A3HTTP%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">https://Zgxh.github.io/2020/03/06/%E5%9B%BE%E8%A7%A3HTTP%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://Zgxh.github.io" target="_blank">Yu Yang</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">计算机网络</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/04/06/%E5%8F%AF%E8%A7%86%E5%8C%96/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="可视化">
+                        
+                        <span class="card-title">可视化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            从SNE到t-SNEt-SNE 算法对每个数据点近邻的分布进行建模，其中近邻是指相互靠近数据点的集合。在原始高维空间中，我们将高维空间建模为高斯分布，而在二维输出空间中，我们可以将其建模为 t 分布。该过程的目标是找到将高维空间映射到二维空
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%A7%91%E7%A0%94/" class="post-category">
+                                    科研
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%A7%91%E7%A0%94/">
+                        <span class="chip bg-color">科研</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/06/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B-%E8%BD%AC%E8%BD%BD/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="进程与线程-转载">
+                        
+                        <span class="card-title">进程与线程-转载</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+本文由 简悦 SimpRead 转码， 原文地址 https://mp.weixin.qq.com/s?__biz=MzIwNTc4NTEwOQ==&amp;mid=2247487913&amp;idx=1&amp;sn=8c3f042c
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%B8%93%E4%B8%9A%E8%AF%BE/" class="post-category">
+                                    专业课
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="https://Zgxh.github.io" target="_blank">Yu Yang</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Zgxh" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1227814546@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

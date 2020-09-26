@@ -1,0 +1,1376 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="操作系统复习, Zgxh,">
+    <meta name="description" content="
+
+
+
+操作系统知识点复习
+
+操作系统之进程与线程进程进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>操作系统复习 | Zgxh的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Zgxh的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zgxh的博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Zgxh" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Zgxh" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">操作系统复习</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%B8%93%E4%B8%9A%E8%AF%BE/" class="post-category">
+                                专业课
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-02-16
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-09-26
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.1k
+                </div>
+                
+
+                
+				
+                
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <font color=#0000FF>
+
+<center>
+
+<h1 id="操作系统知识点复习"><a href="#操作系统知识点复习" class="headerlink" title="操作系统知识点复习"></a>操作系统知识点复习</h1></center>
+
+<h2 id="操作系统之进程与线程"><a href="#操作系统之进程与线程" class="headerlink" title="操作系统之进程与线程"></a>操作系统之进程与线程</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程控制块PCB：系统为每个运行的程序配置的数据结构，用来描述进程的各种信息（代码存放位置等）。操作系统通过PCB来管理进程。<br>进程实体：由程序段、数据段、PCB三部分组成。其中PCB是进程存在的唯一标志。<br>进程定义：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。进程强调“动态性”。<br>进程的状态：运行态Running、就绪态Ready、阻塞态Blocked。另外两种：创建态、终止态。<br>进程的组织方式：链接方式（队列）、索引方式（表）<br>进程的控制：用“原语”实现，即“原子操作”。原语在执行时不允许中断，属于操作系统内核的一部分。</p>
+<h3 id="进程通信："><a href="#进程通信：" class="headerlink" title="进程通信："></a>进程通信：</h3><ul>
+<li>共享存储：互斥的，同时只允许一个进程访问共享空间。</li>
+<li>消息传递<ul>
+<li>直接通信</li>
+<li>间接通信：先发到“信箱”</li>
+</ul>
+</li>
+<li>管道通信：在内存中开辟一个大小固定的缓冲区。<ul>
+<li>各个进程对管道的访问是互斥的；</li>
+<li>管道是半双工的，一个管道同一时刻只能单向传输。全双工要两个管道。</li>
+</ul>
+</li>
+</ul>
+<h3 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h3><ul>
+<li>每个进程可能包含多个线程，来提高并发度。</li>
+<li>线程是程序执行的最小单位。</li>
+<li>引入线程后，进程是系统资源分配的基本单位，线程是调度的基本单位。</li>
+<li>进程间并发，线程间并发。同一进程的线程间并发不用切换进程环境，减小了系统开销。</li>
+</ul>
+<p>线程的实现方式：</p>
+<ul>
+<li>用户级线程：对应操作系统的用户态。</li>
+<li>内核级线程：对应操作系统的核心态。<ul>
+<li>内核级线程才是处理机分配的单位，用户级线程先映射到内核级线程上。</li>
+<li>多线程模型：多对一、一对一、多对多。</li>
+</ul>
+</li>
+</ul>
+<p>进程调度：</p>
+<ul>
+<li>作业调度：高级调度 </li>
+<li>内存调度：中级调度 <ul>
+<li>挂起状态：除PCB外，某 进程资源暂时调到外存中等待。分为就绪挂起和阻塞挂起。</li>
+</ul>
+</li>
+<li>进程调度：低级调度 <center>
+  <img src="./进程调度.png" >
+</center>
+<center>图1 三层进程调度</center>
+
+</li>
+</ul>
+<h3 id="进程互斥与进程同步"><a href="#进程互斥与进程同步" class="headerlink" title="进程互斥与进程同步"></a>进程互斥与进程同步</h3><ul>
+<li>进程互斥：当一个进程访问某临界资源时，另一个要访问该资源的进程必须等待。<ul>
+<li>系统资源的两种共享方式：互斥共享、同时共享。</li>
+<li>临界资源：互斥共享，同一时间段只允许一个进程使用。</li>
+<li>对临界资源的互斥访问，在逻辑上分为四部分：</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-C"><code class="language-C">do {
+    entry section; // 进入区：检查是否可进入临界区，若可进入则上锁
+    critical section; // 临界区：访问临界资源
+    exit section; // 退出区：解锁
+    remainder section; // 剩余区：其他处理
+} while (true)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>进程互斥的原则：</p>
+<ul>
+<li>空闲让进：临界区空闲，允许一个进程立即进入</li>
+<li>忙则等待：临界区被锁，其他进程必须等待</li>
+<li>有限等待：保证要访问临界区的进程不会饥饿，能在有限时间内进入</li>
+<li>让权等待：若一个进程不能进入临界区，应立即释放处理机，防止忙等待</li>
+</ul>
+</li>
+<li><p>进程同步：并发的进程因直接制约而互相发送消息、进行相互合作、相互等待，使得各进程按一定的速度执行的过程。</p>
+</li>
+<li><p>使用信号量机制(P、V操作)实现进程互斥、进程同步：</p>
+<ul>
+<li>用进程阻塞避免了“忙等”</li>
+<li>P、V操作对应 wait() 和 signal() 原语，实现系统资源的申请和释放</li>
+<li>无资源可用则自我阻塞block()，用完资源后唤醒等待队列中的进程wakeup()</li>
+<li>实现互斥关系时，设置互斥信号量S的初始值为1，在临界区之前执行P(S)，在临界区之后执行V(S)</li>
+<li>实现同步关系时，即操作有先后，设置同步信号量S的初始值为0，要在“前操作”之后执行V(S)，在“后操作”之前执行P(S)，这样无论哪个进程先运行，都能保证同步</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-C"><code class="language-C">/* 记录型信号量的定义 */
+typedef struct {
+    int value;          //剩余资源数
+    struct process *L;  //等待队列
+} semaphore;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-C"><code class="language-C">/* 某进程要是用资源时，使用wait()原语申请 */
+void wait (semaphore S) {
+    S.value--;
+    if (S.value < 0) {
+        block(S.L);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-C"><code class="language-C">/* 某进程使用完资源后，使用signal()原语释放资源 */
+void signal(semaphore S) {
+    S.value++;
+    if (S.value <= 0) {
+        wakeup(S.L);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="生产者消费者问题：进程互斥与进程同步"><a href="#生产者消费者问题：进程互斥与进程同步" class="headerlink" title="生产者消费者问题：进程互斥与进程同步"></a>生产者消费者问题：进程互斥与进程同步</h5><ul>
+<li>问题描述：<ul>
+<li>生产者、消费者共享一个初始为空、大小为n的缓冲区</li>
+<li>当缓冲区未满时，生产者可以生产产品并放入缓冲区，否则必须等待</li>
+<li>当缓冲区未空时，消费者可以从缓冲区中取走产品，否则必须等待</li>
+<li>缓冲区是临界资源，必须互斥访问</li>
+</ul>
+</li>
+</ul>
+<p>对于单生产者、单消费者问题：</p>
+<pre class="line-numbers language-C"><code class="language-C">semaphore mutex = 1;    //互斥信号量，互斥访问buffer
+semaphore empty = n;    //同步信号量，表示buffer中的空闲位置
+semaphore full = 0;     //同步信号量，表示buffer中的产品数
+producer() {
+    while (1) {
+        produce a product;
+        P(empty);   //有空闲位置才会生产
+        P(mutex);
+        put the product to buffer;
+        V(mutex);
+        V(full);
+    }
+}
+consumer() {
+    while (1) {
+        P(full);    //有产品才会消费
+        P(mutex);
+        take a product from buffer;
+        V(mutex);
+        V(empty);
+        consume the product;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>P、P和P、V不可颠倒，否则会引发死锁，V、V无所谓</li>
+<li>多生产者、多消费者问题类似，分析好相互之间的制约关系和对buffer的互斥关系</li>
+<li>生产者吸烟者问题：单生产者、多消费者问题，改变一下代码逻辑即可</li>
+</ul>
+<center>
+    <img src="./生产者吸烟者.png" >
+</center>
+<center>图2 吸烟者轮流吸烟问题</center>
+
+<ul>
+<li>读者、写者问题：1个写者，n个读者；读写互斥；读者与读者不互斥；第一个开始读的负责加锁，最后一个读完的负责解锁。设置一个计数器count记录当前的读进程数。</li>
+</ul>
+<h3 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h3><ul>
+<li>管程的组成：<ul>
+<li>局部于管程的共享数据结构说明</li>
+<li>初始化共享数据的语句</li>
+<li>对共享数据进行操作的函数（过程）</li>
+<li>管程有一个名字</li>
+</ul>
+</li>
+<li>特征：<ul>
+<li>数据只能被这些过程访问</li>
+<li>进程对管程的访问是互斥的</li>
+<li>把同步、互斥等操作进行了封装，解决信号量机制麻烦易出错的问题</li>
+</ul>
+</li>
+</ul>
+<p>管程：</p>
+<pre class="line-numbers language-C"><code class="language-C">monitor ProducerConsumer 
+    condition full, empty;      //同步条件量
+    int count = 0;              //缓冲区产品数
+    void insert(Item item) {    //生产者把产品放入缓冲区
+        if (count == N) {       //若缓冲区满，则生产者进程阻塞
+            wait(full);
+        }
+        count++;
+        insert_item(item);
+        if (count == 1) {       //如果之前是空，唤醒消费者进程
+            signal(empty);
+        }
+    }
+    Item remove() {             //消费者从缓冲区取走产品
+        if (count == 0) {       //若缓冲区空，阻塞消费者进程
+            wait(empty);
+        }
+        count--;
+        if (count == N - 1) {   //若之前缓冲区满，唤醒生产者进程
+            signal(full);
+        }
+        return remove_item();
+    }
+end monitor;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>生产者进程：</p>
+<pre class="line-numbers language-C"><code class="language-C">producer() {
+    while (1) {
+        item = produce a product;
+        ProducerConsumer.insert(item);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>消费者进程：</p>
+<pre class="line-numbers language-C"><code class="language-C">consumer() {
+    while (1) {
+        item = ProducerConsumer.remove();
+        consume item;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>java中的 synchronized 关键字能实现类似于管程的机制</li>
+</ul>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>死锁：在并发环境下，各进程因竞争资源而造成相互循环等待，进而导致各进程都阻塞的现象。<br>饥饿：进程长期得不到资源，无法推进。</p>
+<ul>
+<li>银行家算法：避免死锁<ul>
+<li>检查此次申请是否超过了之前声明的最大需求数；</li>
+<li>检查此时系统剩余可用资源能否满足这次申请；</li>
+<li>试着分配，更改各数据结构；</li>
+<li>用安全性算法检查此次分配会不会导致系统进入“不安全状态”，如果会则阻塞该进程。</li>
+</ul>
+</li>
+<li>安全性算法：<ul>
+<li>检查当前剩余可用资源能否满足某个进程的最大需求；</li>
+<li>如果能，就把该进程加入安全序列；等进程结束，把该进程持有的资源全部回收。</li>
+<li>不断重复这个过程，看最终能否把所有进程都加入安全序列。</li>
+</ul>
+</li>
+</ul>
+<font color=#FF0000>
+
+<h3 id="操作系统之进程问题集锦"><a href="#操作系统之进程问题集锦" class="headerlink" title="操作系统之进程问题集锦"></a>操作系统之进程问题集锦</h3><ol>
+<li><p>进程和线程以及它们的区别？</p>
+<ul>
+<li>进程是对运行时程序的封装，是系统进行资源调度和分配的基本单位，实现操作系统的并发。</li>
+<li>线程是进程的子任务，是CPU调度的基本单位，用于保证程序的实时性，实现进程内部的并发。</li>
+<li>一个程序至少一个进程，一个进程至少一个线程，线程依赖于进程存在。</li>
+<li>进程拥有独立的内存单元，同一个进程的不同线程间共享该进程的内存单元。</li>
+</ul>
+</li>
+<li><p>进程间通信的几种方式？</p>
+</li>
+<li><p>线程同步的方式？</p>
+</li>
+<li><p>死锁？</p>
+</li>
+</ol>
+</font>
+
+<h2 id="操作系统之内存管理"><a href="#操作系统之内存管理" class="headerlink" title="操作系统之内存管理"></a>操作系统之内存管理</h2><ul>
+<li><p>内存分为系统区和用户区。</p>
+</li>
+<li><p>内存管理：</p>
+<ul>
+<li>内存空间的分配与回收</li>
+<li>虚拟内存技术从逻辑上对内存空间进行扩充</li>
+<li>实现地址转换：逻辑地址与物理地址的转换</li>
+<li>内存保护，保证各进程之间互不干扰</li>
+</ul>
+</li>
+<li><p>交换技术：当内存空间紧张时，系统将内存中某些进程暂时换出外存，并把外存中某些已具备条件的进程换入内存。</p>
+<ul>
+<li>进程在内存与磁盘间动态调度。</li>
+<li>被调出内存的进程PCB会保留在内存中，用于记录外存位置等信息。</li>
+<li>被换出的进程数据被存放在磁盘的“对换区”，储存空间连续分配，I/O速度比文件区快。</li>
+<li>被调出内存的进程处于挂起态suspend。下面是进程的七状态模型：</li>
+</ul>
+</li>
+</ul>
+<center>
+    <img src="./进程七状态模型.png" >
+</center>
+<center>图3 进程的七状态模型</center>
+
+<ul>
+<li>内存的动态分区分配：不预先划分内存分区，而是在进程装入内存时，根据进程大小动态地建立分区，分区大小刚好满足进程需要。动态分区分配不会产生内部碎片，但有外部碎片。<ul>
+<li>内部碎片：分配给某进程的内存区域太大，有没被利用的部分。</li>
+<li>外部碎片：内存中的空闲分区由于空间太小而难以利用。</li>
+<li>外部碎片可以通过“紧凑技术”Compaction来进行合并，紧凑技术会把现有的进程的内存空间首尾相接，时间代价较高。</li>
+</ul>
+</li>
+</ul>
+<h3 id="分页存储"><a href="#分页存储" class="headerlink" title="分页存储"></a>分页存储</h3><ul>
+<li>基本分页存储管理：内存分为多个小空间的页框（内存块），把进程按页框大小分页，各个页面离散地分配到各个内存块中，这样有利于减小碎片。使用页表来保存页面地址。<ul>
+<li>地址变换机构实现目标内存单元的查找。</li>
+<li>在地址变换机构的基础上，加入“快表”，实质是一种缓存，加速地址变换。</li>
+<li>多级页表，避免单级页表占用内存中很多个连续的页框的问题。多级页表对原始页表进行分块，内存中只放入进程最近需要的页表。</li>
+</ul>
+</li>
+<li>请求分页存储管理：不一次把程序所有资源调入内存，需要使用时由操作系统调入内存，若内存不够则需要使用页面置换算法把当前不用的信息调出到外存。<h4 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h4></li>
+<li>最佳置换算法 OPT：每次选择淘汰的页面是以后永不使用或最长时间内不会被使用的。无法实现。</li>
+<li>先进先出置换算法 FIFO：每次淘汰的页面是最早进入内存的页面。使用队列实现。</li>
+<li>最近最久未使用置换算法 LRU：每次淘汰的页面是最近最久未使用的页面。在页表项中添加访问字段记录未访问的时间。</li>
+<li>时钟置换算法 CLOCK：每个页面设置一个访问位，把所有页面连成循环队列。当某页被访问时，访问位=1。当要淘汰一个页面时，检查循环队列的访问位，找第一个访问位=0的页换出；若遍历时该位是1，则置0。若第一遍遍历没找到=0的，再找第二遍，肯定能找到=0的。</li>
+<li>改进型的时钟置换算法：在CLOCK算法的基础上，还考虑页面有没有被修改过，避免被修改过的页面被换出时的I/O操作。<h4 id="页面分配策略"><a href="#页面分配策略" class="headerlink" title="页面分配策略"></a>页面分配策略</h4></li>
+<li>驻留集：请求分页存储管理中给进程分配的内存块的集合。</li>
+<li>策略：<ul>
+<li>固定分配、局部置换：程序运行前分配固定数量内存块，内存缺页时在自己进程内部换页。</li>
+<li>可变分配、全局置换：缺页时分配新物理块，可能来自空闲物理块或换出其他进程页面。</li>
+<li>可变分配、局部置换：应对频繁缺页的进程会多分配内存块，反之回收内存块。</li>
+</ul>
+</li>
+<li>颠簸（抖动）：页面频繁换入换出。主要原因是分给该进程的内存块不够。</li>
+</ul>
+<h3 id="分段存储"><a href="#分段存储" class="headerlink" title="分段存储"></a>分段存储</h3><ul>
+<li>定义：进程的地址空间，按照逻辑功能被划分为若干个段，每个段有自己的段名（方便用户编程），并且每个段从0开始编址</li>
+<li>内存分配规则：以段为单位进行内存分配，每个段在内存中占连续的地址空间，但各段之间可以不相邻。</li>
+<li>分段系统的逻辑地址：一个地址（假设32位，0~31）由高M位表示段号（比如16~31），低N位表示段内偏移（比如0~15）。段号的多少决定分段个数，段内偏移决定每个段长。</li>
+<li>分段存储的寻址：使用“段映射表”，简称段表。每个段对应段表中的一个项，记录该段在内存中的起始地址（基址）和段长。寻址过程：<ul>
+<li>拿到一个段的逻辑地址，在段表寄存器中查询该段号是否越界（段号与段表长度比较）。</li>
+<li>利用段表寄存器找到段表基址，再利用段号找到该段的基址。</li>
+<li>利用段表项判断段内偏移是否超过该段的长度，然后再计算物理地址。</li>
+</ul>
+</li>
+<li>分段、分页管理对比：<ul>
+<li>页是信息的物理单位。分页的目的是实现离散分配，提高内存的利用率。是系统行为，对用户不可见。</li>
+<li>段是信息的逻辑单位。分段的目的是满足用户需求，一个段通常包含一组逻辑模块的信息。分段对用户可见，用户编程需要显式地给出段名。</li>
+<li>页的大小固定；段的长度不固定，取决于用户编写的程序。</li>
+<li>分段按逻辑功能来分，更容易实现信息（指非临界资源）的共享和保护。</li>
+</ul>
+</li>
+<li>段页式管理：逻辑地址结构是二维的：段号、页号、页内地址。<ul>
+<li>分段对用户可见。</li>
+<li>分页由操作系统自己完成，对用户不可见。</li>
+<li>寻址：一个进程被分为N个段，先查段表，确定该段的页表位置，再查页表，确定存放的内存块号。</li>
+</ul>
+</li>
+</ul>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>在程序装入内存时，将即将用到的部分先转入内存，暂时不用的留在外存；当所访问的信息不在内存时，操作系统负责将所需信息调入内存；当内存空间不够时，操作系统将内存中暂时不用的信息调出到外存。</p>
+<h2 id="操作系统之文件管理"><a href="#操作系统之文件管理" class="headerlink" title="操作系统之文件管理"></a>操作系统之文件管理</h2><h3 id="文件的逻辑结构"><a href="#文件的逻辑结构" class="headerlink" title="文件的逻辑结构"></a>文件的逻辑结构</h3><ul>
+<li>文件按逻辑结构可分为：<ul>
+<li>无结构文件：由二进制流或字符流组成，无明显逻辑结构。如txt文件。</li>
+<li>有结构文件：由记录组成，分为定长记录、可变长记录。<ul>
+<li>顺序文件：若为定长记录，则可以快速检索和实现随机存取。</li>
+<li>索引文件：利用索引表。可以支持随机存取和快速检索。</li>
+<li>索引顺序文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文件目录结构：<ul>
+<li>单级目录：不允许文件重名</li>
+<li>两级目录：不能对文件进行分类</li>
+<li>树形目录：不方便文件共享</li>
+<li>无环图目录<h3 id="文件的物理结构"><a href="#文件的物理结构" class="headerlink" title="文件的物理结构"></a>文件的物理结构</h3></li>
+</ul>
+</li>
+<li>文件分配方式：<ul>
+<li>连续分配：为文件分配连续磁盘块。</li>
+<li>链接分配<ul>
+<li>隐式链接：每个盘块存放指向下个盘块的指针。</li>
+<li>显式链接：用文件分配表FAT显式记录盘块的先后关系。</li>
+</ul>
+</li>
+<li>索引分配：允许文件离散地分配在各个磁盘块中，每个文件对应一张索引表，记录文件各逻辑块对应的物理块。索引表所在的磁盘块叫索引块，文件数据所在的磁盘块叫数据块。若索引表太大：<ul>
+<li>链接方案：索引表分块存放，依次链接。这样会使磁盘I/O次数过多。</li>
+<li>多层索引：类似于多级页表。这样索引对小文件不利。</li>
+<li>混合索引：小文件直接用顶级索引表进行一级索引，大文件可以多级索引。<h3 id="文件存储空间管理"><a href="#文件存储空间管理" class="headerlink" title="文件存储空间管理"></a>文件存储空间管理</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>磁盘在逻辑上分为文件卷，每个文件卷又课分为目录区、文件区<ul>
+<li>目录区：包含文件目录、空闲表、位示图、超级块等用于文件管理的数据</li>
+</ul>
+</li>
+<li>文件的存储空间管理方法：<ul>
+<li>空闲表法：空闲表记录连续空闲区的起始盘块号和盘块数，回收时把相邻的空闲区合并</li>
+<li>空闲链表法：采用链表连接各个空闲区间<ul>
+<li>空闲盘块链：以盘块为单位连接</li>
+<li>空闲盘区链：把相邻盘块看成盘区，把盘区相连</li>
+</ul>
+</li>
+<li>位示图法：用1个bit指示每个盘块是否空闲</li>
+<li>成组链接法：UNIX采用的方式，适用于大型文件系统。<ul>
+<li>设置一个“超级块”，系统启动后读入内存中，并保证其与外存中的“超级块”数据一致。</li>
+<li>每一组空闲区间链接起来，超级块中存放下一组空闲区间的盘块数，和该组盘块的盘块号。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文件的基本操作<ul>
+<li>创建</li>
+<li>删除</li>
+<li>打开：打开文件表，每个进程有自己的打开文件表，系统有总的打开文件表</li>
+<li>关闭：删除进程打开文件表中的表项，然后系统的打开文件表中打开计数器减1</li>
+<li>读</li>
+<li>写</li>
+</ul>
+</li>
+<li>文件共享<ul>
+<li>硬链接：某用户删除文件时，只删除该用户的目录项，链接计数器-1，当删到链接计数器为0才真正删除该文件</li>
+<li>软链接：用link型文件记录该共享文件的存放路径，访问该文件时按路径查询多级目录，访问速度比硬链接慢，相当于Windows操作系统中的快捷方式</li>
+</ul>
+</li>
+<li>文件保护<ul>
+<li>口令保护</li>
+<li>加密保护</li>
+<li>访问控制：使用访问控制表ACL记录各个用户对文件的权限</li>
+</ul>
+</li>
+</ul>
+<center>
+    <img src="./文件的层次结构.png" >
+</center>
+<center>图4 文件的层次结构</center>
+
+<ul>
+<li>57</li>
+</ul>
+</font>
+
+
+<h2 id="issues"><a href="#issues" class="headerlink" title="issues"></a>issues</h2><ol>
+<li>不同操作系统的CPU竞争策略与 <code>Thread.Sleep(0)</code>。</li>
+</ol>
+<ul>
+<li>Unix系统使用时间片算法：所有进程组成进程队列，操作系统按照顺序给进程分配CPU使用时间；如果时间片结束时进程还在运行，则CPU被剥夺并分配给另一个进程，然后该进程被移到队尾。</li>
+<li>Windows系统使用抢占式算法：操作系统根据各进程的优先级、节时间来确定程序运行顺序；在进程执行完毕或者主动挂起后，操作系统会重新计算总优先级。</li>
+<li><code>Thread.Sleep(0)</code>的作用就是触发操作系统立即进行一次CPU竞争。</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://Zgxh.github.io" rel="external nofollow noreferrer">Yu Yang</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://Zgxh.github.io/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">https://Zgxh.github.io/2020/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://Zgxh.github.io" target="_blank">Yu Yang</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/02/21/Java%E4%B8%AD%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Java中是值传递">
+                        
+                        <span class="card-title">Java中是值传递</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+
+Java中只有值传递
+今天看了一篇博客，对java中的参数传递有了进一步的认识。
+
+
+之前的错误认识：传递的参数如果是普通类型，就是值传递；如果是对象，就是引用传递。
+
+值传递与引用传递
+值传递：调用函数时将实参复制一份传递给函数，如果
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%BC%80%E5%8F%91/" class="post-category">
+                                    开发
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/02/08/CNN%E5%8D%B7%E7%A7%AF/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CNN中的各种卷积">
+                        
+                        <span class="card-title">CNN中的各种卷积</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+深度学习中的各种卷积
+3D卷积
+3D 过滤器可以在所有三个方向（图像的高度、宽度、通道）上移动。在每个位置，逐元素的乘法和加法都会提供一个数值。因为过滤器是滑过一个 3D 空间，所以输出数值也按 3D 空间排布。也就是说输出是一个 3D 
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%A7%91%E7%A0%94/" class="post-category">
+                                    科研
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%A7%91%E7%A0%94/">
+                        <span class="chip bg-color">科研</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="https://Zgxh.github.io" target="_blank">Yu Yang</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Zgxh" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1227814546@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
