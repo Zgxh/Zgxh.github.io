@@ -510,7 +510,7 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="2-类加载机制"><a href="#2-类加载机制" class="headerlink" title="2. 类加载机制"></a>2. 类加载机制</h2><p>Java中的类加载、连接和初始化都是在<strong>运行时</strong>完成的，Java的动态扩展的特性就依赖于运行时的动态加载和动态连接。</p>
-<img src="https://upload-images.jianshu.io/upload_images/12219352-2d61700695ba47c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/662/format/webp" alt="类加载过程a" style="zoom:80%;" />
+<img src="http://upload-images.jianshu.io/upload_images/12219352-2d61700695ba47c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/662/format/webp" alt="类加载过程a" style="zoom:80%;" />
 
 <p>图中前五部分被称为类加载。包括：<strong>加载、验证、准备、解析、初始化</strong>。</p>
 <h3 id="2-1-类加载的前提：编译"><a href="#2-1-类加载的前提：编译" class="headerlink" title="2.1 类加载的前提：编译"></a>2.1 类加载的前提：编译</h3><p>在 JVM 运行之前，java 代码被编译器 javac 编译成 .class 字节码文件。一些类加载时需要用到的编译期知识：</p>
@@ -543,7 +543,7 @@
 <li>数组类没有字节流，不通过类加载器进行加载，而是虚拟机直接创建。但是若数组的<strong>组件类型是引用类型</strong>，则递归地去用类加载器加载其组件类型。</li>
 <li>类和接口通过类加载器去获取字节流。</li>
 </ul>
-<img src="https://upload-images.jianshu.io/upload_images/13898040-92981cbcdd89a0fe.png?imageMogr2/auto-orient/strip|imageView2/2/w/550/format/webp" alt="类加载器a" style="zoom:50%;" />
+<img src="http://upload-images.jianshu.io/upload_images/13898040-92981cbcdd89a0fe.png?imageMogr2/auto-orient/strip|imageView2/2/w/550/format/webp" alt="类加载器a" style="zoom:50%;" />
 
 <p>除了“启动类加载器”，其他类加载器都是<code>java.lang.ClassLoader</code>的子类。</p>
 <ul>
@@ -567,7 +567,7 @@
 <ul>
 <li>常量在<strong>编译期</strong>会被添加常量标志<code>ConstantValue</code>，“准备”阶段JVM会根据这个标志来判断该直接赋值初始化还是默认初始化。</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/12219352-1c3e74652ae829c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/737/format/webp" alt="默认初始值"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/12219352-1c3e74652ae829c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/737/format/webp" alt="默认初始值"></p>
 <h3 id="3-解析"><a href="#3-解析" class="headerlink" title="3. 解析"></a>3. 解析</h3><p>虚拟机把常量池内的符号引用替换为<strong>直接引用</strong>的过程。直接引用是直接指向目标的指针等，前提是引用的目标已经在内存中了。</p>
 <h4 id="类或接口的解析"><a href="#类或接口的解析" class="headerlink" title="类或接口的解析"></a>类或接口的解析</h4><p>若一个类或接口的符号引用未被解析，</p>
 <ol>
