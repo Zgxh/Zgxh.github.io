@@ -47,7 +47,7 @@ ClassFile {
 
 Java中的类加载、连接和初始化都是在**运行时**完成的，Java的动态扩展的特性就依赖于运行时的动态加载和动态连接。
 
-<img src="https://upload-images.jianshu.io/upload_images/12219352-2d61700695ba47c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/662/format/webp" alt="类加载过程a" style="zoom:80%;" />
+<img src="http://upload-images.jianshu.io/upload_images/12219352-2d61700695ba47c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/662/format/webp" alt="类加载过程a" style="zoom:80%;" />
 
 图中前五部分被称为类加载。包括：**加载、验证、准备、解析、初始化**。
 
@@ -78,7 +78,7 @@ Java中的类加载、连接和初始化都是在**运行时**完成的，Java�
 - 数组类没有字节流，不通过类加载器进行加载，而是虚拟机直接创建。但是若数组的**组件类型是引用类型**，则递归地去用类加载器加载其组件类型。
 - 类和接口通过类加载器去获取字节流。
 
-<img src="https://upload-images.jianshu.io/upload_images/13898040-92981cbcdd89a0fe.png?imageMogr2/auto-orient/strip|imageView2/2/w/550/format/webp" alt="类加载器a" style="zoom:50%;" />
+<img src="http://upload-images.jianshu.io/upload_images/13898040-92981cbcdd89a0fe.png?imageMogr2/auto-orient/strip|imageView2/2/w/550/format/webp" alt="类加载器a" style="zoom:50%;" />
 
 除了“启动类加载器”，其他类加载器都是`java.lang.ClassLoader`的子类。
 
@@ -108,7 +108,7 @@ Java中的类加载、连接和初始化都是在**运行时**完成的，Java�
 为**静态字段**分配内存，这些内存在**方法区**中被分配。并初步设置静态字段的初始值，一般初始化为0（这里的初始化不是值“初始化”阶段的初始化，此时java方法还未被执行，是指初始化为默认初始值）；特例，若该静态字段被`final`修饰，即为静态常量，则直接初始化为设定的值。
 - 常量在**编译期**会被添加常量标志`ConstantValue`，“准备”阶段JVM会根据这个标志来判断该直接赋值初始化还是默认初始化。
 
-![默认初始值](https://upload-images.jianshu.io/upload_images/12219352-1c3e74652ae829c4.png?imageMogr2/auto-orient/strip|imageView2/2/w/737/format/webp)
+![默认初始值](http://upload-images.jianshu.io/upload_images/12219352-1c3e74652ae829c4.png?imageMogr2/auto-orient/strip|imageView2/2/w/737/format/webp)
 
 ### 3. 解析
 
