@@ -1,47 +1,69 @@
-language: node_js
-node_js: stable
+# language: node_js
+# node_js: stable
 
-branches:
-  only:
-    - dev
+# branches:
+#   only:
+#     - dev
 
-before_install:
-  - git config --global user.name "Zgxh"
-  - git config --global user.email "1227814546@qq.com"
-  - sed -i'' "s~https://github.com/Zgxh/Zgxh.github.io.git~https://${zgxhblog}@github.com/Zgxh/Zgxh.github.io.git~" _config.yml
+# before_install:
+#   - git config --global user.name "Zgxh"
+#   - git config --global user.email "1227814546@qq.com"
+#   - sed -i'' "s~https://github.com/Zgxh/Zgxh.github.io.git~https://${zgxhblog}@github.com/Zgxh/Zgxh.github.io.git~" _config.yml
 
-install:
-- npm install hexo-cli -g
-- npm install
+# install:
+# - npm install hexo-cli -g
+# - npm install
 
-#before_script:
- # - npm install -g gulp
-
-script:
-- npm run deploy
+# #before_script:
+#  # - npm install -g gulp
 
 # script:
-#   - hexo clean
-#   - hexo g
+# - npm run deploy
 
-# after_script:
-#   - cd ./public
-#   - git init
-#   - git config user.name "Zgxh"
-#   - git config user.email "1227814546@qq.com"
-#   - git add .
-#   - git commit -m "Add new articles"
-#   - git push --force --quiet "https://${zgxhblog}@github.com/Zgxh/Zgxh.github.io" master:master
+# # script:
+# #   - hexo clean
+# #   - hexo g
 
-# after_success:                # script 阶段成功时执行，构建失败不会执行，其他同上
-#   - git config --local user.name "Zgxh"
-#   - git config --local user.email "1227814546@qq.com"
-#   - sed -i'' "s~git@github.com:Zgxh/Zgxh.github.io.git~https://${zgxhblog}:x-oauth-basic@github.com/Zgxh/Zgxh.github.io.git~" _config.yml
-#   - hexo deploy
-# E: Build LifeCycle
+# # after_script:
+# #   - cd ./public
+# #   - git init
+# #   - git config user.name "Zgxh"
+# #   - git config user.email "1227814546@qq.com"
+# #   - git add .
+# #   - git commit -m "Add new articles"
+# #   - git push --force --quiet "https://${zgxhblog}@github.com/Zgxh/Zgxh.github.io" master:master
+
+# # after_success:                # script 阶段成功时执行，构建失败不会执行，其他同上
+# #   - git config --local user.name "Zgxh"
+# #   - git config --local user.email "1227814546@qq.com"
+# #   - sed -i'' "s~git@github.com:Zgxh/Zgxh.github.io.git~https://${zgxhblog}:x-oauth-basic@github.com/Zgxh/Zgxh.github.io.git~" _config.yml
+# #   - hexo deploy
+# # E: Build LifeCycle
 
 
-# env:
-#  global:
-#    - GH_REF: github.com/Zgxh/Zgxh.github.io.git
-#    - secure: ebdf0c7f3fd7352fa7b40d9ff6bc54980011ff33
+# # env:
+# #  global:
+# #    - GH_REF: github.com/Zgxh/Zgxh.github.io.git
+# #    - secure: ebdf0c7f3fd7352fa7b40d9ff6bc54980011ff33
+
+sudo: false
+language: node_js
+node_js:
+  - 10 # use nodejs v10 LTS
+cache: npm
+install:
+  - npm install
+script:
+  - hexo generate # generate static files
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $zgxhblog
+  keep-history: true
+  target-branch: master
+  on:
+    branch: dev
+  local-dir: public
+branches:
+  only:
+    - dev # build master branch only
