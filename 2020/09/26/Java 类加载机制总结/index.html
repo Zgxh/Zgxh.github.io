@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    2.9k
                 </div>
                 
 
@@ -528,14 +528,17 @@
 </ul>
 </li>
 </ul>
-<h3 id="2-2-加载"><a href="#2-2-加载" class="headerlink" title="2.2 加载"></a>2.2 加载</h3><p>加载过程主要做三件事：</p>
+<h3 id="2-2-加载-Loading"><a href="#2-2-加载-Loading" class="headerlink" title="2.2 加载 Loading"></a>2.2 加载 Loading</h3><p>加载过程主要做三件事：</p>
 <ol>
 <li>通过一个类的全限定名来获取定义此类的<strong>二进制字节流</strong>。<ul>
 <li>二进制字节流的来源：.class 文件、jar 包等压缩包、网络中获取、动态代理动态生成 .class 文件等</li>
 </ul>
 </li>
-<li>将这个字节流所代表的静态存储结构转化为方法区的<strong>运行时数据结构</strong>。</li>
-<li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象，作为<strong>方法区</strong>中该类的各种数据的访问入口。Class类是特殊的对象，不一定分配在堆中，HotSpot虚拟机分配在方法区中。</li>
+<li>将这个字节流所代表的<strong>静态存储结构</strong>转化为方法区的<strong>运行时数据结构</strong>。</li>
+<li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象，作为<strong>方法区</strong>中该类的各种数据的访问入口。<ul>
+<li>Class类是特殊的对象，不一定分配在堆中，Hot Spot 虚拟机分配在方法区中。</li>
+</ul>
+</li>
 </ol>
 <h4 id="2-2-1-类加载器"><a href="#2-2-1-类加载器" class="headerlink" title="2.2.1 类加载器"></a>2.2.1 类加载器</h4><p>引用类型包括类、接口、数组类、泛型参数。</p>
 <ul>
@@ -551,47 +554,82 @@
 <li><strong>扩展类加载器</strong>：负责加载次要但通用的类，如JRE的 /lib/ext 目录下 jar 包中的类。</li>
 <li><strong>应用类加载器</strong>：负责加载应用程序路径下的类。</li>
 </ul>
-<h4 id="类加载器的双亲委派机制"><a href="#类加载器的双亲委派机制" class="headerlink" title="类加载器的双亲委派机制"></a>类加载器的双亲委派机制</h4><ul>
-<li>JVM通过双亲委派模型进行类的加载，也可以通过继承<code>java.lang.ClassLoader</code>实现自定义的类加载器。</li>
-<li>当一个类加载器收到类加载任务，会先交给其父类加载器去完成，因此最终加载任务都会传递到顶层的启动类加载器，只有当父类加载器无法完成加载任务时，才会尝试子类执行加载任务。</li>
-<li>采用双亲委派的一个好处是：比如加载类<code>java.lang.Object</code>，不管是哪个加载器加载这个类，最终都是委托给顶层的启动类加载器进行加载，这样就保证了使用不同的类加载器最终得到的都是同样一个Object对象。</li>
+<h4 id="2-2-2-双亲委派机制"><a href="#2-2-2-双亲委派机制" class="headerlink" title="2.2.2 双亲委派机制"></a>2.2.2 双亲委派机制</h4><blockquote>
+<p>当一个类加载器收到类加载任务，它自己首先<strong>不会</strong>自己主动去加载这个类，而是先交给其<strong>父类加载器</strong>去尝试加载，直到传递到顶层的<strong>启动类加载器</strong>。只有当父类加载器无法完成加载任务时，才会尝试<strong>子类加载器</strong>执行加载任务。</p>
+<p><strong>双亲委派机制保证了</strong>：对同一个类，不管是哪个加载器加载这个类，最终都是委托给可能的最顶层的类加载器进行加载，来保证使用不同的类加载器都会得到相同的 Object 对象。</p>
+</blockquote>
+<img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2A8C9B8B5D744E08ABAEA94B4CD8B3AB/9138" alt="a" style="zoom:70%;" />
+
+<ul>
+<li><p><strong>启动类加载器</strong> (Bootstrap ClassLoader)：负责加载 <code>$JAVA_HOME\lib</code> 下的类或者被参数 <code>-Xbootclasspath</code> 指定的能被虚拟机识别的类(通过jar名字识别，如：rt.jar)，启动类加载器<strong>由 Java 虚拟机直接控制</strong>，开发者不能直接使用启动类加载器。</p>
+<ul>
+<li>启动类加载器没有子类，但是在<strong>逻辑上</strong>当扩展类加载器会将收到的类加载请求传递给启动类加载器来进行优先加载。</li>
 </ul>
-<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><h3 id="1-验证"><a href="#1-验证" class="headerlink" title="1. 验证"></a>1. 验证</h3><p>确保class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机的自身安全。</p>
+</li>
+<li><p><strong>扩展类加载器</strong> (Extension ClassLoader)：负责加载 <code>$JAVA_HOME\lib\ext</code> 下的类，或者被 <code>java.ext.dirs</code> 系统变量指定路径中的所有类库( <code>System.getProperty(“java.ext.dirs”)</code> )，开发者可以直接使用这个类加载器。</p>
+</li>
+<li><p><strong>应用程序类加载器</strong> (Application ClassLoader)，负责加载 <code>$CLASS_PATH</code> 中指定的类库。开发者能直接使用这个类加载器。</p>
+<ul>
+<li>正常情况下如果没有自定义类加载器，一般用的就是这个类加载器。</li>
+</ul>
+</li>
+<li><p><strong>自定义类加载器</strong>：可以通过继承 <code>java.lang.ClassLoader</code> 来自定义类加载器,一般我们都选择继承 <code>URLClassLoader</code> 来进行适当的改写就可以了。</p>
+</li>
+</ul>
+<blockquote>
+<p>可以通过继承  <code>java.lang.ClassLoader</code> ，并重写其中的 <code>loadClass()</code> 方法来破坏双亲委派机制。</p>
+</blockquote>
+<h3 id="2-3-连接-Linking"><a href="#2-3-连接-Linking" class="headerlink" title="2.3 连接 Linking"></a>2.3 连接 Linking</h3><h4 id="2-3-1-验证-Verification"><a href="#2-3-1-验证-Verification" class="headerlink" title="2.3.1 验证 Verification"></a>2.3.1 验证 Verification</h4><p>确保 class 文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机的自身安全。</p>
 <ol>
-<li><strong>文件格式验证</strong>：保证输入的字节流能正确地解析并存储于方法区之内。</li>
-<li><strong>元数据验证</strong>：对类的元数据信息进行语义校验。</li>
+<li><strong>文件格式验证</strong>：比如说是不是以魔数开头，jdk 版本号的正确性等等。</li>
+<li><strong>元数据验证</strong>：比如说类中的字段是否合法，是否有父类，父类是否合法等等。</li>
 <li><strong>字节码验证</strong>：确定程序语义是合法的、符合逻辑的。</li>
 <li><strong>符号引用验证</strong>：类对自身以外（常量池中的各种符号引用）的信息进行匹配性校验，目的是确保解析动作能正常执行。</li>
 </ol>
-<h3 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h3><p>为<strong>静态字段</strong>分配内存，这些内存在<strong>方法区</strong>中被分配。并初步设置静态字段的初始值，一般初始化为0（这里的初始化不是值“初始化”阶段的初始化，此时java方法还未被执行，是指初始化为默认初始值）；特例，若该静态字段被<code>final</code>修饰，即为静态常量，则直接初始化为设定的值。</p>
+<h4 id="2-3-2-准备-Preparation"><a href="#2-3-2-准备-Preparation" class="headerlink" title="2.3.2 准备 Preparation"></a>2.3.2 准备 Preparation</h4><p>为类或接口的<strong>静态字段</strong> <code>static</code>（类变量、静态常量）分配内存（在<strong>方法区</strong>中），并初始化为<strong>默认值</strong>。</p>
 <ul>
-<li>常量在<strong>编译期</strong>会被添加常量标志<code>ConstantValue</code>，“准备”阶段JVM会根据这个标志来判断该直接赋值初始化还是默认初始化。</li>
+<li>若不是 <code>static final</code>，该初始值指的是类型对应的<strong>默认初始值</strong>（如下表），并非开发者对变量赋值的初值。</li>
+<li>若为 <code>static final</code>，即为静态常量，则直接初始化为赋予的初始值。<ul>
+<li>常量在<strong>编译期</strong>会被添加常量标志 <code>ConstantValue</code>，JVM 以此来判断是不是常量。</li>
+</ul>
+</li>
 </ul>
 <p><img src="http://upload-images.jianshu.io/upload_images/12219352-1c3e74652ae829c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/737/format/webp" alt="默认初始值"></p>
-<h3 id="3-解析"><a href="#3-解析" class="headerlink" title="3. 解析"></a>3. 解析</h3><p>虚拟机把常量池内的符号引用替换为<strong>直接引用</strong>的过程。直接引用是直接指向目标的指针等，前提是引用的目标已经在内存中了。</p>
-<h4 id="类或接口的解析"><a href="#类或接口的解析" class="headerlink" title="类或接口的解析"></a>类或接口的解析</h4><p>若一个类或接口的符号引用未被解析，</p>
+<h4 id="2-3-3-解析-Resolution"><a href="#2-3-3-解析-Resolution" class="headerlink" title="2.3.3 解析 Resolution"></a>2.3.3 解析 Resolution</h4><p>解析是虚拟机把常量池内的<strong>符号引用</strong>替换为<strong>直接引用</strong>的过程。直接引用是<strong>直接指向目标的指针</strong>等，<strong>前提</strong>是引用的目标已经在内存中了（这也意味着解析阶段必须在准备阶段之后，因为准备阶段才正式开始分配内存）。</p>
+<ul>
+<li><strong>符号引用</strong>：符号可以是任意形式的字面量，该符号可以唯一定位到引用的目标。</li>
+<li><strong>直接引用</strong>：直接指向目标的指针、相对偏移量、或是一个能间接定位到目标的句柄。</li>
+</ul>
+<blockquote>
+<p>因为 Java 支持动态绑定，所以有些引用要等到具体使用的时候才会知道指向，所以<strong>解析可以在初始化之后进行</strong>。</p>
+</blockquote>
+<h5 id="2-3-3-1-类或接口的解析"><a href="#2-3-3-1-类或接口的解析" class="headerlink" title="2.3.3.1 类或接口的解析"></a>2.3.3.1 类或接口的解析</h5><p>若一个类或接口的符号引用未被解析，</p>
 <ol>
 <li>如果不是数组类型，则通过全限定名给类加载器去加载该类。</li>
 <li>如果是数组类型，且元素类型是对象，则按 1 规则加载其元素类型的类。</li>
 <li>解析完成前进行符号引用验证，确认是否有对其的引用访问权限。</li>
 </ol>
-<h4 id="字段的解析"><a href="#字段的解析" class="headerlink" title="字段的解析"></a>字段的解析</h4><h4 id="类方法解析"><a href="#类方法解析" class="headerlink" title="类方法解析"></a>类方法解析</h4><h4 id="接口方法解析"><a href="#接口方法解析" class="headerlink" title="接口方法解析"></a>接口方法解析</h4><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>初始化阶段是真正开始执行字节码。这个过程就是<code>&lt;clinit&gt;()</code>执行的过程。初始化完成后，类即成为可执行状态。</p>
+<h5 id="2-3-3-2-字段的解析"><a href="#2-3-3-2-字段的解析" class="headerlink" title="2.3.3.2 字段的解析"></a>2.3.3.2 字段的解析</h5><h5 id="2-3-3-3-类方法解析"><a href="#2-3-3-3-类方法解析" class="headerlink" title="2.3.3.3 类方法解析"></a>2.3.3.3 类方法解析</h5><h5 id="2-3-3-4-接口方法解析"><a href="#2-3-3-4-接口方法解析" class="headerlink" title="2.3.3.4 接口方法解析"></a>2.3.3.4 接口方法解析</h5><h3 id="2-4-初始化-Initialization"><a href="#2-4-初始化-Initialization" class="headerlink" title="2.4 初始化 Initialization"></a>2.4 初始化 Initialization</h3><p>初始化阶段是真正开始执行字节码进行赋值操作，会把准备阶段的默认值替换为真正的初始值。初始化过程会执行构造器方法。</p>
+<p>初始化过程就是<code>&lt;clinit&gt;()</code>执行的过程。初始化完成后，类即成为可执行状态。</p>
 <ul>
 <li>在一个类的<code>&lt;clinit&gt;()</code>方法执行前，其父类的<code>&lt;clinit&gt;()</code>方法已经执行完毕。因此第一个执行该方法的类肯定是<code>java.lang.Object</code>。</li>
-<li>如果一个实现类或子接口实现了某父接口，则不需要先执行父接口的<code>&lt;clinit&gt;()</code>方法。只有当父接口中定义的变量使用时，父接口才会初始化。</li>
-<li>JVM会通过加锁来保证类的<code>&lt;clinit&gt;()</code>方法只被执行一次。</li>
+<li>如果一个实现类或子接口实现了某父接口，则不需要先执行父接口的<code>&lt;clinit&gt;()</code>方法。当父接口中的某些属性被使用到的时候才会触发父接口的初始化。</li>
+<li>JVM 会通过加锁来保证类的<code>&lt;clinit&gt;()</code>方法只被执行一次。</li>
 </ul>
-<h3 id="初始化何时被触发"><a href="#初始化何时被触发" class="headerlink" title="初始化何时被触发"></a>初始化何时被触发</h3><ol>
-<li>虚拟机启动时，主类被初始化。</li>
-<li><code>new</code>一个类时。</li>
-<li>调用静态方法或静态字段（除<code>final</code>）时，初始化所在的类。</li>
-<li>子类的初始化会触发父类的初始化。</li>
-<li>若类实现了某定义了<code>default</code>方法的接口，则该类的初始化会触发该接口的初始化。</li>
-<li>使用反射API对某个类进行反射调用时。</li>
+<h4 id="2-4-1-初始化何时被触发"><a href="#2-4-1-初始化何时被触发" class="headerlink" title="2.4.1 初始化何时被触发"></a>2.4.1 初始化何时被触发</h4><p>JVM 规定了 5 种情况必须进行<strong>立即</strong>初始化，也被称为<strong>主动引用</strong>。</p>
+<ol>
+<li>当虚拟机启动时，主类（main 方法所在的类）被初始化。</li>
+<li><code>new</code> 实例化一个类对象时；或者调用或设置某类的静态方法或静态字段（除<code>final</code>）时，初始化所在的类。</li>
+<li>当初始化子类时，如果父类还没初始化，则先触发父类的初始化。若类实现了某定义了<code>default</code>方法的接口，则该类的初始化会触发该接口的初始化。</li>
+<li>使用反射 API 对某个类进行反射调用时。</li>
+<li>JDK 1.7 开始提供的<strong>动态语言支持</strong>，如果一个 <code>java.lang.invoke.MethodHandle</code> 实例解析的结果<code>REF_getStatic</code>，<code>REF_putStatic</code>，<code>REF_invokeStatic</code> 的方法句柄对应的类没有被初始化，需要触发其初始化。</li>
 </ol>
-<h3 id="被动引用不会触发初始化"><a href="#被动引用不会触发初始化" class="headerlink" title="被动引用不会触发初始化"></a>被动引用不会触发初始化</h3><ol>
-<li>通过数组定义类A的引用，不会触发该类的初始化 <code>A[] = new A[10]</code>;</li>
-<li>通过子类访问父类的静态域时，只有父类会被初始化（即真正声明这个域的类）</li>
+<h5 id="2-4-2-1-对于父接口"><a href="#2-4-2-1-对于父接口" class="headerlink" title="2.4.2.1 对于父接口"></a>2.4.2.1 对于父接口</h5><p>当接口被初始化时，不要求其父接口全部初始化，只有真正使用到父接口时才会触发父接口的初始化。如使用到了父接口中定义的常量等。</p>
+<h5 id="2-4-2-1-对于数组"><a href="#2-4-2-1-对于数组" class="headerlink" title="2.4.2.1 对于数组"></a>2.4.2.1 对于数组</h5><pre class="line-numbers language-java"><code class="language-java">Object<span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>构造数组对象和直接构造对象是用过不同的字节码来实现的，创建数组对象是通过 <code>newarray</code> 指令来实现，所以并不会初始化 Object 对象。</p>
+<h4 id="2-4-2-被动引用不触发初始化"><a href="#2-4-2-被动引用不触发初始化" class="headerlink" title="2.4.2 被动引用不触发初始化"></a>2.4.2 被动引用不触发初始化</h4><ol>
+<li>通过<strong>数组</strong>定义类 A 的引用，不会触发该类 A 的初始化 <code>A[] = new A[10]</code>;</li>
+<li>通过子类访问父类的<strong>静态域</strong>时，只有父类会被初始化（即真正声明这个域的类）。</li>
 <li>引用常量不会导致类的初始化，因为常量在编译期就被加入了常量池。</li>
 </ol>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.jianshu.com/p/20f902788988" target="_blank" rel="noopener">虚拟机类加载机制 深入理解Java虚拟机总结</a></p>
