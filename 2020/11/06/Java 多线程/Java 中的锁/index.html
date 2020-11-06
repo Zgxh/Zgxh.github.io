@@ -469,7 +469,7 @@ Java 中的并发包： java.util.concurrent , 又叫 JUC。
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    2.2k
                 </div>
                 
 
@@ -632,52 +632,8 @@ atomicInteger<span class="token punctuation">.</span><span class="token function
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="7-2-锁消除-Lock-Elimination"><a href="#7-2-锁消除-Lock-Elimination" class="headerlink" title="7.2 锁消除 Lock Elimination"></a>7.2 锁消除 Lock Elimination</h3><p>锁消除是指 Java <strong>编译器</strong>会自动删除不必要的加锁操作。例如当编译器分析的值某个变量一定不存在多线程访问时，会自动消除同步操作。</p>
-<p>即时编译技术（JIT）可以对代码的编译过程进行优化，在<strong>逃逸分析</strong>过程中，编译器会对代码做优化，包括：</p>
-<ol>
-<li>同步省略</li>
-<li>标量替换</li>
-<li>栈上分配</li>
-</ol>
-<pre><code>// 开启逃逸分析（从JDK1.7开始默认开启）
--XX:+DoEscapeAnalysis 
-// 关闭逃逸分析
--XX:-DoEscapeAnalysis </code></pre><h4 id="7-2-1-同步省略"><a href="#7-2-1-同步省略" class="headerlink" title="7.2.1 同步省略"></a>7.2.1 同步省略</h4><p>如果发现某个变量不会被多线程访问，即一定是线程安全的，则会执行<strong>锁消除</strong>。</p>
-<h4 id="7-2-2-标量替换"><a href="#7-2-2-标量替换" class="headerlink" title="7.2.2 标量替换"></a>7.2.2 标量替换</h4><p>标量 Scalar 是指无法被分解为更小粒度的数据，例如原始数据类型 int 等。否则该数据被称为聚合量 Aggregate，例如对象。</p>
-<p><strong>标量替换</strong>是指 JIT 编译过程中，如果经过逃逸分析后，确定一个对象不会被其他线程或其他方法访问，则会将对象的创建替换为成员变量的创建。</p>
-<p>举例，我们要创建一个 User 对象，但只在一个线程中调用了 <code>getUser()</code> 方法访问了 <code>name</code> 和 <code>age</code> 属性，则会进行标量替换，不会创建对象 User，只会创建它的两个成员变量。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EscapeObject</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        User user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"张三"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"user name is "</span> <span class="token operator">+</span> user<span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">", age is "</span> <span class="token operator">+</span> user<span class="token punctuation">.</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-    String name<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span class="token keyword">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>标量替换后的等价代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    String name <span class="token operator">=</span> <span class="token string">"张三"</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> age <span class="token operator">=</span> <span class="token number">18</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"user name is "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">", age is "</span> <span class="token operator">+</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="7-2-3-栈上分配"><a href="#7-2-3-栈上分配" class="headerlink" title="7.2.3 栈上分配"></a>7.2.3 栈上分配</h4><p>栈上分配是指变量不创建在堆上，而是创建在栈中，会随着方法的结束而自动销毁。</p>
-<ul>
-<li>实际上，在 hotspot 虚拟机中，不会实现栈上分配，所有的对象都会创建在堆上。但会采用<strong>标量替换</strong>来代替栈上分配来实现优化。</li>
-</ul>
+<p>即时编译技术（JIT）可以对代码的编译过程进行优化，针对<strong>逃逸分析</strong>的一个优化就是同步消除。</p>
+<h4 id="7-2-1-同步消除"><a href="#7-2-1-同步消除" class="headerlink" title="7.2.1 同步消除"></a>7.2.1 同步消除</h4><p>如果发现某个变量不会被多线程访问，即一定是线程安全的，则会执行<strong>锁消除</strong>。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://tech.meituan.com/2018/11/15/java-lock.html" target="_blank" rel="noopener">美团技术团队-不可不说的锁事</a></p>
 
             </div>
@@ -788,22 +744,23 @@ atomicInteger<span class="token punctuation">.</span><span class="token function
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="线程组 与 优先级">
                         
-                        <span class="card-title">进程与线程</span>
+                        <span class="card-title">线程组 与 优先级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0. 进程与线程进程是应用程序在内存中分配的空间，也就是正在运行的程序。各个进程之间互不干扰，进程保存着程序的每个时刻的运行状态。
-线程是进程的子任务，每个进程可以包含多个线程，每个线程单独负责一个子任务。
-0.1 进程与线程的区别
-进程是
+                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
+
+线程依赖于线程组而存在。
+线程组可以统一控制线程的优先级和检查线程的权限。
+线程组中的线程只允许访问自己所在线
                         
                     </div>
                     <div class="publish-info">
@@ -856,7 +813,7 @@ atomicInteger<span class="token punctuation">.</span><span class="token function
 
 每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
 
-9.1 临界区临界区就是一块互斥的代码区域，它在同一时刻只能由一个线程执
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
                         
                     </div>
                     <div class="publish-info">

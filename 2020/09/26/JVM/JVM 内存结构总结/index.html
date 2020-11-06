@@ -470,7 +470,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    3k
                 </div>
                 
 
@@ -499,8 +499,8 @@
 </blockquote>
 <h2 id="2-虚拟机栈（线程栈）Java-Virtual-Machine-Stacks"><a href="#2-虚拟机栈（线程栈）Java-Virtual-Machine-Stacks" class="headerlink" title="2. 虚拟机栈（线程栈）Java Virtual Machine Stacks"></a>2. 虚拟机栈（线程栈）Java Virtual Machine Stacks</h2><ul>
 <li>虚拟机栈为 Java 方法服务。</li>
-<li><strong>线程私有</strong>，每个线程都维护一个与线程同时创建的虚拟机栈，线程调用的每个方法对应一个<strong>栈帧</strong>：<ul>
-<li>每个栈帧中储存了一个方法的状态信息：<strong>局部变量表</strong>、<strong>操作数栈</strong>、<strong>动态链接</strong>、<strong>方法出口</strong> 等。</li>
+<li><strong>线程私有</strong>，每个线程都维护一个与线程同时创建的虚拟机栈，线程调用的每个方法对应一个<strong>栈帧</strong>，方法的调用与退出对应了栈帧的入栈与出栈：<ul>
+<li>每个栈帧中储存了一个方法的状态信息：<strong>局部变量表</strong>、<strong>操作数栈</strong>、<strong>动态链接</strong>、<strong>方法出口</strong>。</li>
 </ul>
 </li>
 <li>可能发生的异常：<ul>
@@ -565,7 +565,8 @@
 <li>Java 堆是 JVM 内存管理的最大区域，是垃圾回收的主要场所。</li>
 <li>Java 堆是<strong>线程共享</strong>的。</li>
 </ul>
-<h4 id="4-2-什么时候会在栈上分配对象？"><a href="#4-2-什么时候会在栈上分配对象？" class="headerlink" title="4.2 什么时候会在栈上分配对象？"></a>4.2 什么时候会在栈上分配对象？</h4><p>这与逃逸分析这一概念有关，它是指编译器会在编译时</p>
+<h4 id="4-1-1-什么时候会在栈上分配对象？"><a href="#4-1-1-什么时候会在栈上分配对象？" class="headerlink" title="4.1.1 什么时候会在栈上分配对象？"></a>4.1.1 什么时候会在栈上分配对象？</h4><p>这与<strong>逃逸分析</strong>这一概念有关。有关逃逸分析，看[编译与优化]。</p>
+<p><strong>栈上分配</strong>是针对逃逸分析的当编译器能证明一个对象不会发生逃逸时，所做的优化。从 JDK 1.7 开始，逃逸分析默认开启，但栈上分配会被<strong>标量替换</strong>所替代，通过把对象分解为一系列标量，能够直接在栈上分配内存。</p>
 <h3 id="4-2-堆的结构"><a href="#4-2-堆的结构" class="headerlink" title="4.2 堆的结构"></a>4.2 堆的结构</h3><p>Java 堆按垃圾回收区域分为 <strong>年轻代</strong> 和 <strong>老年代</strong> ，具体：<br><img src="https://img-blog.csdnimg.cn/2019041019553012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvbmd0YW91cA==,size_16,color_FFFFFF,t_70" alt="java堆a" style="zoom:80%;" /></p>
 <p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="image"></p>
 <ul>
@@ -585,7 +586,7 @@
 <li>-XX:PermSize：设置永久区的初始值</li>
 <li>-XX:TargetSurvivorRatio：设置survivior区的可使用率。当survivior区的空间使用率达到这个数值时，会将对象送入老年代</li>
 </ul>
-<h2 id="5-方法区-Method-Area"><a href="#5-方法区-Method-Area" class="headerlink" title="5. 方法区 Method Area"></a>5. 方法区 Method Area</h2><ul>
+<h2 id="5-方法区-Method-Area-（元空间-Meta-Space）"><a href="#5-方法区-Method-Area-（元空间-Meta-Space）" class="headerlink" title="5. 方法区 Method Area （元空间 Meta Space）"></a>5. 方法区 Method Area （元空间 Meta Space）</h2><ul>
 <li>存放已被虚拟机加载的 <strong>类信息</strong>、<strong>常量</strong>、<strong>static变量</strong>、*<em>即时编译后的代码 *</em>等。<ul>
 <li>存放每个类的结构信息</li>
 <li>类属性</li>
@@ -595,7 +596,7 @@
 </li>
 <li><strong>线程共享</strong>。</li>
 <li><strong>运行时常量池</strong>是方法区的一部分。</li>
-<li>在JDK 1.7及以前，方法区是堆的一个逻辑部分；为了与堆区分，被称为“非堆”或“永久代”。</li>
+<li>在 JDK 1.7 及以前，方法区是堆的一个<strong>逻辑部分</strong>；为了与堆区分，被称为“非堆”或“<strong>永久代</strong>”。JDK 1.8 时，把方法区改名为元空间，直接占用本地内存。</li>
 </ul>
 <img src="https://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
 
@@ -616,12 +617,11 @@
 </ul>
 </li>
 </ul>
-<h4 id="5-1-1-字符串常量池"><a href="#5-1-1-字符串常量池" class="headerlink" title="5.1.1 字符串常量池"></a>5.1.1 字符串常量池</h4><p>JDK 1.7 之前，<strong>字符串常量池</strong> 存在于方法区（永久代）中的运行时常量池内。</p>
-<p>字符串常量池是为了减少相同的字符串被重复创建，以减少内存占用。字符串常量池是一块单独的内存，用于保存字符串常量。</p>
+<h4 id="5-1-1-字符串常量池"><a href="#5-1-1-字符串常量池" class="headerlink" title="5.1.1 字符串常量池"></a>5.1.1 字符串常量池</h4><p>字符串常量池用于保存字符串常量，是为了减少相同的字符串被重复创建，以减少内存占用。</p>
 <ul>
 <li><strong>JDK 1.7 之前</strong>，字符串常量池存在于方法区（永久代）中的运行时常量池内；</li>
-<li><strong>JDK 1.7 时</strong>，字符串常量池被单独移到了堆中，运行时常量池剩余内容仍在方法区（永久代）中；</li>
-<li><strong>JDK 1.8</strong> 移除了永久代，使用了<strong>元空间 Meta Space</strong><ul>
+<li><strong>JDK 1.7 时</strong>，字符串常量池被单独移到了堆中，运行时常量池剩余的内容仍在方法区（永久代）中；</li>
+<li><strong>JDK 1.8</strong> 移除了永久代，使用了<strong>元空间 Meta Space</strong>。此时，<ul>
 <li>元空间直接占用本地内存</li>
 <li>运行时常量池在元空间中</li>
 <li>字符串常量池仍留在堆中</li>

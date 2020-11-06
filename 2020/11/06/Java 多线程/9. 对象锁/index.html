@@ -9,7 +9,7 @@
 
 每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
 
-9.1 临界区临界区就是一块互斥的代码区域，它在同一时刻只能由一个线程执">
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -486,6 +486,8 @@
 <ul>
 <li>每个类只有一个 Class 对象，类锁就是 Class 对象的锁。</li>
 </ul>
+<h4 id="为什么任意一个-Java-对象都能成为锁对象？"><a href="#为什么任意一个-Java-对象都能成为锁对象？" class="headerlink" title="为什么任意一个 Java 对象都能成为锁对象？"></a>为什么任意一个 Java 对象都能成为锁对象？</h4><p>对象派生自 <code>Object</code>，每个 Java 对象都会对应一个监视器 Monitor Object，底层是基于 C++ 实现的，这个 Monitor 维护了 mutex 互斥量以及线程阻塞与唤醒的 API。</p>
+<p><code>synchronized</code> 对对象加锁时，就是通过对象内置的 Monitor 来加锁的。</p>
 <h3 id="9-1-临界区"><a href="#9-1-临界区" class="headerlink" title="9.1 临界区"></a>9.1 临界区</h3><p>临界区就是一块互斥的代码区域，它在同一时刻只能由一个线程执行。</p>
 <h3 id="9-2-锁的分类"><a href="#9-2-锁的分类" class="headerlink" title="9.2 锁的分类"></a>9.2 锁的分类</h3><p>Java 6 之前，所有的 <code>synchronized</code> 锁都是重量级锁，是利用了对象的监视器 Monitor，本质是利用了操作系统的互斥量 Mutex；Java 6 之后，对 <code>synchronized</code> 锁进行了优化，有四种对象锁状态：</p>
 <ol>

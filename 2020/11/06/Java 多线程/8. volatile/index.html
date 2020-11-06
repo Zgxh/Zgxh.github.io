@@ -5,8 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="volatile 关键字, Zgxh,">
-    <meta name="description" content="8. volatile8.0 为什么存在内存可见性问题为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。
-volatile 关键字能解决这个问题。
+    <meta name="description" content="8. volatile8.0 为什么存在内存可见性问题为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。volatile 关键字能解决这个问题。
+
 8.1 volatile">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -480,8 +480,8 @@ volatile 关键字能解决这个问题。
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="8-volatile"><a href="#8-volatile" class="headerlink" title="8. volatile"></a>8. volatile</h2><h3 id="8-0-为什么存在内存可见性问题"><a href="#8-0-为什么存在内存可见性问题" class="headerlink" title="8.0 为什么存在内存可见性问题"></a>8.0 为什么存在内存可见性问题</h3><p>为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。</p>
-<p><code>volatile</code> 关键字能解决这个问题。</p>
+                <h2 id="8-volatile"><a href="#8-volatile" class="headerlink" title="8. volatile"></a>8. volatile</h2><h3 id="8-0-为什么存在内存可见性问题"><a href="#8-0-为什么存在内存可见性问题" class="headerlink" title="8.0 为什么存在内存可见性问题"></a>8.0 为什么存在内存可见性问题</h3><p>为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。<code>volatile</code> 关键字能解决这个问题。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/03e442b43c9103c3bcce438252939ad9/xmlnote/4FD5553FDBF84698A0FA966EFBD65BB4/17669" alt=""></p>
 <h3 id="8-1-volatile-功能"><a href="#8-1-volatile-功能" class="headerlink" title="8.1 volatile 功能"></a>8.1 volatile 功能</h3><ol>
 <li>保证变量的<strong>内存可见性</strong><ul>
 <li>当某个线程对 <code>volatile</code> 变量进行写操作时，JMM 会<strong>立即</strong>把该线程对应的本地内存刷新到主内存中。</li>
@@ -632,29 +632,32 @@ volatile 关键字能解决这个问题。
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/ReentrantLock%20%E4%B8%8E%20synchronized/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="ReentrantLock 与 synchronized">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 关键字">
                         
-                        <span class="card-title">ReentrantLock 与 synchronized</span>
+                        <span class="card-title">volatile 关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ReentrantLock 与 synchronized1. synchronized 与 ReentrantLock 的对比synchronized 与 ReentrantLock 都具备线程重入性，但 synchronized 表现为原
+                            8. volatile8.0 为什么存在内存可见性问题为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。volatile 关键字能解决这个问题。
+
+8.1 volatile
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -667,6 +670,7 @@ volatile 关键字能解决这个问题。
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -685,22 +689,23 @@ volatile 关键字能解决这个问题。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/7.%20%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%20%E4%B8%8E%20happens-before/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="指令重排 与 happens-before">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="线程组 与 优先级">
                         
-                        <span class="card-title">指令重排 与 happens-before</span>
+                        <span class="card-title">线程组 与 优先级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            7. 指令重排 与 happens-before指令重排可以在 CPU 闲置（等待变量装载等）时，先执行其他指令，提高性能。分为：
+                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
 
-编译器优化重排：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
-指令并行重排：现代处理
+线程依赖于线程组而存在。
+线程组可以统一控制线程的优先级和检查线程的权限。
+线程组中的线程只允许访问自己所在线
                         
                     </div>
                     <div class="publish-info">

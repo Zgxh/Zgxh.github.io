@@ -633,49 +633,38 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/09/26/JVM/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+                <a href="/2020/11/06/JVM/%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E4%B8%8E%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="垃圾回收机制">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JVM/程序编译与代码优化">
                         
-                        <span class="card-title">垃圾回收机制</span>
+                        <span class="card-title">JVM/程序编译与代码优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 堆内的垃圾回收 GC
-1. GC 的分类GC 分为 :
+                            1. 逃逸分析逃逸是指一个对象在某个方法中被创建后，会被其他方法或其他线程所引用。
 
-==minor GC== ： 发生在 Eden 区满的时候，回收范围为 年轻代。
-==full GC== ： 发生在老年代满的时候，回收范围是 年轻代 + 老年代。
-发生 
+方法逃逸：该对象被作为参数传递到其他方法中。
+线程逃逸：该对象被关联到其他线程中可以访问到的实例变量中。
+
+线程逃逸的逃逸程度比方法逃逸更高。
+如果能证明
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Yu Yang
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
-                    </a>
-                    
                 </div>
                 
             </div>

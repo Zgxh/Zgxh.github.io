@@ -695,37 +695,35 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/JUC.locks%20%E5%8C%85/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/11.%20AQS/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="JUC.locks 统览">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="AQS 抽象类">
                         
-                        <span class="card-title">JUC.locks 统览</span>
+                        <span class="card-title">AQS 抽象类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JUC.locks1. AQS 抽象类JUC.locks 包下有三个抽象类:
+                            11. AQSAQS，AbstractQueuedSynchronizer，抽象队列同步器，是一个抽象类。
 
-AQS
-AQLS
-AOS
+是用来构建锁和同步器的框架。基于 AQS 实现的锁:
+ReentrantLock
+ReentrantReadWriteLock
 
-AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
-2. Condition 接口Condition 条件对
+
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -738,7 +736,6 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -757,22 +754,19 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/ReentrantLock%20%E4%B8%8E%20synchronized/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="ReentrantLock 与 synchronized">
                         
-                        <span class="card-title">进程与线程</span>
+                        <span class="card-title">ReentrantLock 与 synchronized</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0. 进程与线程进程是应用程序在内存中分配的空间，也就是正在运行的程序。各个进程之间互不干扰，进程保存着程序的每个时刻的运行状态。
-线程是进程的子任务，每个进程可以包含多个线程，每个线程单独负责一个子任务。
-0.1 进程与线程的区别
-进程是
+                            ReentrantLock 与 synchronized1. synchronized 与 ReentrantLock 的对比synchronized 与 ReentrantLock 都具备线程重入性，但 synchronized 表现为原
                         
                     </div>
                     <div class="publish-info">
