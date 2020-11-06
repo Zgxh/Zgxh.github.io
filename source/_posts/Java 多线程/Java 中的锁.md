@@ -239,72 +239,10 @@ public class StringBufferTest {
 
 锁消除是指 Java **编译器**会自动删除不必要的加锁操作。例如当编译器分析的值某个变量一定不存在多线程访问时，会自动消除同步操作。
 
-即时编译技术（JIT）可以对代码的编译过程进行优化，在**逃逸分析**过程中，编译器会对代码做优化，包括：
-1. 同步省略
-2. 标量替换
-3. 栈上分配
-
-```
-// 开启逃逸分析（从JDK1.7开始默认开启）
--XX:+DoEscapeAnalysis 
-// 关闭逃逸分析
--XX:-DoEscapeAnalysis 
-```
-
-#### 7.2.1 同步省略
+即时编译技术（JIT）可以对代码的编译过程进行优化，针对**逃逸分析**的一个优化就是同步消除。
+#### 7.2.1 同步消除
 
 如果发现某个变量不会被多线程访问，即一定是线程安全的，则会执行**锁消除**。
-
-#### 7.2.2 标量替换
-
-标量 Scalar 是指无法被分解为更小粒度的数据，例如原始数据类型 int 等。否则该数据被称为聚合量 Aggregate，例如对象。
-
-**标量替换**是指 JIT 编译过程中，如果经过逃逸分析后，确定一个对象不会被其他线程或其他方法访问，则会将对象的创建替换为成员变量的创建。
-
-举例，我们要创建一个 User 对象，但只在一个线程中调用了 `getUser()` 方法访问了 `name` 和 `age` 属性，则会进行标量替换，不会创建对象 User，只会创建它的两个成员变量。
-
-```java
-public class EscapeObject {
-    private static void getUser() {
-        User user = new User("张三", 18);
-        System.out.println("user name is " + user.name + ", age is " + user.age);
-    }
-
-    public static void main(String[] args) {
-        getUser();
-    }
-}
-
-class User {
-    String name;
-    int age;
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-}
-```
-
-标量替换后的等价代码：
-
-```java
-private static void getUser() {
-    String name = "张三";
-    int age = 18;
-    System.out.println("user name is " + name + ", age is " + age);
-}
-
-public static void main(String[] args) {
-    getUser();
-}
-```
-
-#### 7.2.3 栈上分配
-
-栈上分配是指变量不创建在堆上，而是创建在栈中，会随着方法的结束而自动销毁。
-- 实际上，在 hotspot 虚拟机中，不会实现栈上分配，所有的对象都会创建在堆上。但会采用**标量替换**来代替栈上分配来实现优化。
-
-
 
 ## Reference 
 
