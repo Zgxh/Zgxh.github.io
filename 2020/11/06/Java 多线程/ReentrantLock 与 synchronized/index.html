@@ -858,21 +858,25 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/11.%20AQS/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 关键字">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="AQS 抽象类">
                         
-                        <span class="card-title">volatile 关键字</span>
+                        <span class="card-title">AQS 抽象类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            8. volatile8.0 为什么存在内存可见性问题为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。
-volatile 关键字能解决这个问题。
-8.1 volatile
+                            11. AQSAQS，AbstractQueuedSynchronizer，抽象队列同步器，是一个抽象类。
+
+是用来构建锁和同步器的框架。基于 AQS 实现的锁:
+ReentrantLock
+ReentrantReadWriteLock
+
+
                         
                     </div>
                     <div class="publish-info">
@@ -909,23 +913,21 @@ volatile 关键字能解决这个问题。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Java 对象锁">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 关键字">
                         
-                        <span class="card-title">Java 对象锁</span>
+                        <span class="card-title">volatile 关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
-
-每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
-
-9.1 临界区临界区就是一块互斥的代码区域，它在同一时刻只能由一个线程执
+                            8. volatile8.0 为什么存在内存可见性问题为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。
+volatile 关键字能解决这个问题。
+8.1 volatile
                         
                     </div>
                     <div class="publish-info">

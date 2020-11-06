@@ -4,11 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Java 类加载机制, Zgxh,">
-    <meta name="description" content="Java 类加载机制总结1. Class 文件Class 文件中只有两种数据类型： 无符号数、表。
+    <meta name="keywords" content="JVM 内存结构, Zgxh,">
+    <meta name="description" content="JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
 
-无符号数：u1、u2、u4、u8 分别表示 1字节、2字节、4字节、8字节的无符号数。
-表：由 0 个或多个大小可变的项组成，一个类就相当">
+
+1. 程序计数器 Program Counter
+线程私有，是当前线程的字节码行号指示器。
+如果线程执行 Java 方法，指示字节码指令的地">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Java 类加载机制 | Zgxh的博客</title>
+    <title>JVM 内存结构 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -307,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java 类加载机制</h1>
+                    <h1 class="description center-align post-title">JVM 内存结构</h1>
                 </div>
             </div>
         </div>
@@ -481,162 +483,184 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Java-类加载机制总结"><a href="#Java-类加载机制总结" class="headerlink" title="Java 类加载机制总结"></a>Java 类加载机制总结</h1><h2 id="1-Class-文件"><a href="#1-Class-文件" class="headerlink" title="1. Class 文件"></a>1. Class 文件</h2><p>Class 文件中只有两种数据类型： <strong>无符号数</strong>、<strong>表</strong>。</p>
-<ul>
-<li>无符号数：u1、u2、u4、u8 分别表示 1字节、2字节、4字节、8字节的无符号数。</li>
-<li>表：由 0 个或多个大小可变的项组成，一个类就相当于一个表。</li>
+                <h2 id="JVM内存区域划分"><a href="#JVM内存区域划分" class="headerlink" title="JVM内存区域划分"></a>JVM内存区域划分</h2><p>JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。</p>
+<img src="https://upload-images.jianshu.io/upload_images/2179030-f81a3bf0df216749.png?imageMogr2/auto-orient/strip|imageView2/2/w/813/format/webp" alt="JVM内存结构" style="zoom:67%;" />
+
+<h2 id="1-程序计数器-Program-Counter"><a href="#1-程序计数器-Program-Counter" class="headerlink" title="1. 程序计数器 Program Counter"></a>1. 程序计数器 Program Counter</h2><ul>
+<li>线程私有，是<strong>当前线程</strong>的字节码行号指示器。<ul>
+<li>如果线程执行 Java 方法，指示字节码指令的地址（行号指示器）；</li>
+<li>如果执行的是 Native 方法，计数器值为 <code>Undefined</code>。</li>
+</ul>
+</li>
+<li>PC 中无异常发生。</li>
 </ul>
 <blockquote>
-<p><strong>Class 文件中没有任何对齐和填充的说法，所有数据都按照特定的顺序紧凑的排列在 Class 文件中</strong>。</p>
-<p>不像堆中的对象内存一样，会填充为 8 字节的整数倍。</p>
+<p>程序计数器保证了线程挂起和线程再次获得CPU使用权时，代码的运行顺序。</p>
 </blockquote>
-<h3 id="1-1-Class-文件的结构"><a href="#1-1-Class-文件的结构" class="headerlink" title="1.1 Class 文件的结构"></a>1.1 Class 文件的结构</h3><pre class="line-numbers language-java"><code class="language-java">ClassFile <span class="token punctuation">{</span>
-    u4             magic<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//魔数</span>
-    u2             minor_version<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//次版本号</span>
-    u2             major_version<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//主版本号</span>
-    u2             constant_pool_count<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//常量池数量</span>
-    cp_info        constant_pool<span class="token punctuation">[</span>constant_pool_count<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//常量池信息</span>
-    u2             access_flags<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//访问标志</span>
-    u2             this_class<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//类索引</span>
-    u2             super_class<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//父类索引</span>
-    u2             interfaces_count<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//接口数(2位，所以一个类最多65535个接口)</span>
-    u2             interfaces<span class="token punctuation">[</span>interfaces_count<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//接口索引 </span>
-    u2             fields_count<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//字段数</span>
-    field_info     fields<span class="token punctuation">[</span>fields_count<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//字段表集合 </span>
-    u2             methods_count<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//方法数</span>
-    method_info    methods<span class="token punctuation">[</span>methods_count<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//方法集合</span>
-    u2             attributes_count<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//属性数</span>
-    attribute_info attributes<span class="token punctuation">[</span>attributes_count<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//属性表集合</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="2-类加载机制"><a href="#2-类加载机制" class="headerlink" title="2. 类加载机制"></a>2. 类加载机制</h2><p>Java中的类加载、连接和初始化都是在<strong>运行时</strong>完成的，Java的动态扩展的特性就依赖于运行时的动态加载和动态连接。</p>
-<img src="http://upload-images.jianshu.io/upload_images/12219352-2d61700695ba47c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/662/format/webp" alt="类加载过程a" style="zoom:80%;" />
-
-<p>图中前五部分被称为类加载。包括：<strong>加载、验证、准备、解析、初始化</strong>。</p>
-<h3 id="2-1-类加载的前提：编译"><a href="#2-1-类加载的前提：编译" class="headerlink" title="2.1 类加载的前提：编译"></a>2.1 类加载的前提：编译</h3><p>在 JVM 运行之前，java 代码被编译器 javac 编译成 .class 字节码文件。一些类加载时需要用到的编译期知识：</p>
+<h2 id="2-虚拟机栈（线程栈）Java-Virtual-Machine-Stacks"><a href="#2-虚拟机栈（线程栈）Java-Virtual-Machine-Stacks" class="headerlink" title="2. 虚拟机栈（线程栈）Java Virtual Machine Stacks"></a>2. 虚拟机栈（线程栈）Java Virtual Machine Stacks</h2><ul>
+<li>虚拟机栈为 Java 方法服务。</li>
+<li><strong>线程私有</strong>，每个线程都维护一个与线程同时创建的虚拟机栈，线程调用的每个方法对应一个<strong>栈帧</strong>：<ul>
+<li>每个栈帧中储存了一个方法的状态信息：<strong>局部变量表</strong>、<strong>操作数栈</strong>、<strong>动态链接</strong>、<strong>方法出口</strong> 等。</li>
+</ul>
+</li>
+<li>可能发生的异常：<ul>
+<li><code>StackOverflowError</code>：方法调用的深度超过了虚拟机栈深度。</li>
+<li><code>OutOfMemoryError</code>：虚拟机栈随着内容的增加会<strong>动态扩展内存</strong>，扩展到一定程度无法申请到足够的内存时抛出该异常。</li>
+</ul>
+</li>
+<li>使用 <code>-Xss</code> 设置栈大小，通常几百K就够用了。由于栈是线程私有的，线程数越多，占用栈空间越大。</li>
+</ul>
+<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D724E9EB4C4A4BD4ABC5E3DCA1DCF0D5/8856" alt="image"></p>
+<h3 id="2-1-局部变量表"><a href="#2-1-局部变量表" class="headerlink" title="2.1 局部变量表"></a>2.1 局部变量表</h3><p>局部变量表用于储存变量：包括 <strong>方法参数</strong> 和 <strong>方法内定义的局部变量</strong>：</p>
 <ul>
-<li>编译期间的常量：<ul>
-<li>编译期间，知道确定值的常量会直接被加入到常量池中，不会经历类加载过程。</li>
-<li>不知道确定值的常量，则会在<strong>运行时</strong>对该常量所在的类进行初始化。<ul>
-<li>如果该<code>static final</code>类型是 <strong>基本类型</strong> 或者 <strong>字符串</strong>，则会被编译器标记成<code>ConstantValue</code>，后面运行时类加载中的 “<strong>准备</strong>” 阶段会对其进行直接初始化。</li>
+<li><strong>基本数据类型</strong></li>
+<li><strong>对象引用</strong>（包括 <strong>方法参数</strong> 和 <strong>局部变量</strong>）</li>
+</ul>
+<h4 id="2-1-1-变量槽-Variable-Slot"><a href="#2-1-1-变量槽-Variable-Slot" class="headerlink" title="2.1.1 变量槽 Variable Slot"></a>2.1.1 变量槽 Variable Slot</h4><p>局部变量表的最小单位是 <strong>变量槽（Variable Slot）</strong>，每个变量槽 32 位（4字节）。</p>
+<ul>
+<li>通过 index 的方式直接索引。</li>
+<li>每个变量槽占 32 位，可以存放任意一个 <strong>32 位以内</strong>数据类型的数据。<ul>
+<li><code>boolean</code>, <code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, <code>float</code>, <code>reference</code>, <code>returnAddress</code></li>
+<li>对于 64 位的 <code>long</code> 和 <code>double</code>, 分配两个连续的 Slot，并以高位对齐 </li>
 </ul>
 </li>
+<li>普通方法 0 号位存放 <code>this</code> 指针，<code>static</code> 方法没有 <code>this</code>，所以直接存其他数据。</li>
+<li>为了节省栈空间，Slot 可以复用，当局部变量作用域失效时，可以被其他数据覆盖。</li>
 </ul>
-</li>
-<li>编译时，编译器会按照代码顺序自动收集类中所有的 <strong>静态变量的赋值动作</strong> 和 <strong>静态语句块</strong> 中的语句，合并产生<code>&lt;clinit&gt;()</code>方法。如果没有符合要求的语句，则不生成。<ul>
-<li>（接口因为也有static，所以也会生成<code>&lt;clinit&gt;()</code>方法）</li>
+<h3 id="2-2-操作数栈"><a href="#2-2-操作数栈" class="headerlink" title="2.2 操作数栈"></a>2.2 操作数栈</h3><p>存在于虚拟机栈中，用于辅助计算，存放用于计算的操作数。</p>
+<h4 id="2-2-1-局部变量表-与-操作数栈-的共享区域"><a href="#2-2-1-局部变量表-与-操作数栈-的共享区域" class="headerlink" title="2.2.1 局部变量表 与 操作数栈 的共享区域"></a>2.2.1 局部变量表 与 操作数栈 的共享区域</h4><p>在概念模型中，一个活动线程中两个栈帧是相互独立的。但大多数虚拟机实现都会做一些优化处理：让下一个栈帧的部分操作数栈与上一个栈帧的部分局部变量表重叠在一起，这样的好处是方法调用时可以共享一部分数据，而无须进行额外的参数复制传递。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D93D010940924D45B46995036C595A88/13351" alt=""></p>
+<h3 id="2-3-动态链接"><a href="#2-3-动态链接" class="headerlink" title="2.3 动态链接"></a>2.3 动态链接</h3><p>每个栈帧都包含一个指向运行时常量池中该栈帧所属方法的引用（栈指向方法区），持有这个引用是为了支持方法调用过程中的动态连接；</p>
+<p>字节码中方法调用指令是以 class 文件常量池中的指向方法的符号引用为参数的：</p>
+<ul>
+<li>一部分符号引用会在类加载阶段或第一次使用的时候转化为直接引用，这种转化称为 <strong>静态解析</strong></li>
+<li>另外一部分在每次的运行期间转化为直接引用，这部分称为<strong>动态连接</strong>。</li>
 </ul>
-</li>
-</ul>
-<h3 id="2-2-加载-Loading"><a href="#2-2-加载-Loading" class="headerlink" title="2.2 加载 Loading"></a>2.2 加载 Loading</h3><p>加载过程主要做三件事：</p>
+<h3 id="2-4-方法返回地址"><a href="#2-4-方法返回地址" class="headerlink" title="2.4 方法返回地址"></a>2.4 方法返回地址</h3><p>当一个方法被执行后，有 2 种方式退出方法：</p>
 <ol>
-<li>通过一个类的全限定名来获取定义此类的<strong>二进制字节流</strong>。<ul>
-<li>二进制字节流的来源：.class 文件、jar 包等压缩包、网络中获取、动态代理动态生成 .class 文件等</li>
-</ul>
-</li>
-<li>将这个字节流所代表的<strong>静态存储结构</strong>转化为方法区的<strong>运行时数据结构</strong>。</li>
-<li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象，作为<strong>方法区</strong>中该类的各种数据的访问入口。<ul>
-<li>Class类是特殊的对象，不一定分配在堆中，Hot Spot 虚拟机分配在方法区中。</li>
+<li>执行引擎遇到任意一个方法返回的字节码指令，这种退出方法的方式称为<strong>正常完成出口</strong>（Normal Method Invocation Completion）。</li>
+<li>在方法执行过程中遇到了异常，并且这个异常没有在方法体内得到处理（即本方法异常处理表中没有匹配的异常处理器），就会导致方法退出，这种退出方式称为<strong>异常完成出口</strong>（Abrupt Method Invocation Completion）。 <ul>
+<li>异常退出方式不会给上层调用者产生任何返回值。</li>
 </ul>
 </li>
 </ol>
-<h4 id="2-2-1-类加载器"><a href="#2-2-1-类加载器" class="headerlink" title="2.2.1 类加载器"></a>2.2.1 类加载器</h4><p>引用类型包括类、接口、数组类、泛型参数。</p>
+<p>无论采用何种退出方式，在方法退出后，都需要返回到方法被调用的位置，程序才能继续执行。方法返回时可能需要在栈帧中保存一些信息，用来帮助恢复它的上层方法的执行状态。</p>
 <ul>
-<li>泛型参数会在编译期间进行泛型擦除，不涉及运行时。</li>
-<li>数组类没有字节流，不通过类加载器进行加载，而是虚拟机直接创建。但是若数组的<strong>组件类型是引用类型</strong>，则递归地去用类加载器加载其组件类型。</li>
-<li>类和接口通过类加载器去获取字节流。</li>
+<li>方法正常退出时，调用者的程序计数器 PC 的值可以作为返回地址，栈帧中很可能会保存这个计数器值。</li>
+<li>方法异常退出时，返回地址是通过异常处理器表来确定的，栈帧中一般不会保存这部分信息。</li>
 </ul>
-<img src="http://upload-images.jianshu.io/upload_images/13898040-92981cbcdd89a0fe.png?imageMogr2/auto-orient/strip|imageView2/2/w/550/format/webp" alt="类加载器a" style="zoom:50%;" />
-
-<p>除了“启动类加载器”，其他类加载器都是<code>java.lang.ClassLoader</code>的子类。</p>
+<p>方法退出的过程实际上等同于把当前栈帧出栈，因此退出时可能执行的操作有：恢复上层方法的局部变量表和操作数栈，把返回值（如果有的话）压入调用者栈帧的操作数栈中，调整程序计数器 PC 的值，以指向方法调用指令后面的一条指令等。</p>
+<h2 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3. 本地方法栈"></a>3. 本地方法栈</h2><p>本地方法栈为 native 方法服务，其他与虚拟机栈类似。</p>
+<p>native 方法比如：<code>String.extern()</code> 方法。</p>
+<p>异常：</p>
 <ul>
-<li><strong>启动类加载器</strong>：C++实现，没有对应的Java对象。用于加载最基础、最重要的类，如JRE的 /lib 目录下的 jar 包中的类。</li>
-<li><strong>扩展类加载器</strong>：负责加载次要但通用的类，如JRE的 /lib/ext 目录下 jar 包中的类。</li>
-<li><strong>应用类加载器</strong>：负责加载应用程序路径下的类。</li>
-</ul>
-<h4 id="2-2-2-双亲委派机制"><a href="#2-2-2-双亲委派机制" class="headerlink" title="2.2.2 双亲委派机制"></a>2.2.2 双亲委派机制</h4><blockquote>
-<p>当一个类加载器收到类加载任务，它自己首先<strong>不会</strong>自己主动去加载这个类，而是先交给其<strong>父类加载器</strong>去尝试加载，直到传递到顶层的<strong>启动类加载器</strong>。只有当父类加载器无法完成加载任务时，才会尝试<strong>子类加载器</strong>执行加载任务。</p>
-<p><strong>双亲委派机制保证了</strong>：对同一个类，不管是哪个加载器加载这个类，最终都是委托给可能的最顶层的类加载器进行加载，来保证使用不同的类加载器都会得到相同的 Object 对象。</p>
-</blockquote>
-<img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2A8C9B8B5D744E08ABAEA94B4CD8B3AB/9138" alt="a" style="zoom:70%;" />
-
-<ul>
-<li><p><strong>启动类加载器</strong> (Bootstrap ClassLoader)：负责加载 <code>$JAVA_HOME\lib</code> 下的类或者被参数 <code>-Xbootclasspath</code> 指定的能被虚拟机识别的类(通过jar名字识别，如：rt.jar)，启动类加载器<strong>由 Java 虚拟机直接控制</strong>，开发者不能直接使用启动类加载器。</p>
-<ul>
-<li>启动类加载器没有子类，但是在<strong>逻辑上</strong>当扩展类加载器会将收到的类加载请求传递给启动类加载器来进行优先加载。</li>
-</ul>
-</li>
-<li><p><strong>扩展类加载器</strong> (Extension ClassLoader)：负责加载 <code>$JAVA_HOME\lib\ext</code> 下的类，或者被 <code>java.ext.dirs</code> 系统变量指定路径中的所有类库( <code>System.getProperty(“java.ext.dirs”)</code> )，开发者可以直接使用这个类加载器。</p>
-</li>
-<li><p><strong>应用程序类加载器</strong> (Application ClassLoader)，负责加载 <code>$CLASS_PATH</code> 中指定的类库。开发者能直接使用这个类加载器。</p>
-<ul>
-<li>正常情况下如果没有自定义类加载器，一般用的就是这个类加载器。</li>
-</ul>
-</li>
-<li><p><strong>自定义类加载器</strong>：可以通过继承 <code>java.lang.ClassLoader</code> 来自定义类加载器,一般我们都选择继承 <code>URLClassLoader</code> 来进行适当的改写就可以了。</p>
-</li>
+<li>StackOverflow</li>
+<li>OutOfMemory</li>
 </ul>
 <blockquote>
-<p>可以通过继承  <code>java.lang.ClassLoader</code> ，并重写其中的 <code>loadClass()</code> 方法来破坏双亲委派机制。</p>
+<p>hot spot 虚拟机中的 虚拟机栈 和 本地方法栈 是合在一起的。</p>
 </blockquote>
-<h3 id="2-3-连接-Linking"><a href="#2-3-连接-Linking" class="headerlink" title="2.3 连接 Linking"></a>2.3 连接 Linking</h3><h4 id="2-3-1-验证-Verification"><a href="#2-3-1-验证-Verification" class="headerlink" title="2.3.1 验证 Verification"></a>2.3.1 验证 Verification</h4><p>确保 class 文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机的自身安全。</p>
-<ol>
-<li><strong>文件格式验证</strong>：比如说是不是以魔数开头，jdk 版本号的正确性等等。</li>
-<li><strong>元数据验证</strong>：比如说类中的字段是否合法，是否有父类，父类是否合法等等。</li>
-<li><strong>字节码验证</strong>：确定程序语义是合法的、符合逻辑的。</li>
-<li><strong>符号引用验证</strong>：类对自身以外（常量池中的各种符号引用）的信息进行匹配性校验，目的是确保解析动作能正常执行。</li>
-</ol>
-<h4 id="2-3-2-准备-Preparation"><a href="#2-3-2-准备-Preparation" class="headerlink" title="2.3.2 准备 Preparation"></a>2.3.2 准备 Preparation</h4><p>为类或接口的<strong>静态字段</strong> <code>static</code>（类变量、静态常量）分配内存（在<strong>方法区</strong>中），并初始化为<strong>默认值</strong>。</p>
+<h2 id="4-Java-堆-Heap"><a href="#4-Java-堆-Heap" class="headerlink" title="4. Java 堆 Heap"></a>4. Java 堆 Heap</h2><h3 id="4-1-堆的用途"><a href="#4-1-堆的用途" class="headerlink" title="4.1 堆的用途"></a>4.1 堆的用途</h3><ul>
+<li>堆在 JVM 启动时被创建，用于存放<strong>所有</strong>的对象实例、数组、String 等，在其他地方使用的是对堆中实例对象的引用。</li>
+<li>Java 堆是 JVM 内存管理的最大区域，是垃圾回收的主要场所。</li>
+<li>Java 堆是<strong>线程共享</strong>的。</li>
+</ul>
+<h4 id="4-2-什么时候会在栈上分配对象？"><a href="#4-2-什么时候会在栈上分配对象？" class="headerlink" title="4.2 什么时候会在栈上分配对象？"></a>4.2 什么时候会在栈上分配对象？</h4><p>这与逃逸分析这一概念有关，它是指编译器会在编译时</p>
+<h3 id="4-2-堆的结构"><a href="#4-2-堆的结构" class="headerlink" title="4.2 堆的结构"></a>4.2 堆的结构</h3><p>Java 堆按垃圾回收区域分为 <strong>年轻代</strong> 和 <strong>老年代</strong> ，具体：<br><img src="https://img-blog.csdnimg.cn/2019041019553012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvbmd0YW91cA==,size_16,color_FFFFFF,t_70" alt="java堆a" style="zoom:80%;" /></p>
+<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="image"></p>
 <ul>
-<li>若不是 <code>static final</code>，该初始值指的是类型对应的<strong>默认初始值</strong>（如下表），并非开发者对变量赋值的初值。</li>
-<li>若为 <code>static final</code>，即为静态常量，则直接初始化为赋予的初始值。<ul>
-<li>常量在<strong>编译期</strong>会被添加常量标志 <code>ConstantValue</code>，JVM 以此来判断是不是常量。</li>
+<li>年轻代存储新创建的对象。当年轻内存占满后，会触发 <code>Minor GC</code>，清理年轻代内存空间。</li>
+<li>老年代存储长期存活的对象和大对象。年轻代中存储的对象，经过多次GC后仍然存活的会移动到老年代中进行存储。老年代空间占满后，会触发<code>Full GC</code>，清理整个堆空间，包括年轻代和老年代。如果<code>Full GC</code>之后，堆中仍然无法存储对象，就会抛出<code>OutOfMemoryError</code>异常。</li>
+</ul>
+<h3 id="4-3-Java-堆设置常用参数"><a href="#4-3-Java-堆设置常用参数" class="headerlink" title="4.3 Java 堆设置常用参数"></a>4.3 Java 堆设置常用参数</h3><ul>
+<li>-<strong>Xms</strong>：设置Java应用程序启动时的初始堆大小</li>
+<li>-<strong>Xmx</strong>：设置Java应用程序能获得的最大堆大小</li>
+<li>-Xss：设置线程栈的大小</li>
+<li>-XX:MinHeapFreeRatio：设置堆空间最小空闲比例。当对空间的空闲内存小于这个数值时，JVM便会扩展堆空间</li>
+<li>-XX:MaxHeapFreeRatio：设置堆空间的最大空闲比例。当堆空间的空闲内存大于这个数值时，便会压缩堆空间，得到一个较小的堆</li>
+<li>-XX:NewSize：设置新生代的大小</li>
+<li>-XX:NewRatio：设置老年代与新生代的比例，它等于老年代大小除以新生代大小</li>
+<li>-XX:SurviorRatio：新生代中eden区与survivior区的比例</li>
+<li>-XX:MaxPermSize：设置最大的持久区的大小</li>
+<li>-XX:PermSize：设置永久区的初始值</li>
+<li>-XX:TargetSurvivorRatio：设置survivior区的可使用率。当survivior区的空间使用率达到这个数值时，会将对象送入老年代</li>
+</ul>
+<h2 id="5-方法区-Method-Area"><a href="#5-方法区-Method-Area" class="headerlink" title="5. 方法区 Method Area"></a>5. 方法区 Method Area</h2><ul>
+<li>存放已被虚拟机加载的 <strong>类信息</strong>、<strong>常量</strong>、<strong>static变量</strong>、*<em>即时编译后的代码 *</em>等。<ul>
+<li>存放每个类的结构信息</li>
+<li>类属性</li>
+<li>类的方法</li>
+<li>方法和类的构造函数的代码（包括类实例在初始化、接口初始化中使用的特殊方法）</li>
+</ul>
+</li>
+<li><strong>线程共享</strong>。</li>
+<li><strong>运行时常量池</strong>是方法区的一部分。</li>
+<li>在JDK 1.7及以前，方法区是堆的一个逻辑部分；为了与堆区分，被称为“非堆”或“永久代”。</li>
+</ul>
+<img src="https://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
+
+<h3 id="5-1-运行时常量池"><a href="#5-1-运行时常量池" class="headerlink" title="5.1 运行时常量池"></a>5.1 运行时常量池</h3><ul>
+<li>运行时常量池是<strong>线程共享</strong>的。</li>
+<li>存储 Java class文件常量池中的<strong>符号信息</strong>。在类加载时，第一步是“<strong>加载 Loading</strong>”，包括三步,其中，<strong>第（2）步</strong>中就包含了 <strong>class文件常量池</strong> 进入 <strong>运行时常量池</strong> 的过程。：<ol>
+<li>通过类全限定名来获取二进制字节流；</li>
+<li>把字节流所代表的<strong>静态存储结构</strong>转化为方法区的<strong>运行时数据结构</strong>；</li>
+<li>方法区中生成类对应的 Class 对象，作为该类的各种数据访问入口。</li>
+</ol>
+</li>
+<li>存放<strong>直接引用</strong>。<ul>
+<li>类加载的“<strong>解析</strong>”阶段会将符号引用所翻译出来的直接引用(直接指向实例对象的指针)存储在 <strong>运行时常量池</strong> 中。</li>
+</ul>
+</li>
+<li>常量不一定编译时才能产生，<strong>运行时</strong>产生的常量会放入运行时常量池。<ul>
+<li>例如<code>String.intern()</code>方法会在运行时产生字符串常量，并放入字符串常量池。</li>
 </ul>
 </li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/12219352-1c3e74652ae829c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/737/format/webp" alt="默认初始值"></p>
-<h4 id="2-3-3-解析-Resolution"><a href="#2-3-3-解析-Resolution" class="headerlink" title="2.3.3 解析 Resolution"></a>2.3.3 解析 Resolution</h4><p>解析是虚拟机把常量池内的<strong>符号引用</strong>替换为<strong>直接引用</strong>的过程。直接引用是<strong>直接指向目标的指针</strong>等，<strong>前提</strong>是引用的目标已经在内存中了（这也意味着解析阶段必须在准备阶段之后，因为准备阶段才正式开始分配内存）。</p>
+<h4 id="5-1-1-字符串常量池"><a href="#5-1-1-字符串常量池" class="headerlink" title="5.1.1 字符串常量池"></a>5.1.1 字符串常量池</h4><p>JDK 1.7 之前，<strong>字符串常量池</strong> 存在于方法区（永久代）中的运行时常量池内。</p>
+<p>字符串常量池是为了减少相同的字符串被重复创建，以减少内存占用。字符串常量池是一块单独的内存，用于保存字符串常量。</p>
 <ul>
-<li><strong>符号引用</strong>：符号可以是任意形式的字面量，该符号可以唯一定位到引用的目标。</li>
-<li><strong>直接引用</strong>：直接指向目标的指针、相对偏移量、或是一个能间接定位到目标的句柄。</li>
+<li><strong>JDK 1.7 之前</strong>，字符串常量池存在于方法区（永久代）中的运行时常量池内；</li>
+<li><strong>JDK 1.7 时</strong>，字符串常量池被单独移到了堆中，运行时常量池剩余内容仍在方法区（永久代）中；</li>
+<li><strong>JDK 1.8</strong> 移除了永久代，使用了<strong>元空间 Meta Space</strong><ul>
+<li>元空间直接占用本地内存</li>
+<li>运行时常量池在元空间中</li>
+<li>字符串常量池仍留在堆中</li>
 </ul>
-<blockquote>
-<p>因为 Java 支持动态绑定，所以有些引用要等到具体使用的时候才会知道指向，所以<strong>解析可以在初始化之后进行</strong>。</p>
-</blockquote>
-<h5 id="2-3-3-1-类或接口的解析"><a href="#2-3-3-1-类或接口的解析" class="headerlink" title="2.3.3.1 类或接口的解析"></a>2.3.3.1 类或接口的解析</h5><p>若一个类或接口的符号引用未被解析，</p>
-<ol>
-<li>如果不是数组类型，则通过全限定名给类加载器去加载该类。</li>
-<li>如果是数组类型，且元素类型是对象，则按 1 规则加载其元素类型的类。</li>
-<li>解析完成前进行符号引用验证，确认是否有对其的引用访问权限。</li>
-</ol>
-<h5 id="2-3-3-2-字段的解析"><a href="#2-3-3-2-字段的解析" class="headerlink" title="2.3.3.2 字段的解析"></a>2.3.3.2 字段的解析</h5><h5 id="2-3-3-3-类方法解析"><a href="#2-3-3-3-类方法解析" class="headerlink" title="2.3.3.3 类方法解析"></a>2.3.3.3 类方法解析</h5><h5 id="2-3-3-4-接口方法解析"><a href="#2-3-3-4-接口方法解析" class="headerlink" title="2.3.3.4 接口方法解析"></a>2.3.3.4 接口方法解析</h5><h3 id="2-4-初始化-Initialization"><a href="#2-4-初始化-Initialization" class="headerlink" title="2.4 初始化 Initialization"></a>2.4 初始化 Initialization</h3><p>初始化阶段是真正开始执行字节码进行赋值操作，会把准备阶段的默认值替换为真正的初始值。初始化过程会执行构造器方法。</p>
-<p>初始化过程就是<code>&lt;clinit&gt;()</code>执行的过程。初始化完成后，类即成为可执行状态。</p>
+</li>
+</ul>
+<p>以<code>String</code>类为例，可以通过反编译验证：</p>
+<pre class="line-numbers language-java"><code class="language-java">String str1 <span class="token operator">=</span> <span class="token string">"abcd"</span><span class="token punctuation">;</span>               <span class="token comment" spellcheck="true">// 放在 常量池 中</span>
+String b <span class="token operator">=</span> <span class="token string">"a"</span> <span class="token operator">+</span> <span class="token string">"true"</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">// 编译期就计算完，然后放在 常量池</span>
+
+<span class="token comment" spellcheck="true">// 通过 new 的方式创建String，其直接引用对象是在堆中，但仍涉及字符串池。</span>
+<span class="token comment" spellcheck="true">// 具体：先判断字符串常量池内有无该字符串：</span>
+<span class="token comment" spellcheck="true">// 如果有，在堆中复制一个副本，把副本地址给引用；</span>
+<span class="token comment" spellcheck="true">// 如果没有，先在字符串池中创建一个，然后复制副本到堆，然后把副本地址给引用。</span>
+String str1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abcd"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于字符串池的详细信息和<code>String.intern()</code>方法查看String总结中的内容。</p>
+<h3 id="5-2-方法区随-JDK-版本的变化"><a href="#5-2-方法区随-JDK-版本的变化" class="headerlink" title="5.2 方法区随 JDK 版本的变化"></a>5.2 方法区随 JDK 版本的变化</h3><p><img src="https://img-blog.csdn.net/20180807233340374?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1eXV5YW5nNjY4OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="方法区的变化"></p>
+<h4 id="JDK-1-7"><a href="#JDK-1-7" class="headerlink" title="JDK 1.7"></a>JDK 1.7</h4><p>JDK 1.7时的Hotspot VM，把方法区中的<strong>静态变量</strong>、<strong>字符串常量池</strong>等移到了堆内存。运行时常量池剩余内容仍在方法区（永久代）中。</p>
+<h4 id="JDK-1-8"><a href="#JDK-1-8" class="headerlink" title="JDK 1.8"></a>JDK 1.8</h4><p>JDK 1.8中，方法区被替换为<strong>元空间 Meta Space</strong>，它没有占用堆内存，而是直接占用本地内存。</p>
 <ul>
-<li>在一个类的<code>&lt;clinit&gt;()</code>方法执行前，其父类的<code>&lt;clinit&gt;()</code>方法已经执行完毕。因此第一个执行该方法的类肯定是<code>java.lang.Object</code>。</li>
-<li>如果一个实现类或子接口实现了某父接口，则不需要先执行父接口的<code>&lt;clinit&gt;()</code>方法。当父接口中的某些属性被使用到的时候才会触发父接口的初始化。</li>
-<li>JVM 会通过加锁来保证类的<code>&lt;clinit&gt;()</code>方法只被执行一次。</li>
+<li>运行时常量池在元空间中，</li>
+<li>但字符串常量池仍留在堆中。</li>
 </ul>
-<h4 id="2-4-1-初始化何时被触发"><a href="#2-4-1-初始化何时被触发" class="headerlink" title="2.4.1 初始化何时被触发"></a>2.4.1 初始化何时被触发</h4><p>JVM 规定了 5 种情况必须进行<strong>立即</strong>初始化，也被称为<strong>主动引用</strong>。</p>
-<ol>
-<li>当虚拟机启动时，主类（main 方法所在的类）被初始化。</li>
-<li><code>new</code> 实例化一个类对象时；或者调用或设置某类的静态方法或静态字段（除<code>final</code>）时，初始化所在的类。</li>
-<li>当初始化子类时，如果父类还没初始化，则先触发父类的初始化。若类实现了某定义了<code>default</code>方法的接口，则该类的初始化会触发该接口的初始化。</li>
-<li>使用反射 API 对某个类进行反射调用时。</li>
-<li>JDK 1.7 开始提供的<strong>动态语言支持</strong>，如果一个 <code>java.lang.invoke.MethodHandle</code> 实例解析的结果<code>REF_getStatic</code>，<code>REF_putStatic</code>，<code>REF_invokeStatic</code> 的方法句柄对应的类没有被初始化，需要触发其初始化。</li>
-</ol>
-<h5 id="2-4-2-1-对于父接口"><a href="#2-4-2-1-对于父接口" class="headerlink" title="2.4.2.1 对于父接口"></a>2.4.2.1 对于父接口</h5><p>当接口被初始化时，不要求其父接口全部初始化，只有真正使用到父接口时才会触发父接口的初始化。如使用到了父接口中定义的常量等。</p>
-<h5 id="2-4-2-1-对于数组"><a href="#2-4-2-1-对于数组" class="headerlink" title="2.4.2.1 对于数组"></a>2.4.2.1 对于数组</h5><pre class="line-numbers language-java"><code class="language-java">Object<span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>构造数组对象和直接构造对象是用过不同的字节码来实现的，创建数组对象是通过 <code>newarray</code> 指令来实现，所以并不会初始化 Object 对象。</p>
-<h4 id="2-4-2-被动引用不触发初始化"><a href="#2-4-2-被动引用不触发初始化" class="headerlink" title="2.4.2 被动引用不触发初始化"></a>2.4.2 被动引用不触发初始化</h4><ol>
-<li>通过<strong>数组</strong>定义类 A 的引用，不会触发该类 A 的初始化 <code>A[] = new A[10]</code>;</li>
-<li>通过子类访问父类的<strong>静态域</strong>时，只有父类会被初始化（即真正声明这个域的类）。</li>
-<li>引用常量不会导致类的初始化，因为常量在编译期就被加入了常量池。</li>
-</ol>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.jianshu.com/p/20f902788988" target="_blank" rel="noopener">虚拟机类加载机制 深入理解Java虚拟机总结</a></p>
-<p><a href="https://www.jianshu.com/p/8cab58ac37e3" target="_blank" rel="noopener">深入理解Java类加载机制</a></p>
-<p><a href="https://www.cnblogs.com/jimxz/p/3974939.html" target="_blank" rel="noopener">java类到底是如何加载并初始化的？</a></p>
-<p><a href="https://www.jianshu.com/p/7ff65c3040ec" target="_blank" rel="noopener">类加载之 <clinit>() 和 <init>()</a></p>
-<p><a href="https://www.cnblogs.com/zzuli/p/9403928.html" target="_blank" rel="noopener">深入理解JVM内存分配和常量池</a></p>
+<p>方法区的参数取代为：</p>
+<ul>
+<li>-XX:MetaspaceSize</li>
+<li>-XX:MaxMetaspaceSize</li>
+</ul>
+<h2 id="6-栈、堆、方法区的指向关系"><a href="#6-栈、堆、方法区的指向关系" class="headerlink" title="6. 栈、堆、方法区的指向关系"></a>6. 栈、堆、方法区的指向关系</h2><h3 id="6-1-栈指向堆"><a href="#6-1-栈指向堆" class="headerlink" title="6.1 栈指向堆"></a>6.1 栈指向堆</h3><p>当方法中new变量时，会在堆中新建对象，然后返回对象引用给栈帧中的局部变量表</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Object A <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="6-2-方法区指向堆"><a href="#6-2-方法区指向堆" class="headerlink" title="6.2 方法区指向堆"></a>6.2 方法区指向堆</h3><p>方法区中存放类变量（static）、常量等。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Object A <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="6-3-堆指向方法区"><a href="#6-3-堆指向方法区" class="headerlink" title="6.3 堆指向方法区"></a>6.3 堆指向方法区</h3><p>堆中的对象想要拿到类信息，需要从对象头指向方法区中的类信息。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/rongtaoup/article/details/89142396" target="_blank" rel="noopener">一文搞懂JVM内存结构</a></p>
+<p>《深入理解Java虚拟机》</p>
+<p><a href="https://www.jianshu.com/p/cf78e68e3a99" target="_blank" rel="noopener">JVM常量池浅析</a></p>
+<p><a href="https://www.cnblogs.com/superyc/p/9975254.html" target="_blank" rel="noopener">JVM中的常量池详解</a></p>
 
             </div>
             <hr/>
@@ -662,7 +686,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/09/26/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/">https://Zgxh.github.io/2020/09/26/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/</a>
+                    <a href="https://Zgxh.github.io/2020/09/26/JVM/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">https://Zgxh.github.io/2020/09/26/JVM/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -746,36 +770,44 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
+                <a href="/2020/09/26/JVM/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Java堆中的对象内存">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java 类加载机制">
                         
-                        <span class="card-title">Java堆中的对象内存</span>
+                        <span class="card-title">Java 类加载机制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
-
-    private Object obj1 = new Object();
-
-    public static void ma
+                            Java 类加载机制总结类加载是把字节码 .class 文件加载到内存里，从而生成对应类的 Class 对象，同一个类只有一个 Class 对象。当该类需要被实例化的时候，即用 new 关键字来创建对象时，JVM 会去获取该 Class 对
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -787,24 +819,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/26/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+                <a href="/2020/09/26/JVM/JVM%20%E5%9F%BA%E7%A1%80/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="JVM 垃圾回收机制">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="JVM 基础">
                         
-                        <span class="card-title">JVM 垃圾回收机制</span>
+                        <span class="card-title">JVM 基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 堆内的垃圾回收 GC
-1. GC 的分类GC 分为 :
+                            JVM 基础1. Java 程序的执行流程
+java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
 
-==minor GC== ： 发生在 Eden 区满的时候，回收范围为 年轻代。
-==full GC== ： 发生在老年代满的时候，回收范围是 年轻代 + 老年代。
-发生 
+字节码的运行过程：
+
+通过类装载子系统来加载数据到运行时数据区
+通过字节码执行引擎来执行代码
+
+
+
+
+
                         
                     </div>
                     <div class="publish-info">

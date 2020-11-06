@@ -644,24 +644,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CAS 与 原子操作">
                         
-                        <span class="card-title">线程状态及其转化</span>
+                        <span class="card-title">CAS 与 原子操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
-Java 线程状态转化图：
+                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
 
-3.1 Java 线程的 6 个状态Thread.State 源码:
-public enum State {
-    NEW,         
+要么全部成功，要么全部失败。
+原子操作能保证线程安全性。
+
+10.1.1 Java 中的原子类java.util.c
                         
                     </div>
                     <div class="publish-info">
@@ -698,36 +698,36 @@ public enum State {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
+                <a href="/2020/09/26/JVM/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CAS 与 原子操作">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="垃圾回收机制">
                         
-                        <span class="card-title">CAS 与 原子操作</span>
+                        <span class="card-title">垃圾回收机制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
+                            Java 堆内的垃圾回收 GC
+1. GC 的分类GC 分为 :
 
-要么全部成功，要么全部失败。
-原子操作能保证线程安全性。
-
-10.1.1 Java 中的原子类java.util.c
+==minor GC== ： 发生在 Eden 区满的时候，回收范围为 年轻代。
+==full GC== ： 发生在老年代满的时候，回收范围是 年轻代 + 老年代。
+发生 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    多线程与并发
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -737,8 +737,8 @@ public enum State {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                        <span class="chip bg-color">多线程与并发</span>
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
                     </a>
                     
                 </div>

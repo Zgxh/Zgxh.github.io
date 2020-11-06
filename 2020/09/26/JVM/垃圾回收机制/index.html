@@ -4,19 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JVM 基础, Zgxh,">
-    <meta name="description" content="JVM 基础1. Java 程序的执行流程
-java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
+    <meta name="keywords" content="垃圾回收机制, Zgxh,">
+    <meta name="description" content="Java 堆内的垃圾回收 GC
+1. GC 的分类GC 分为 :
 
-字节码的运行过程：
-
-通过类装载子系统来加载数据到运行时数据区
-通过字节码执行引擎来执行代码
-
-
-
-
-">
+==minor GC== ： 发生在 Eden 区满的时候，回收范围为 年轻代。
+==full GC== ： 发生在老年代满的时候，回收范围是 年轻代 + 老年代。
+发生 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -24,7 +18,7 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JVM 基础 | Zgxh的博客</title>
+    <title>垃圾回收机制 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,12 +309,12 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JVM 基础</h1>
+                    <h1 class="description center-align post-title">垃圾回收机制</h1>
                 </div>
             </div>
         </div>
@@ -435,12 +429,25 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JVM/">
+                                <span class="chip bg-color">JVM</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JVM/" class="post-category">
+                                JVM
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -449,7 +456,7 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-06
+                    2020-09-26
                 </div>
                 
 
@@ -463,7 +470,7 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    76
+                    1k
                 </div>
                 
 
@@ -476,17 +483,60 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="JVM-基础"><a href="#JVM-基础" class="headerlink" title="JVM 基础"></a>JVM 基础</h1><h2 id="1-Java-程序的执行流程"><a href="#1-Java-程序的执行流程" class="headerlink" title="1. Java 程序的执行流程"></a>1. Java 程序的执行流程</h2><ul>
-<li><p>java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。</p>
-</li>
-<li><p>字节码的运行过程：</p>
+                <h1 id="Java-堆内的垃圾回收-GC"><a href="#Java-堆内的垃圾回收-GC" class="headerlink" title="Java 堆内的垃圾回收 GC"></a>Java 堆内的垃圾回收 GC</h1><p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="堆的GC"></p>
+<h2 id="1-GC-的分类"><a href="#1-GC-的分类" class="headerlink" title="1. GC 的分类"></a>1. GC 的分类</h2><p>GC 分为 :</p>
 <ul>
-<li>通过类装载子系统来加载数据到运行时数据区</li>
-<li>通过字节码执行引擎来执行代码</li>
+<li>==minor GC== ： 发生在 Eden 区满的时候，<strong>回收范围为 年轻代</strong>。</li>
+<li>==full GC== ： 发生在老年代满的时候，<strong>回收范围是 年轻代 + 老年代</strong>。<blockquote>
+<p>发生 GC 时会产生 <strong>STW （Stop the World）机制</strong>，暂停 <strong>应用线程</strong> 的运行，安心进行 GC。而 full GC 会导致 STW 时间更长，因此 JVM 调优就要减少 full GC 的次数。</p>
+<p>发生 STW 的原因是避免 GC 过程中堆中对象的GC标记（是否为垃圾对象）发生变化。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="2-堆内对象的存放"><a href="#2-堆内对象的存放" class="headerlink" title="2. 堆内对象的存放"></a>2. 堆内对象的存放</h2><p>堆内的对象</p>
+<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/4098CB7903B94C2289BC15C32FFE94BF/8890" alt="对象的组成"></p>
+<h2 id="3-堆内的-GC-简介"><a href="#3-堆内的-GC-简介" class="headerlink" title="3. 堆内的 GC 简介"></a>3. 堆内的 GC 简介</h2><p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/1DCD0135C74446F3A70E92E6BBAAE7C1/9130" alt=""></p>
+<h3 id="2-1-Minor-GC-与-年轻代"><a href="#2-1-Minor-GC-与-年轻代" class="headerlink" title="2.1 Minor GC 与 年轻代"></a>2.1 Minor GC 与 年轻代</h3><p>堆是 GC 的主要场所，年轻代按照容量分为 <strong>Eden : S_0 : S_1 = 8 : 1 : 1</strong>。</p>
+<ul>
+<li><strong>Eden 区</strong></li>
+<li><strong>Survivor 区</strong>：存放在 GC 中生存下来的对象，分为两块 <strong>大小相同</strong> 的空间：<ul>
+<li>S_0</li>
+<li>S_1</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2C0FE3ED9578470CA9B239DB2558AA9A/8832" alt="image"></p>
+<p>S_0 和 S_1 又被称为 <strong>from 区</strong> 和 <strong>to 区</strong>。</p>
+<blockquote>
+<p>S_0 和 S_1 总有一个是空的，一个是非空的。当Eden区容量满的时候，会把 Eden 和那个非空的 Survivor 区(假设是 S_0 )进行 Minor GC ，有引用指向的对象（使用<strong>可达性分析算法</strong>）会被保留下来并复制到另一个空的 S 区(假设是 S_1 )，并且分代年龄（分代年龄存在于对象头中）加一，然后 Eden 和 S_0 中所有垃圾对象都会被回收。如此一来，S_0 和 S_1轮流作为非空的 Survivor 区。</p>
+</blockquote>
+<h4 id="2-1-1-担保机制"><a href="#2-1-1-担保机制" class="headerlink" title="2.1.1 担保机制"></a>2.1.1 担保机制</h4><blockquote>
+<p>当回收 Eden 和非空的 survivor 区时，发现另一块空的 survivor 区空间不足以存放所有的存活下来的对象，则需要向 Old 区借用空间，称为 <strong>担保机制</strong>。</p>
+<p>如果老年区也没有空间了，则触发 Full GC。</p>
+<p>如果 Full GC 完毕还是不够，则抛出 OutOfMemory 异常。</p>
+</blockquote>
+<h3 id="2-2-Full-GC-与-老年代"><a href="#2-2-Full-GC-与-老年代" class="headerlink" title="2.2 Full GC 与 老年代"></a>2.2 Full GC 与 老年代</h3><p><strong>老年代</strong>：当年轻代中的对象经过多次 GC 后被保留下来的对象，如果其 <strong>分代年龄</strong> 到达老年代的要求，则会被放入老年代。</p>
+<blockquote>
+<p>老年代满的时候会发生 <strong>full gc，回收 老年代 + 年轻代 的所有垃圾对</strong>象，当没有可以被回收的对象时，则发生 <strong>OOM</strong> （outOfMemory） 异常。</p>
+</blockquote>
+<h2 id="4-对象何时进入老年代"><a href="#4-对象何时进入老年代" class="headerlink" title="4. 对象何时进入老年代"></a>4. 对象何时进入老年代</h2><h4 id="4-1-大对象可以直接进入老年代"><a href="#4-1-大对象可以直接进入老年代" class="headerlink" title="4.1 大对象可以直接进入老年代"></a>4.1 大对象可以直接进入老年代</h4><p>这里的大对象指的是需要大量连续内存的对象，比如字符串和数组。可以设置大对象的大小阈值，超过阈值就会直接进入老年代。<br>这个机制的<strong>目的是为了避免为大对象分配内存是的赋值操作而降低效率</strong>。</p>
+<h4 id="4-2-长期存活的对象可以直接进入老年代"><a href="#4-2-长期存活的对象可以直接进入老年代" class="headerlink" title="4.2 长期存活的对象可以直接进入老年代"></a>4.2 长期存活的对象可以直接进入老年代</h4><p>虚拟机通过分代收集的思想来管理内存，给每个对象分配一个对象年龄计数器 Age。</p>
+<ul>
+<li>当对象在 Eden 出生，经过了第一次 Minor GC，存活下来后若能被 Survivor 容纳，则移动到 Survivor 区，并将对象年龄设置为 1。</li>
+<li>对象每次在 Minor GC 中存活下来，年龄就增长 1。</li>
+<li>当年龄增长到阈值后被放入老年代。可以通过 <code>-XX:MaxTenuringThreshold</code> 来改变这个阈值。</li>
+</ul>
+<h4 id="4-3-对象动态年龄判断机制"><a href="#4-3-对象动态年龄判断机制" class="headerlink" title="4.3 对象动态年龄判断机制"></a>4.3 对象动态年龄判断机制</h4><p>在那块非空的 Survivor 区，若<strong>一批对象的总大小</strong>超过了该区内存的 50%, 则此时大于等于该批对象中最大年龄的对象，可以直接进入老年代。</p>
+<ul>
+<li>该机制是为了让那些可能会长期存活的对象提前进入老年代。</li>
+<li>该机制的触发一般是在 Minor GC 之后。</li>
+<li>内存阈值可以调整：<code>-XX:TargetSurvivorRatio</code></li>
+</ul>
+<hr>
+<h2 id="5-垃圾回收算法"><a href="#5-垃圾回收算法" class="headerlink" title="5. 垃圾回收算法"></a>5. 垃圾回收算法</h2><h3 id="5-1-垃圾判断的可达性分析算法"><a href="#5-1-垃圾判断的可达性分析算法" class="headerlink" title="5.1 垃圾判断的可达性分析算法"></a>5.1 垃圾判断的可达性分析算法</h3><p>将 GC Roots 对象为根，向下搜索引用的对象，找到的对象标记为<strong>非垃圾对象</strong>，存在于堆中但未标记的对象都作为本次垃圾回收的<strong>垃圾对象</strong>。</p>
+<ul>
+<li>GC Roots 根节点可以是：线程栈的本地变量、静态变量、本地方法栈的变量等。</li>
+</ul>
+<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/B6085FAFED3841EDAC3F1A3E57459FE1/8882" alt="可达性分析算法"></p>
 
             </div>
             <hr/>
@@ -512,7 +562,7 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/11/06/JVM%20%E5%9F%BA%E7%A1%80/">https://Zgxh.github.io/2020/11/06/JVM%20%E5%9F%BA%E7%A1%80/</a>
+                    <a href="https://Zgxh.github.io/2020/09/26/JVM/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">https://Zgxh.github.io/2020/09/26/JVM/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -549,7 +599,11 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/JVM/">
+                                    <span class="chip bg-color">JVM</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -592,24 +646,23 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="JVM 内存结构总结">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="线程组 与 优先级">
                         
-                        <span class="card-title">JVM 内存结构总结</span>
+                        <span class="card-title">线程组 与 优先级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
+                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
 
-
-1. 程序计数器 Program Counter
-线程私有，是当前线程的字节码行号指示器。
-如果线程执行 Java 方法，指示字节码指令的地
+线程依赖于线程组而存在。
+线程组可以统一控制线程的优先级和检查线程的权限。
+线程组中的线程只允许访问自己所在线
                         
                     </div>
                     <div class="publish-info">
@@ -618,11 +671,23 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -634,36 +699,47 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
+                <a href="/2020/09/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Java堆中的对象内存">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="字节码执行引擎">
                         
-                        <span class="card-title">Java堆中的对象内存</span>
+                        <span class="card-title">字节码执行引擎</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
-
-    private Object obj1 = new Object();
-
-    public static void ma
+                            JVM 字节码执行引擎JVM 输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
+1. JVM 运行时数据结构详情看 [JVM 内存结构总结]。
+2. 方法调用方法调用是指确定方法的版本，不涉及方法内部的执行过程。
+一切
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -798,6 +874,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
     <footer class="page-footer bg-color">
