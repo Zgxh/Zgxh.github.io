@@ -1,3 +1,11 @@
+---
+title: 堆中的对象内存分布
+date: 2020-9-26 9:59:50
+tags: JVM
+categories: JVM
+mathjax: true
+---
+
 # Java 堆中的对象内存
 
 ## 1. java中的对象指向问题
