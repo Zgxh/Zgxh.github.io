@@ -4,12 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Java堆中的对象内存, Zgxh,">
-    <meta name="description" content="Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
+    <meta name="keywords" content="指令重排 与 happens-before, Zgxh,">
+    <meta name="description" content="7. 指令重排 与 happens-before指令重排可以在 CPU 闲置（等待变量装载等）时，先执行其他指令，提高性能。分为：
 
-    private Object obj1 = new Object();
-
-    public static void ma">
+编译器优化重排：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
+指令并行重排：现代处理">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Java堆中的对象内存 | Zgxh的博客</title>
+    <title>指令重排 与 happens-before | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +307,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java堆中的对象内存</h1>
+                    <h1 class="description center-align post-title">指令重排 与 happens-before</h1>
                 </div>
             </div>
         </div>
@@ -428,12 +427,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                                <span class="chip bg-color">多线程与并发</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                多线程与并发
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -442,21 +454,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-04
+                    2020-11-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-10-04
+                    2020-11-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    403
+                    571
                 </div>
                 
 
@@ -469,43 +481,32 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Java-堆中的对象内存"><a href="#Java-堆中的对象内存" class="headerlink" title="Java 堆中的对象内存"></a>Java 堆中的对象内存</h1><h2 id="1-java中的对象指向问题"><a href="#1-java中的对象指向问题" class="headerlink" title="1. java中的对象指向问题"></a>1. java中的对象指向问题</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HeapMemory</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> Object obj1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Object obj2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="1-1-方法区指向堆"><a href="#1-1-方法区指向堆" class="headerlink" title="1.1 方法区指向堆"></a>1.1 方法区指向堆</h3><p>类的属性存放在 <strong>方法区</strong> 中，该属性对应的实例存放在堆中。即obj1符号引用在方法区中，指向堆中对象实例内存。</p>
-<img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/AA13AB640B604C289439818851FEF181/9119" style="zoom:80%;" />
-
-<h3 id="1-2-虚拟机栈指向堆"><a href="#1-2-虚拟机栈指向堆" class="headerlink" title="1.2 虚拟机栈指向堆"></a>1.2 虚拟机栈指向堆</h3><p>类的方法中的属性存放在虚拟机栈的 <strong>局部变量表</strong> 中，对象实例同样存在在堆中。</p>
-<img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/11BC3F03FB5E4A5C9C5AEBADBC7B9A51/9121" alt="zhan" style="zoom:67%;" />
-
-<h2 id="2-堆中的对象实例的布局"><a href="#2-堆中的对象实例的布局" class="headerlink" title="2. 堆中的对象实例的布局"></a>2. 堆中的对象实例的布局</h2><h3 id="2-1-对象内存模型"><a href="#2-1-对象内存模型" class="headerlink" title="2.1 对象内存模型"></a>2.1 对象内存模型</h3><p>java 中的对象内存布局：</p>
+                <h2 id="7-指令重排-与-happens-before"><a href="#7-指令重排-与-happens-before" class="headerlink" title="7. 指令重排 与 happens-before"></a>7. 指令重排 与 happens-before</h2><p>指令重排可以在 CPU 闲置（等待变量装载等）时，先执行其他指令，提高性能。分为：</p>
 <ul>
-<li>对象头 Header<ul>
-<li>mark word ： 8 字节</li>
-<li>class pointer ： 未指针压缩时 8 字节，压缩后 4 字节</li>
-<li>数组 length （数组对象特有）： 4 字节</li>
+<li><strong>编译器优化重排</strong>：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。</li>
+<li><strong>指令并行重排</strong>：现代处理器采用了指令级并行技术来将多条指令重叠执行。如果不存在数据依赖性(即后一个执行的语句无需依赖前面执行的语句的结果)，处理器可以改变语句对应的机器指令的执行顺序。</li>
+<li><strong>内存系统重排</strong>：由于处理器使用缓存和读写缓存冲区，这使得加载(load)和存储(store)操作看上去可能是在乱序执行，因为三级缓存的存在，导致内存与缓存的数据同步存在时间差。</li>
 </ul>
-</li>
-<li>对象实例数据 Instance Data ：</li>
-<li>对齐填充 Padding ： 填充为 8 字节的整数倍</li>
-</ul>
-<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/88CB4B6F16FA4A71A606DA0E62EC8BE5/9123" alt="a"></p>
-<h3 id="2-2-Object-obj-new-Object-占用的字节"><a href="#2-2-Object-obj-new-Object-占用的字节" class="headerlink" title="2.2 Object obj = new Object() 占用的字节"></a>2.2 Object obj = new Object() 占用的字节</h3><p>实例数据为空，mark word 占 8 字节，其他：</p>
+<p>指令重排在单线程时可以保证串行语义一致，但多线程时可能出现问题。</p>
+<p>JMM 能保证指令重排后，不改变程序的执行结果：</p>
 <ul>
-<li>若开启了类指针压缩 则 class pointer 占4字节，然后 padding 填充 4 字节</li>
-<li>若没开启，则 class pointer 占 8 字节，padding 不填充</li>
+<li>单线程肯定能保证</li>
+<li>多线程需要正确同步后，可以保证</li>
 </ul>
-<p>所以，一共占用 16 字节。</p>
-<h2 id="3-堆对象的访问"><a href="#3-堆对象的访问" class="headerlink" title="3. 堆对象的访问"></a>3. 堆对象的访问</h2><h3 id="3-1-句柄访问"><a href="#3-1-句柄访问" class="headerlink" title="3.1 句柄访问"></a>3.1 句柄访问</h3><p>堆中划分出一块空间来存放 <strong>句柄池</strong> , 即 方法区/栈帧 中的对象引用是存放的句柄地址，通过句柄池再在堆中查找对象的实际地址。</p>
-<img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D6A61A98C473467BAB6B1CA90AE2747B/9125" style="zoom:80%;" />
+<h4 id="7-1-happens-before-来保证指令的运行结果"><a href="#7-1-happens-before-来保证指令的运行结果" class="headerlink" title="7.1 happens-before 来保证指令的运行结果"></a>7.1 happens-before 来保证指令的运行结果</h4><p>happens-before 规范用来保证两个操作之间的执行顺序。这两个操作可以是一个线程内的，也可以是多线程的。</p>
+<ul>
+<li>如果A happens-before B，则 A 在内存上做的操作对 B 都是可见的。</li>
+</ul>
+<p>Java 中天然的 happens-before 关系：</p>
+<ul>
+<li>程序顺序规则：一个线程中的每一个操作，happens-before于该线程中的任意后续操作。</li>
+<li>监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。</li>
+<li>volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。</li>
+<li>传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。</li>
+<li>start规则：如果线程A执行操作ThreadB.start()启动线程B，那么A线程的ThreadB.start（）操作happens-before于线程B中的任意操作</li>
+<li>join规则：如果线程A执行操作ThreadB.join（）并成功返回，那么线程B中的任意操作happens-before于线程A从ThreadB.join()操作成功返回。</li>
+</ul>
 
-<h3 id="3-2-直接指针访问-hot-spot"><a href="#3-2-直接指针访问-hot-spot" class="headerlink" title="3.2 直接指针访问 (hot spot)"></a>3.2 直接指针访问 (hot spot)</h3><p>堆中直接存放对象的实例数据，即 方法区/栈帧 中的对象引用直接指向堆实例的地址。</p>
-<img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/CC077F51710441DEAFC4D5B430B93D07/9128" alt="" style="zoom:80%;" />
             </div>
             <hr/>
 
@@ -530,7 +531,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/10/04/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">https://Zgxh.github.io/2020/10/04/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/</a>
+                    <a href="https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/7.%20%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%20%E4%B8%8E%20happens-before/">https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/7.%20%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%20%E4%B8%8E%20happens-before/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -567,7 +568,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                                    <span class="chip bg-color">多线程与并发</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -610,37 +615,48 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/04/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%20%E4%B8%AD%E7%9A%84%E9%94%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="JVM 内存结构总结">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java 锁分类">
                         
-                        <span class="card-title">JVM 内存结构总结</span>
+                        <span class="card-title">Java 锁分类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
-
-
-1. 程序计数器 Program Counter
-线程私有，是当前线程的字节码行号指示器。
-如果线程执行 Java 方法，指示字节码指令的地
+                            Java 中的锁
+Java 中的并发包： java.util.concurrent , 又叫 JUC。
+1. 乐观锁 与 悲观锁
+1.1 乐观锁乐观锁总是假设对共享资源的访问没有冲突，线程可以不停地执行，无需加锁，也无需等待。
+一旦多个线程
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -652,43 +668,53 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/04/JVM%20%E5%9F%BA%E7%A1%80/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="JVM 基础">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="内存模型 JMM">
                         
-                        <span class="card-title">JVM 基础</span>
+                        <span class="card-title">内存模型 JMM</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JVM 基础1. Java 程序的执行流程
-java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
+                            6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
 
-字节码的运行过程：
-
-通过类装载子系统来加载数据到运行时数据区
-通过字节码执行引擎来执行代码
+消息传递并发模型
+共享内存并发模型
 
 
+Java 中，采用的是第二种：共享内存并发模型
+6.2 JVM 运行时数据区
 
-
-
+方法区 和 堆，
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
+                    </a>
+                    
                 </div>
                 
             </div>

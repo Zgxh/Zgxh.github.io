@@ -4,13 +4,19 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JVM 内存结构总结, Zgxh,">
-    <meta name="description" content="JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
+    <meta name="keywords" content="JVM 基础, Zgxh,">
+    <meta name="description" content="JVM 基础1. Java 程序的执行流程
+java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
+
+字节码的运行过程：
+
+通过类装载子系统来加载数据到运行时数据区
+通过字节码执行引擎来执行代码
 
 
-1. 程序计数器 Program Counter
-线程私有，是当前线程的字节码行号指示器。
-如果线程执行 Java 方法，指示字节码指令的地">
+
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +24,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JVM 内存结构总结 | Zgxh的博客</title>
+    <title>JVM 基础 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -309,12 +315,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JVM 内存结构总结</h1>
+                    <h1 class="description center-align post-title">JVM 基础</h1>
                 </div>
             </div>
         </div>
@@ -443,21 +449,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-04
+                    2020-11-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-10-04
+                    2020-11-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    76
                 </div>
                 
 
@@ -470,149 +476,17 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="JVM内存区域划分"><a href="#JVM内存区域划分" class="headerlink" title="JVM内存区域划分"></a>JVM内存区域划分</h2><p>JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。</p>
-<img src="https://upload-images.jianshu.io/upload_images/2179030-f81a3bf0df216749.png?imageMogr2/auto-orient/strip|imageView2/2/w/813/format/webp" alt="JVM内存结构" style="zoom:67%;" />
-
-<h2 id="1-程序计数器-Program-Counter"><a href="#1-程序计数器-Program-Counter" class="headerlink" title="1. 程序计数器 Program Counter"></a>1. 程序计数器 Program Counter</h2><ul>
-<li>线程私有，是<strong>当前线程</strong>的字节码行号指示器。<ul>
-<li>如果线程执行 Java 方法，指示字节码指令的地址（行号指示器）；</li>
-<li>如果执行的是 Native 方法，计数器值为 <code>Undefined</code>。</li>
-</ul>
+                <h1 id="JVM-基础"><a href="#JVM-基础" class="headerlink" title="JVM 基础"></a>JVM 基础</h1><h2 id="1-Java-程序的执行流程"><a href="#1-Java-程序的执行流程" class="headerlink" title="1. Java 程序的执行流程"></a>1. Java 程序的执行流程</h2><ul>
+<li><p>java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。</p>
 </li>
-<li>PC 中无异常发生。</li>
-</ul>
-<blockquote>
-<p>程序计数器保证了线程挂起和线程再次获得CPU使用权时，代码的运行顺序。</p>
-</blockquote>
-<h2 id="2-虚拟机栈（线程栈）Java-Virtual-Machine-Stacks"><a href="#2-虚拟机栈（线程栈）Java-Virtual-Machine-Stacks" class="headerlink" title="2. 虚拟机栈（线程栈）Java Virtual Machine Stacks"></a>2. 虚拟机栈（线程栈）Java Virtual Machine Stacks</h2><h3 id="2-1-用途"><a href="#2-1-用途" class="headerlink" title="2.1 用途"></a>2.1 用途</h3><ul>
-<li>虚拟机栈为 Java 方法服务。</li>
-<li><strong>线程私有</strong>，每个线程都维护一个与线程同时创建的虚拟机栈，线程调用的每个方法对应一个<strong>栈帧</strong>，栈帧中储存了一个方法的状态信息：<ul>
-<li><strong>局部变量表</strong>、<strong>操作数栈</strong>、<strong>动态链接</strong>、<strong>方法出口</strong> 等。</li>
-</ul>
-</li>
-<li>可能发生的异常：<ul>
-<li><code>StackOverflowError</code>：方法调用的深度超过了虚拟机栈深度。</li>
-<li><code>OutOfMemoryError</code>：虚拟机栈随着内容的增加会<strong>动态扩展内存</strong>，扩展到一定程度无法申请到足够的内存时抛出该异常。</li>
-</ul>
-</li>
-<li>使用 <code>-Xss</code> 设置栈大小，通常几百K就够用了。由于栈是线程私有的，线程数越多，占用栈空间越大。</li>
-</ul>
-<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D724E9EB4C4A4BD4ABC5E3DCA1DCF0D5/8856" alt="image"></p>
-<h3 id="2-2-局部变量表"><a href="#2-2-局部变量表" class="headerlink" title="2.2 局部变量表"></a>2.2 局部变量表</h3><p>局部变量表用于储存数据：</p>
+<li><p>字节码的运行过程：</p>
 <ul>
-<li><strong>基本数据类型</strong></li>
-<li><strong>对象引用</strong>（包括 <strong>方法参数</strong> 和 <strong>局部变量</strong>）</li>
-</ul>
-<h4 id="2-2-1-变量槽-Variable-Slot"><a href="#2-2-1-变量槽-Variable-Slot" class="headerlink" title="2.2.1 变量槽 Variable Slot"></a>2.2.1 变量槽 Variable Slot</h4><p>局部变量表的最小单位是 <strong>变量槽（Variable Slot）</strong>，每个变量槽 32 位（4字节）。通过 index 的方式直接索引。</p>
-<ul>
-<li>普通方法 0 号位存放 <code>this</code> 指针，<code>static</code> 方法没有 <code>this</code>，所以直接存其他数据。</li>
-<li>Slot 可以复用，当局部变量作用域失效时，可以被其他数据覆盖。</li>
-</ul>
-<h3 id="2-3-操作数栈"><a href="#2-3-操作数栈" class="headerlink" title="2.3 操作数栈"></a>2.3 操作数栈</h3><p>存在于虚拟机栈中，用于辅助计算，存放用于计算的操作数。</p>
-<h2 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3. 本地方法栈"></a>3. 本地方法栈</h2><p>本地方法栈为 native 方法服务，其他与虚拟机栈类似。</p>
-<p>native 方法比如：<code>String.extern()</code> 方法。</p>
-<p>异常：</p>
-<ul>
-<li>StackOverflow</li>
-<li>OutOfMemory</li>
-</ul>
-<blockquote>
-<p>hot spot 虚拟机中的 虚拟机栈 和 本地方法栈 是合在一起的。</p>
-</blockquote>
-<h2 id="4-Java-堆-Heap"><a href="#4-Java-堆-Heap" class="headerlink" title="4. Java 堆 Heap"></a>4. Java 堆 Heap</h2><h3 id="4-1-堆的用途"><a href="#4-1-堆的用途" class="headerlink" title="4.1 堆的用途"></a>4.1 堆的用途</h3><ul>
-<li>堆在 JVM 启动时被创建，用于存放所有的对象实例、数组、String 等。</li>
-<li>Java 堆是 JVM 内存管理的最大区域，是垃圾回收的主要场所。</li>
-<li>Java 堆是<strong>线程共享</strong>的。</li>
-</ul>
-<h3 id="4-2-堆的结构"><a href="#4-2-堆的结构" class="headerlink" title="4.2 堆的结构"></a>4.2 堆的结构</h3><p>Java 堆按垃圾回收区域分为 <strong>年轻代</strong> 和 <strong>老年代</strong> ，具体：<br><img src="https://img-blog.csdnimg.cn/2019041019553012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvbmd0YW91cA==,size_16,color_FFFFFF,t_70" alt="java堆a" style="zoom:80%;" /></p>
-<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="image"></p>
-<ul>
-<li>年轻代存储新创建的对象。当年轻内存占满后，会触发 <code>Minor GC</code>，清理年轻代内存空间。</li>
-<li>老年代存储长期存活的对象和大对象。年轻代中存储的对象，经过多次GC后仍然存活的会移动到老年代中进行存储。老年代空间占满后，会触发<code>Full GC</code>，清理整个堆空间，包括年轻代和老年代。如果<code>Full GC</code>之后，堆中仍然无法存储对象，就会抛出<code>OutOfMemoryError</code>异常。</li>
-</ul>
-<h3 id="4-3-Java-堆设置常用参数"><a href="#4-3-Java-堆设置常用参数" class="headerlink" title="4.3 Java 堆设置常用参数"></a>4.3 Java 堆设置常用参数</h3><ul>
-<li>-<strong>Xms</strong>：设置Java应用程序启动时的初始堆大小</li>
-<li>-<strong>Xmx</strong>：设置Java应用程序能获得的最大堆大小</li>
-<li>-Xss：设置线程栈的大小</li>
-<li>-XX:MinHeapFreeRatio：设置堆空间最小空闲比例。当对空间的空闲内存小于这个数值时，JVM便会扩展堆空间</li>
-<li>-XX:MaxHeapFreeRatio：设置堆空间的最大空闲比例。当堆空间的空闲内存大于这个数值时，便会压缩堆空间，得到一个较小的堆</li>
-<li>-XX:NewSize：设置新生代的大小</li>
-<li>-XX:NewRatio：设置老年代与新生代的比例，它等于老年代大小除以新生代大小</li>
-<li>-XX:SurviorRatio：新生代中eden区与survivior区的比例</li>
-<li>-XX:MaxPermSize：设置最大的持久区的大小</li>
-<li>-XX:PermSize：设置永久区的初始值</li>
-<li>-XX:TargetSurvivorRatio：设置survivior区的可使用率。当survivior区的空间使用率达到这个数值时，会将对象送入老年代</li>
-</ul>
-<h2 id="5-方法区-Method-Area"><a href="#5-方法区-Method-Area" class="headerlink" title="5. 方法区 Method Area"></a>5. 方法区 Method Area</h2><ul>
-<li>存放已被虚拟机加载的 <strong>类信息</strong>、<strong>常量</strong>、<strong>static变量</strong>、*<em>即时编译后的代码 *</em>等。<ul>
-<li>存放每个类的结构信息</li>
-<li>类属性</li>
-<li>类的方法</li>
-<li>方法和类的构造函数的代码（包括类实例在初始化、接口初始化中使用的特殊方法）</li>
-</ul>
-</li>
-<li><strong>线程共享</strong>。</li>
-<li><strong>常量池</strong>是方法区的一部分。<ul>
-<li><strong>class文件常量池</strong></li>
-<li><strong>运行时常量池</strong></li>
-</ul>
-</li>
-<li>在JDK 1.7及以前，方法区是堆的一个逻辑部分；为了与堆区分，被称为“非堆”或“永久代”。</li>
-</ul>
-<img src="https://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
-
-<h3 id="5-1-class-文件常量池"><a href="#5-1-class-文件常量池" class="headerlink" title="5.1 class 文件常量池"></a>5.1 class 文件常量池</h3><p>class 文件常量池存在于 .class 字节码文件中。</p>
-<p>存储编译器生成的各种 <strong>字面量</strong> 和 <strong>符号引用</strong> 。</p>
-<ul>
-<li><strong>字面量</strong>：文本字符串、final 常量、基本类型常量的值</li>
-<li><strong>符号引用</strong>：<ul>
-<li>类和接口的全限定名：用于在运行时类加载过程“解析”阶段得到直接引用。</li>
-<li>方法的名称和描述符：描述符即参数类型和返回值类型。</li>
-<li>字段的名称和描述符：包括类变量（static）、实例变量。</li>
+<li>通过类装载子系统来加载数据到运行时数据区</li>
+<li>通过字节码执行引擎来执行代码</li>
 </ul>
 </li>
 </ul>
-<h3 id="5-2-运行时常量池"><a href="#5-2-运行时常量池" class="headerlink" title="5.2 运行时常量池"></a>5.2 运行时常量池</h3><ul>
-<li>运行时常量池是<strong>线程共享</strong>的。</li>
-<li>存储 Java class文件常量池中的<strong>符号信息</strong>。在类加载时，第一步是“加载”，包括三步：（1）通过类全限定名来获取二进制字节流；（2）把字节流所代表的<strong>静态存储结构</strong>转化为方法区的<strong>运行时数据结构</strong>；（3）方法区中生成Class对象，作为该类的各种数据访问入口。其中，<strong>第（2）步中就包含了class常量池中进入运行时常量池的过程。</strong></li>
-<li>存放<strong>直接引用</strong>。类加载的“解析”阶段会将符号引用所翻译出来的直接引用(直接指向实例对象的指针)存储在 运行时常量池 中。</li>
-<li>常量不一定编译时才能产生，<strong>运行时产生的常量</strong>会放入运行时常量池。</li>
-</ul>
-<h3 id="5-3-字符串常量池（看Reference-3、4）"><a href="#5-3-字符串常量池（看Reference-3、4）" class="headerlink" title="5.3 字符串常量池（看Reference 3、4）"></a>5.3 字符串常量池（看Reference 3、4）</h3><ul>
-<li><p>JDK 1.7 之前，字符串常量池存在于运行时常量池（方法区）内；</p>
-</li>
-<li><p>JDK 1.7 把其移到了Java 堆中。</p>
-</li>
-<li><p>JDK 1.8 中，字符串常量池被移到了元空间，独立于堆。</p>
-</li>
-</ul>
-<p>常量池避免了频繁的创建和销毁对象而影响系统性能，其实现了对象的共享。</p>
-<p>以<code>String</code>类为例，可以通过反编译验证：</p>
-<pre class="line-numbers language-java"><code class="language-java">String str1 <span class="token operator">=</span> <span class="token string">"abcd"</span><span class="token punctuation">;</span>               <span class="token comment" spellcheck="true">// 放在 常量池 中</span>
-String b <span class="token operator">=</span> <span class="token string">"a"</span> <span class="token operator">+</span> <span class="token string">"true"</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">// 编译期就计算完，然后放在 常量池</span>
-
-<span class="token comment" spellcheck="true">// 通过 new 的方式创建String，其直接引用对象是在堆中，但仍涉及字符串池。</span>
-<span class="token comment" spellcheck="true">// 具体：先判断字符串常量池内有无该字符串：</span>
-<span class="token comment" spellcheck="true">// 如果有，在堆中复制一个副本，把副本地址给引用；</span>
-<span class="token comment" spellcheck="true">// 如果没有，先在字符串池中创建一个，然后复制副本到堆，然后把副本地址给引用。</span>
-String str1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abcd"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p><code>String.intern()</code> 方法会返回字符串在字符串常量池中的引用。</p>
-</blockquote>
-<h3 id="5-4-基本类型包装类的常量池"><a href="#5-4-基本类型包装类的常量池" class="headerlink" title="5.4 基本类型包装类的常量池"></a>5.4 基本类型包装类的常量池</h3><p>整型的包装类在对应值小于等于127时才可使用对象池。这里常量池中缓存的是包装类对象，而不是基本数据类型。</p>
-<p>涉及包装类的缓存技术，看我的基本类型那块笔记。</p>
-<h3 id="5-5-方法区随-JDK-版本的变化"><a href="#5-5-方法区随-JDK-版本的变化" class="headerlink" title="5.5 方法区随 JDK 版本的变化"></a>5.5 方法区随 JDK 版本的变化</h3><p><img src="https://img-blog.csdn.net/20180807233340374?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1eXV5YW5nNjY4OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="方法区的变化"></p>
-<h4 id="JDK-1-7"><a href="#JDK-1-7" class="headerlink" title="JDK 1.7"></a>JDK 1.7</h4><p>JDK 1.7时的Hotspot VM，把方法区中的静态变量、字符串常量池等移到了堆内存。</p>
-<h4 id="JDK-1-8"><a href="#JDK-1-8" class="headerlink" title="JDK 1.8"></a>JDK 1.8</h4><p>JDK 1.8中，方法区被替换为<strong>元空间 Meta Space</strong>，它没有占用堆内存，而是直接占用本地内存。</p>
-<p>方法区的参数取代为：</p>
-<ul>
-<li>-XX:MetaspaceSize</li>
-<li>-XX:MaxMetaspaceSize</li>
-</ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/rongtaoup/article/details/89142396" target="_blank" rel="noopener">一文搞懂JVM内存结构</a></p>
-<p>《深入理解Java虚拟机》</p>
-<p><a href="https://www.jianshu.com/p/cf78e68e3a99" target="_blank" rel="noopener">JVM常量池浅析</a></p>
-<p><a href="https://www.cnblogs.com/superyc/p/9975254.html" target="_blank" rel="noopener">JVM中的常量池详解</a></p>
+<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2C0FE3ED9578470CA9B239DB2558AA9A/8832" alt="image"></p>
 
             </div>
             <hr/>
@@ -638,7 +512,7 @@ String str1 <span class="token operator">=</span> <span class="token keyword">ne
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/10/04/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">https://Zgxh.github.io/2020/10/04/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/</a>
+                    <a href="https://Zgxh.github.io/2020/11/06/JVM%20%E5%9F%BA%E7%A1%80/">https://Zgxh.github.io/2020/11/06/JVM%20%E5%9F%BA%E7%A1%80/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -714,12 +588,11 @@ String str1 <span class="token operator">=</span> <span class="token keyword">ne
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/04/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
+                <a href="/2020/11/06/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
                         
                         
@@ -740,9 +613,9 @@ String str1 <span class="token operator">=</span> <span class="token keyword">ne
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -751,7 +624,6 @@ String str1 <span class="token operator">=</span> <span class="token keyword">ne
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -762,7 +634,7 @@ String str1 <span class="token operator">=</span> <span class="token keyword">ne
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/04/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
+                <a href="/2020/11/06/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
                     <div class="card-image">
                         
                         
@@ -783,7 +655,7 @@ String str1 <span class="token operator">=</span> <span class="token keyword">ne
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                             </span>
                         <span class="publish-author">
                             

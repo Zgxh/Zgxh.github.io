@@ -4,19 +4,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JVM 基础, Zgxh,">
-    <meta name="description" content="JVM 基础1. Java 程序的执行流程
-java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
+    <meta name="keywords" content="内存模型 JMM, Zgxh,">
+    <meta name="description" content="6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
 
-字节码的运行过程：
-
-通过类装载子系统来加载数据到运行时数据区
-通过字节码执行引擎来执行代码
+消息传递并发模型
+共享内存并发模型
 
 
+Java 中，采用的是第二种：共享内存并发模型
+6.2 JVM 运行时数据区
 
-
-">
+方法区 和 堆，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -24,7 +22,7 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JVM 基础 | Zgxh的博客</title>
+    <title>内存模型 JMM | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,12 +313,12 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JVM 基础</h1>
+                    <h1 class="description center-align post-title">内存模型 JMM</h1>
                 </div>
             </div>
         </div>
@@ -435,12 +433,25 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                                <span class="chip bg-color">多线程与并发</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                多线程与并发
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -449,21 +460,21 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-04
+                    2020-11-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-10-04
+                    2020-11-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    76
+                    401
                 </div>
                 
 
@@ -476,17 +487,42 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="JVM-基础"><a href="#JVM-基础" class="headerlink" title="JVM 基础"></a>JVM 基础</h1><h2 id="1-Java-程序的执行流程"><a href="#1-Java-程序的执行流程" class="headerlink" title="1. Java 程序的执行流程"></a>1. Java 程序的执行流程</h2><ul>
-<li><p>java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。</p>
-</li>
-<li><p>字节码的运行过程：</p>
+                <h2 id="6-Java-内存模型"><a href="#6-Java-内存模型" class="headerlink" title="6. Java 内存模型"></a>6. Java 内存模型</h2><h3 id="6-1-并发模型"><a href="#6-1-并发模型" class="headerlink" title="6.1 并发模型"></a>6.1 并发模型</h3><p>线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：</p>
+<ol>
+<li>消息传递并发模型</li>
+<li>共享内存并发模型</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/9E9DB40CE7334B3996E5ABA28365656D/12316" alt=""></p>
+<p>Java 中，采用的是第二种：<strong>共享内存并发模型</strong></p>
+<h3 id="6-2-JVM-运行时数据区"><a href="#6-2-JVM-运行时数据区" class="headerlink" title="6.2 JVM 运行时数据区"></a>6.2 JVM 运行时数据区</h3><p><img src="http://concurrent.redspider.group/article/02/imgs/Java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png" alt="java运行时数据区"></p>
 <ul>
-<li>通过类装载子系统来加载数据到运行时数据区</li>
-<li>通过字节码执行引擎来执行代码</li>
+<li>方法区 和 堆，是对所有线程内存共享的。</li>
+<li>栈、PC 是线程私有的。</li>
 </ul>
-</li>
+<p>Java 中内存可见性是指堆中的共享变量。</p>
+<h3 id="6-3-Java-内存模型-JMM"><a href="#6-3-Java-内存模型-JMM" class="headerlink" title="6.3 Java 内存模型 JMM"></a>6.3 Java 内存模型 JMM</h3><p>Java 的并发是通过<strong>共享内存</strong>来实现的。</p>
+<p>JMM 定义了 <strong>线程</strong> 与 <strong>主内存</strong> 之间的抽象关系。</p>
+<ul>
+<li>所有的共享变量都在主内存中</li>
+<li>每个线程保存一份共享变量的副本</li>
 </ul>
-<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2C0FE3ED9578470CA9B239DB2558AA9A/8832" alt="image"></p>
+<p><strong>线程之间通信需要以主内存为媒介</strong>，而 JMM 来控制 <strong>主内存</strong> 与 <strong>本地内存</strong> 的交互：</p>
+<ul>
+<li>线程对共享变量的操作必须在线程自己的<strong>本地内存</strong>中进行</li>
+<li>线程通信需要一个线程先把线程中的共享变量更新到主内存</li>
+<li>然后另一个线程从主内存中读取刷新后的共享变量</li>
+</ul>
+<p><img src="http://concurrent.redspider.group/article/02/imgs/JMM%E6%8A%BD%E8%B1%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt="JMM内存模型"></p>
+<h4 id="6-3-1-volatile-关键字"><a href="#6-3-1-volatile-关键字" class="headerlink" title="6.3.1 volatile 关键字"></a>6.3.1 volatile 关键字</h4><ul>
+<li>保证多线程操作共享变量的可见性</li>
+<li>禁止指令重排序</li>
+</ul>
+<p>具体看对 <code>volatile</code> 关键字的介绍。</p>
+<h4 id="6-3-2-JMM-与-运行时数据区-的关系"><a href="#6-3-2-JMM-与-运行时数据区-的关系" class="headerlink" title="6.3.2 JMM 与 运行时数据区 的关系"></a>6.3.2 JMM 与 运行时数据区 的关系</h4><p>JMM 是抽象的概念。</p>
+<ul>
+<li>JMM 的主内存属于共享数据区域，包含堆、方法区；</li>
+<li>JMM 的本地内存属于私有数据区域，包含程序计数器、本地方法栈、虚拟机栈。</li>
+</ul>
 
             </div>
             <hr/>
@@ -512,7 +548,7 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/10/04/JVM%20%E5%9F%BA%E7%A1%80/">https://Zgxh.github.io/2020/10/04/JVM%20%E5%9F%BA%E7%A1%80/</a>
+                    <a href="https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -549,7 +585,11 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                                    <span class="chip bg-color">多线程与并发</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -592,36 +632,47 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/04/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/7.%20%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%20%E4%B8%8E%20happens-before/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Java堆中的对象内存">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="指令重排 与 happens-before">
                         
-                        <span class="card-title">Java堆中的对象内存</span>
+                        <span class="card-title">指令重排 与 happens-before</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
+                            7. 指令重排 与 happens-before指令重排可以在 CPU 闲置（等待变量装载等）时，先执行其他指令，提高性能。分为：
 
-    private Object obj1 = new Object();
-
-    public static void ma
+编译器优化重排：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
+指令并行重排：现代处理
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -633,34 +684,36 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/26/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java 类加载机制">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
                         
-                        <span class="card-title">Java 类加载机制</span>
+                        <span class="card-title">线程状态及其转化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 类加载机制总结1. Class 文件Class 文件中只有两种数据类型： 无符号数、表。
+                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
 
-无符号数：u1、u2、u4、u8 分别表示 1字节、2字节、4字节、8字节的无符号数。
-表：由 0 个或多个大小可变的项组成，一个类就相当
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JVM/" class="post-category">
-                                    JVM
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
                                 </a>
                             
                             
@@ -670,8 +723,8 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
                     </a>
                     
                 </div>
