@@ -463,7 +463,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-06
+                    2020-11-07
                 </div>
                 
 
@@ -713,25 +713,21 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/JVM/%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E4%B8%8E%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JVM/程序编译与代码优化">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 关键字">
                         
-                        <span class="card-title">JVM/程序编译与代码优化</span>
+                        <span class="card-title">volatile 关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 逃逸分析逃逸是指一个对象在某个方法中被创建后，会被其他方法或其他线程所引用。
+                            8. volatile8.0 为什么存在内存可见性问题为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。volatile 关键字能解决这个问题。
 
-方法逃逸：该对象被作为参数传递到其他方法中。
-线程逃逸：该对象被关联到其他线程中可以访问到的实例变量中。
-
-线程逃逸的逃逸程度比方法逃逸更高。
-如果能证明
+8.1 volatile
                         
                     </div>
                     <div class="publish-info">
@@ -740,11 +736,23 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
+                    </a>
+                    
                 </div>
                 
             </div>

@@ -463,7 +463,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-06
+                    2020-11-07
                 </div>
                 
 
@@ -484,7 +484,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="JVM内存区域划分"><a href="#JVM内存区域划分" class="headerlink" title="JVM内存区域划分"></a>JVM内存区域划分</h2><p>JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。</p>
-<img src="https://upload-images.jianshu.io/upload_images/2179030-f81a3bf0df216749.png?imageMogr2/auto-orient/strip|imageView2/2/w/813/format/webp" alt="JVM内存结构" style="zoom:67%;" />
+<img src="http://upload-images.jianshu.io/upload_images/2179030-f81a3bf0df216749.png?imageMogr2/auto-orient/strip|imageView2/2/w/813/format/webp" alt="JVM内存结构" style="zoom:67%;" />
 
 <h2 id="1-程序计数器-Program-Counter"><a href="#1-程序计数器-Program-Counter" class="headerlink" title="1. 程序计数器 Program Counter"></a>1. 程序计数器 Program Counter</h2><ul>
 <li>线程私有，是<strong>当前线程</strong>的字节码行号指示器。<ul>
@@ -510,7 +510,7 @@
 </li>
 <li>使用 <code>-Xss</code> 设置栈大小，通常几百K就够用了。由于栈是线程私有的，线程数越多，占用栈空间越大。</li>
 </ul>
-<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D724E9EB4C4A4BD4ABC5E3DCA1DCF0D5/8856" alt="image"></p>
+<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D724E9EB4C4A4BD4ABC5E3DCA1DCF0D5/8856" alt="image"></p>
 <h3 id="2-1-局部变量表"><a href="#2-1-局部变量表" class="headerlink" title="2.1 局部变量表"></a>2.1 局部变量表</h3><p>局部变量表用于储存变量：包括 <strong>方法参数</strong> 和 <strong>方法内定义的局部变量</strong>：</p>
 <ul>
 <li><strong>基本数据类型</strong></li>
@@ -567,8 +567,8 @@
 </ul>
 <h4 id="4-1-1-什么时候会在栈上分配对象？"><a href="#4-1-1-什么时候会在栈上分配对象？" class="headerlink" title="4.1.1 什么时候会在栈上分配对象？"></a>4.1.1 什么时候会在栈上分配对象？</h4><p>这与<strong>逃逸分析</strong>这一概念有关。有关逃逸分析，看[编译与优化]。</p>
 <p><strong>栈上分配</strong>是针对逃逸分析的当编译器能证明一个对象不会发生逃逸时，所做的优化。从 JDK 1.7 开始，逃逸分析默认开启，但栈上分配会被<strong>标量替换</strong>所替代，通过把对象分解为一系列标量，能够直接在栈上分配内存。</p>
-<h3 id="4-2-堆的结构"><a href="#4-2-堆的结构" class="headerlink" title="4.2 堆的结构"></a>4.2 堆的结构</h3><p>Java 堆按垃圾回收区域分为 <strong>年轻代</strong> 和 <strong>老年代</strong> ，具体：<br><img src="https://img-blog.csdnimg.cn/2019041019553012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvbmd0YW91cA==,size_16,color_FFFFFF,t_70" alt="java堆a" style="zoom:80%;" /></p>
-<p><img src="https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="image"></p>
+<h3 id="4-2-堆的结构"><a href="#4-2-堆的结构" class="headerlink" title="4.2 堆的结构"></a>4.2 堆的结构</h3><p>Java 堆按垃圾回收区域分为 <strong>年轻代</strong> 和 <strong>老年代</strong> ，具体：<br><img src="http://img-blog.csdnimg.cn/2019041019553012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvbmd0YW91cA==,size_16,color_FFFFFF,t_70" alt="java堆a" style="zoom:80%;" /></p>
+<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="image"></p>
 <ul>
 <li>年轻代存储新创建的对象。当年轻内存占满后，会触发 <code>Minor GC</code>，清理年轻代内存空间。</li>
 <li>老年代存储长期存活的对象和大对象。年轻代中存储的对象，经过多次GC后仍然存活的会移动到老年代中进行存储。老年代空间占满后，会触发<code>Full GC</code>，清理整个堆空间，包括年轻代和老年代。如果<code>Full GC</code>之后，堆中仍然无法存储对象，就会抛出<code>OutOfMemoryError</code>异常。</li>
@@ -598,7 +598,7 @@
 <li><strong>运行时常量池</strong>是方法区的一部分。</li>
 <li>在 JDK 1.7 及以前，方法区是堆的一个<strong>逻辑部分</strong>；为了与堆区分，被称为“非堆”或“<strong>永久代</strong>”。JDK 1.8 时，把方法区改名为元空间，直接占用本地内存。</li>
 </ul>
-<img src="https://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
+<img src="http://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
 
 <h3 id="5-1-运行时常量池"><a href="#5-1-运行时常量池" class="headerlink" title="5.1 运行时常量池"></a>5.1 运行时常量池</h3><ul>
 <li>运行时常量池是<strong>线程共享</strong>的。</li>
@@ -638,7 +638,7 @@ String b <span class="token operator">=</span> <span class="token string">"a"</s
 <span class="token comment" spellcheck="true">// 如果没有，先在字符串池中创建一个，然后复制副本到堆，然后把副本地址给引用。</span>
 String str1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abcd"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对于字符串池的详细信息和<code>String.intern()</code>方法查看String总结中的内容。</p>
-<h3 id="5-2-方法区随-JDK-版本的变化"><a href="#5-2-方法区随-JDK-版本的变化" class="headerlink" title="5.2 方法区随 JDK 版本的变化"></a>5.2 方法区随 JDK 版本的变化</h3><p><img src="https://img-blog.csdn.net/20180807233340374?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1eXV5YW5nNjY4OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="方法区的变化"></p>
+<h3 id="5-2-方法区随-JDK-版本的变化"><a href="#5-2-方法区随-JDK-版本的变化" class="headerlink" title="5.2 方法区随 JDK 版本的变化"></a>5.2 方法区随 JDK 版本的变化</h3><p><img src="http://img-blog.csdn.net/20180807233340374?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1eXV5YW5nNjY4OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="方法区的变化"></p>
 <h4 id="JDK-1-7"><a href="#JDK-1-7" class="headerlink" title="JDK 1.7"></a>JDK 1.7</h4><p>JDK 1.7时的Hotspot VM，把方法区中的<strong>静态变量</strong>、<strong>字符串常量池</strong>等移到了堆内存。运行时常量池剩余内容仍在方法区（永久代）中。</p>
 <h4 id="JDK-1-8"><a href="#JDK-1-8" class="headerlink" title="JDK 1.8"></a>JDK 1.8</h4><p>JDK 1.8中，方法区被替换为<strong>元空间 Meta Space</strong>，它没有占用堆内存，而是直接占用本地内存。</p>
 <ul>
