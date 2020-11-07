@@ -10,7 +10,7 @@ mathjax: true
 
 JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
 
-<img src="https://upload-images.jianshu.io/upload_images/2179030-f81a3bf0df216749.png?imageMogr2/auto-orient/strip|imageView2/2/w/813/format/webp" alt="JVM内存结构" style="zoom:67%;" />
+<img src="http://upload-images.jianshu.io/upload_images/2179030-f81a3bf0df216749.png?imageMogr2/auto-orient/strip|imageView2/2/w/813/format/webp" alt="JVM内存结构" style="zoom:67%;" />
 
 ## 1. 程序计数器 Program Counter
 
@@ -31,7 +31,7 @@ JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方�
   - `OutOfMemoryError`：虚拟机栈随着内容的增加会**动态扩展内存**，扩展到一定程度无法申请到足够的内存时抛出该异常。
 - 使用 `-Xss` 设置栈大小，通常几百K就够用了。由于栈是线程私有的，线程数越多，占用栈空间越大。
 
-![image](https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D724E9EB4C4A4BD4ABC5E3DCA1DCF0D5/8856)
+![image](http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D724E9EB4C4A4BD4ABC5E3DCA1DCF0D5/8856)
 
 ### 2.1 局部变量表
 
@@ -110,9 +110,9 @@ native 方法比如：`String.extern()` 方法。
 ### 4.2 堆的结构
 
 Java 堆按垃圾回收区域分为 **年轻代** 和 **老年代** ，具体：
-<img src="https://img-blog.csdnimg.cn/2019041019553012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvbmd0YW91cA==,size_16,color_FFFFFF,t_70" alt="java堆a" style="zoom:80%;" />
+<img src="http://img-blog.csdnimg.cn/2019041019553012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvbmd0YW91cA==,size_16,color_FFFFFF,t_70" alt="java堆a" style="zoom:80%;" />
 
-![image](https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810)
+![image](http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810)
 
 - 年轻代存储新创建的对象。当年轻内存占满后，会触发 `Minor GC`，清理年轻代内存空间。
 - 老年代存储长期存活的对象和大对象。年轻代中存储的对象，经过多次GC后仍然存活的会移动到老年代中进行存储。老年代空间占满后，会触发`Full GC`，清理整个堆空间，包括年轻代和老年代。如果`Full GC`之后，堆中仍然无法存储对象，就会抛出`OutOfMemoryError`异常。
@@ -143,7 +143,7 @@ Java 堆按垃圾回收区域分为 **年轻代** 和 **老年代** ，具体：
 - **运行时常量池**是方法区的一部分。
 - 在 JDK 1.7 及以前，方法区是堆的一个**逻辑部分**；为了与堆区分，被称为“非堆”或“**永久代**”。JDK 1.8 时，把方法区改名为元空间，直接占用本地内存。
 
-<img src="https://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
+<img src="http://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
 
 ### 5.1 运行时常量池
 
@@ -185,7 +185,7 @@ String str1 = new String("abcd");
 
 ### 5.2 方法区随 JDK 版本的变化
 
-![方法区的变化](https://img-blog.csdn.net/20180807233340374?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1eXV5YW5nNjY4OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![方法区的变化](http://img-blog.csdn.net/20180807233340374?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1eXV5YW5nNjY4OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
 #### JDK 1.7
 

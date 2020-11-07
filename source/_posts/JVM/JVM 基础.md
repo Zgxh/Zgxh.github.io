@@ -16,4 +16,4 @@ mathjax: true
   - 通过类装载子系统来加载数据到运行时数据区
   - 通过字节码执行引擎来执行代码
 
-![image](https://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2C0FE3ED9578470CA9B239DB2558AA9A/8832)
+![image](http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2C0FE3ED9578470CA9B239DB2558AA9A/8832)
