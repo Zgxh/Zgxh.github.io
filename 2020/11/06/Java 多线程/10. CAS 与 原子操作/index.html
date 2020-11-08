@@ -713,23 +713,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="线程组 与 优先级">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
                         
-                        <span class="card-title">线程组 与 优先级</span>
+                        <span class="card-title">线程状态及其转化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
+                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
 
-线程依赖于线程组而存在。
-线程组可以统一控制线程的优先级和检查线程的权限。
-线程组中的线程只允许访问自己所在线
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
                         
                     </div>
                     <div class="publish-info">

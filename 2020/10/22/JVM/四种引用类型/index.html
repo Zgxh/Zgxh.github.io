@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JVM/四种引用类型, Zgxh,">
+    <meta name="keywords" content="Java 四种引用类型, Zgxh,">
     <meta name="description" content="四种引用类型1. 强引用强引用就是最普通的引用方式。
 GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
 Object o = new Object();
@@ -17,7 +17,7 @@ Object o = new Object();
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JVM/四种引用类型 | Zgxh的博客</title>
+    <title>Java 四种引用类型 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,7 +313,7 @@ Object o = new Object();
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JVM/四种引用类型</h1>
+                    <h1 class="description center-align post-title">Java 四种引用类型</h1>
                 </div>
             </div>
         </div>
@@ -428,12 +428,25 @@ Object o = new Object();
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JVM/">
+                                <span class="chip bg-color">JVM</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JVM/" class="post-category">
+                                JVM
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -442,7 +455,7 @@ Object o = new Object();
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-10-22
                 </div>
                 
 
@@ -456,7 +469,7 @@ Object o = new Object();
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    812
+                    831
                 </div>
                 
 
@@ -501,10 +514,13 @@ str <span class="token operator">=</span> null<span class="token punctuation">;<
 <li>如果缓存的对象较大，使用频率较高，使用软引用较好</li>
 <li>如果缓存的对象较小，视频频率较低，使用弱引用较好</li>
 </ul>
-<h2 id="4-虚引用-PhantomReference"><a href="#4-虚引用-PhantomReference" class="headerlink" title="4. 虚引用 PhantomReference"></a>4. 虚引用 PhantomReference</h2><p>虚引用作用在于跟踪垃圾回收过程，在对象被收集器回收时收到一个系统通知。 当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在垃圾回收后，将这个虚引用加入引用队列，在其关联的虚引用出队前，不会彻底销毁该对象。 所以可以通过检查引用队列中是否有相应的虚引用来判断对象是否已经被回收了。</p>
-<p>如果一个对象没有强引用和软引用，对于垃圾回收器而言便是可以被清除的，在清除之前，会调用其finalize方法，如果一个对象已经被调用过finalize方法但是还没有被释放，它就变成了一个虚可达对象。</p>
-<p>使用虚引用的目的就是为了得知对象被GC的时机，所以可以利用虚引用来进行销毁前的一些操作，比如说资源释放等。这个虚引用对于对象而言完全是无感知的，有没有完全一样，但是对于虚引用的使用者而言，就像是待观察的对象的把脉线，可以通过它来观察对象是否已经被回收，从而进行相应的处理。</p>
-<p>事实上，虚引用有一个很重要的用途就是用来做堆外内存的释放，DirectByteBuffer就是通过虚引用来实现堆外内存的释放的。</p>
+<h2 id="4-虚引用-PhantomReference"><a href="#4-虚引用-PhantomReference" class="headerlink" title="4. 虚引用 PhantomReference"></a>4. 虚引用 PhantomReference</h2><p>虚引用作用在于<strong>跟踪垃圾回收过程</strong>，在对象被收集器回收时收到一个系统通知。 当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在垃圾回收后，将这个虚引用加入引用队列，在其关联的虚引用出队前，不会彻底销毁该对象。 所以可以通过检查引用队列中是否有相应的虚引用来判断对象是否已经被回收了。</p>
+<p>如果一个对象没有强引用和软引用，对于垃圾回收器而言便是可以被清除的，在清除之前，会调用其 <code>finalize()</code> 方法，如果一个对象已经被调用过 <code>finalize()</code> 方法但是还没有被释放，它就变成了一个虚可达对象。</p>
+<ul>
+<li><code>finalize()</code> 方法是 <code>Object</code> 类的方法，现在已经不建议被使用。</li>
+</ul>
+<p>使用虚引用的目的就是为了得知对象被 GC 的时机，所以可以利用虚引用来进行销毁前的一些操作，比如说资源释放等。这个虚引用对于对象而言完全是无感知的，有没有完全一样，但是对于虚引用的使用者而言，就像是待观察的对象的把脉线，可以通过它来观察对象是否已经被回收，从而进行相应的处理。</p>
+<p>事实上，虚引用有一个很重要的用途就是用来做堆外内存的释放，<code>DirectByteBuffer</code> 就是通过虚引用来实现堆外内存的释放的。</p>
 
             </div>
             <hr/>
@@ -530,7 +546,7 @@ str <span class="token operator">=</span> null<span class="token punctuation">;<
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/11/08/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">https://Zgxh.github.io/2020/11/08/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/</a>
+                    <a href="https://Zgxh.github.io/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">https://Zgxh.github.io/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -567,7 +583,11 @@ str <span class="token operator">=</span> null<span class="token punctuation">;<
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/JVM/">
+                                    <span class="chip bg-color">JVM</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -606,43 +626,54 @@ str <span class="token operator">=</span> null<span class="token punctuation">;<
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/08/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="JVM/四种引用类型">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
                         
-                        <span class="card-title">JVM/四种引用类型</span>
+                        <span class="card-title">线程状态及其转化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            四种引用类型1. 强引用强引用就是最普通的引用方式。
-GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
-Object o = new Object();
-方法中的局部变量的强引用会在方法退出栈帧后自动销毁引用。
-对于类的
+                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
+
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-08
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yu Yang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -653,30 +684,28 @@ Object o = new Object();
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/07/JVM/%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E4%B8%8E%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">
+                <a href="/2020/09/26/JVM/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="编译与优化">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="垃圾回收机制">
                         
-                        <span class="card-title">编译与优化</span>
+                        <span class="card-title">垃圾回收机制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 逃逸分析逃逸是指一个对象在某个方法中被创建后，会被其他方法或其他线程所引用。
+                            Java 堆内的垃圾回收 GCJVM 垃圾回收 GC
+1. 方法区的垃圾回收方法区的垃圾回收主要针对：废弃的常量和不再使用的类型信息。
 
-方法逃逸：该对象被作为参数传递到其他方法中。
-线程逃逸：该对象被关联到其他线程中可以访问到的实例变量中。
-
-线程逃逸的逃逸程度比方法逃逸更高。
-如果能证明
+废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。
+回收类型信
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
                             </span>
                         <span class="publish-author">
                             
@@ -831,6 +860,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
     <footer class="page-footer bg-color">

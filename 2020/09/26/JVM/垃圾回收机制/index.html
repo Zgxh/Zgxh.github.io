@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="垃圾回收机制, Zgxh,">
     <meta name="description" content="Java 堆内的垃圾回收 GCJVM 垃圾回收 GC
-0. 方法区的垃圾回收方法区的垃圾回收主要针对：废弃的常量和不再使用的类型信息。
+1. 方法区的垃圾回收方法区的垃圾回收主要针对：废弃的常量和不再使用的类型信息。
 
 废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。
 回收类型信">
@@ -469,7 +469,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    2.5k
                 </div>
                 
 
@@ -483,7 +483,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="Java-堆内的垃圾回收-GC"><a href="#Java-堆内的垃圾回收-GC" class="headerlink" title="Java 堆内的垃圾回收 GC"></a>Java 堆内的垃圾回收 GC</h1><h1 id="JVM-垃圾回收-GC"><a href="#JVM-垃圾回收-GC" class="headerlink" title="JVM 垃圾回收 GC"></a>JVM 垃圾回收 GC</h1><p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="堆的GC"></p>
-<h2 id="0-方法区的垃圾回收"><a href="#0-方法区的垃圾回收" class="headerlink" title="0. 方法区的垃圾回收"></a>0. 方法区的垃圾回收</h2><p>方法区的垃圾回收主要针对：<strong>废弃的常量</strong>和<strong>不再使用的类型信息</strong>。</p>
+<h2 id="1-方法区的垃圾回收"><a href="#1-方法区的垃圾回收" class="headerlink" title="1. 方法区的垃圾回收"></a>1. 方法区的垃圾回收</h2><p>方法区的垃圾回收主要针对：<strong>废弃的常量</strong>和<strong>不再使用的类型信息</strong>。</p>
 <ul>
 <li>废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。</li>
 <li>回收类型信息又被称为类型卸载。回收条件比回收常量更苛刻。<ul>
@@ -491,55 +491,64 @@
 </ul>
 </li>
 </ul>
-<h2 id="1-GC-的分类"><a href="#1-GC-的分类" class="headerlink" title="1. GC 的分类"></a>1. GC 的分类</h2><p>垃圾收集 GC 按照被收集的堆内区域，分为 :</p>
+<h2 id="3-新生代-与-老年代"><a href="#3-新生代-与-老年代" class="headerlink" title="3. 新生代 与 老年代"></a>3. 新生代 与 老年代</h2><p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/1DCD0135C74446F3A70E92E6BBAAE7C1/9130" alt=""></p>
+<h3 id="3-1-年轻代"><a href="#3-1-年轻代" class="headerlink" title="3.1 年轻代"></a>3.1 年轻代</h3><p>堆是 GC 的主要场所，年轻代按照容量分为 <strong>Eden : S_0 : S_1 = 8 : 1 : 1</strong>。</p>
 <ul>
-<li><strong>部分收集 Partial GC</strong>：分为新生代收集和老年代收集。<ul>
-<li><strong>新生代收集 Minor GC</strong>：发生在 Eden 区满的时候，<strong>回收范围为 年轻代</strong>。</li>
-<li><strong>老年代收集 Major GC</strong>：只有 CMS 收集器会单独收集老年代。</li>
+<li><strong>Eden 区</strong>：对象新建时，是在 Eden 区分配内存。当 Eden 满时，则触发 Minor GC。</li>
+<li><strong>Survivor 区</strong>：存放在 GC 中生存下来的对象，分为两块 <strong>大小相同</strong> 的空间：<code>S_0</code> 和 <code>S_1</code> ，又被称为 <strong>from 区</strong> 和 <strong>to 区</strong>。</li>
 </ul>
-</li>
-<li><strong>整堆收集 Full GC</strong>： 发生在老年代满的时候，回收范围是<strong>整个 Java 堆和方法区</strong>。<blockquote>
+<blockquote>
+<p>S_0 和 S_1 总有一个是空的，一个是非空的。当 Eden 区容量满的时候，会把 Eden 和那个非空的 Survivor 区(假设是 S_0 )进行 Minor GC ，有引用指向的对象（使用<strong>可达性分析算法</strong>）会被保留下来并复制到另一个空的 S 区(假设是 S_1 )，并且分代年龄（分代年龄存在于对象头中）加一，然后 Eden 和 S_0 中所有垃圾对象都会被回收。如此一来，S_0 和 S_1轮流作为非空的 Survivor 区。<br>担保机制：当回收 Eden 和非空的 survivor 区时，发现另一块空的 survivor 区空间不足以存放所有的存活下来的对象，则需要向老年代借用空间。</p>
 </blockquote>
-</li>
-</ul>
-<h2 id="2-堆内对象的存放"><a href="#2-堆内对象的存放" class="headerlink" title="2. 堆内对象的存放"></a>2. 堆内对象的存放</h2><p>堆内的对象</p>
-<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/4098CB7903B94C2289BC15C32FFE94BF/8890" alt="对象的组成"></p>
-<h2 id="3-堆内的-GC-简介"><a href="#3-堆内的-GC-简介" class="headerlink" title="3. 堆内的 GC 简介"></a>3. 堆内的 GC 简介</h2><p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/1DCD0135C74446F3A70E92E6BBAAE7C1/9130" alt=""></p>
-<h3 id="3-1-Minor-GC-与-年轻代"><a href="#3-1-Minor-GC-与-年轻代" class="headerlink" title="3.1 Minor GC 与 年轻代"></a>3.1 Minor GC 与 年轻代</h3><p>堆是 GC 的主要场所，年轻代按照容量分为 <strong>Eden : S_0 : S_1 = 8 : 1 : 1</strong>。</p>
 <ul>
-<li><strong>Eden 区</strong></li>
-<li><strong>Survivor 区</strong>：存放在 GC 中生存下来的对象，分为两块 <strong>大小相同</strong> 的空间：<ul>
-<li>S_0</li>
-<li>S_1</li>
-</ul>
+<li><p>如果老年区也没有空间了，即不能成功担保，则触发 Full GC，回收新生代+老年代中的所有垃圾对象。</p>
+</li>
+<li><p>如果 Full GC 完毕还是不够，则抛出 <code>OutOfMemory</code> 异常。</p>
 </li>
 </ul>
-<p>S_0 和 S_1 又被称为 <strong>from 区</strong> 和 <strong>to 区</strong>。</p>
+<h3 id="3-2-老年代"><a href="#3-2-老年代" class="headerlink" title="3.2 老年代"></a>3.2 老年代</h3><p>当年轻代中的对象经过多次 GC 后被保留下来的对象，如果其 <strong>分代年龄</strong> 到达老年代的要求，则会被放入老年代。</p>
+<ul>
+<li>新生代中的对象也可以通过一些机制来直接进入老年代。</li>
+</ul>
 <blockquote>
-<p>S_0 和 S_1 总有一个是空的，一个是非空的。当Eden区容量满的时候，会把 Eden 和那个非空的 Survivor 区(假设是 S_0 )进行 Minor GC ，有引用指向的对象（使用<strong>可达性分析算法</strong>）会被保留下来并复制到另一个空的 S 区(假设是 S_1 )，并且分代年龄（分代年龄存在于对象头中）加一，然后 Eden 和 S_0 中所有垃圾对象都会被回收。如此一来，S_0 和 S_1轮流作为非空的 Survivor 区。</p>
+<p>老年代满的时候会发生 <strong>Full gc，回收 老年代 + 年轻代 的所有垃圾对</strong>象，当没有可以被回收的对象时，则发生 <strong>OOM</strong> （OutOfMemory） 异常。</p>
 </blockquote>
-<h4 id="3-1-1-担保机制"><a href="#3-1-1-担保机制" class="headerlink" title="3.1.1 担保机制"></a>3.1.1 担保机制</h4><blockquote>
-<p>当回收 Eden 和非空的 survivor 区时，发现另一块空的 survivor 区空间不足以存放所有的存活下来的对象，则需要向 Old 区借用空间，称为 <strong>担保机制</strong>。</p>
-<p>如果老年区也没有空间了，则触发 Full GC。</p>
-<p>如果 Full GC 完毕还是不够，则抛出 OutOfMemory 异常。</p>
-</blockquote>
-<h3 id="3-2-Full-GC-与-老年代"><a href="#3-2-Full-GC-与-老年代" class="headerlink" title="3.2 Full GC 与 老年代"></a>3.2 Full GC 与 老年代</h3><p><strong>老年代</strong>：当年轻代中的对象经过多次 GC 后被保留下来的对象，如果其 <strong>分代年龄</strong> 到达老年代的要求，则会被放入老年代。</p>
-<blockquote>
-<p>老年代满的时候会发生 <strong>full gc，回收 老年代 + 年轻代 的所有垃圾对</strong>象，当没有可以被回收的对象时，则发生 <strong>OOM</strong> （outOfMemory） 异常。</p>
-</blockquote>
-<h2 id="4-对象何时进入老年代"><a href="#4-对象何时进入老年代" class="headerlink" title="4. 对象何时进入老年代"></a>4. 对象何时进入老年代</h2><h4 id="4-1-大对象可以直接进入老年代"><a href="#4-1-大对象可以直接进入老年代" class="headerlink" title="4.1 大对象可以直接进入老年代"></a>4.1 大对象可以直接进入老年代</h4><p>这里的大对象指的是需要大量连续内存的对象，比如字符串和数组。可以设置大对象的大小阈值，超过阈值就会直接进入老年代。<br>这个机制的<strong>目的是为了避免为大对象分配内存是的赋值操作而降低效率</strong>。</p>
-<h4 id="4-2-长期存活的对象可以直接进入老年代"><a href="#4-2-长期存活的对象可以直接进入老年代" class="headerlink" title="4.2 长期存活的对象可以直接进入老年代"></a>4.2 长期存活的对象可以直接进入老年代</h4><p>虚拟机通过分代收集的思想来管理内存，给每个对象分配一个对象年龄计数器 Age。</p>
+<h2 id="4-对象何时进入老年代"><a href="#4-对象何时进入老年代" class="headerlink" title="4. 对象何时进入老年代"></a>4. 对象何时进入老年代</h2><h4 id="4-1-大对象直接进入老年代"><a href="#4-1-大对象直接进入老年代" class="headerlink" title="4.1 大对象直接进入老年代"></a>4.1 大对象直接进入老年代</h4><p>大对象指的是需要大量连续内存的对象，比如<strong>字符串</strong>和<strong>数组</strong>。</p>
+<p>可以设置大对象的大小阈值，超过阈值就会直接进入老年代。</p>
+<ul>
+<li>JVM 中设置该阈值：<code>-XX:PretenureSizeThreshold</code>。</li>
+</ul>
+<p>该机制的<strong>目的</strong>是为了避免大对象在 Eden 区与 Survivor 区之间来回复制，从而产生大量的内存复制操作。</p>
+<h4 id="4-2-长期存活的对象可以直接进入老年代"><a href="#4-2-长期存活的对象可以直接进入老年代" class="headerlink" title="4.2 长期存活的对象可以直接进入老年代"></a>4.2 长期存活的对象可以直接进入老年代</h4><p>虚拟机通过分代收集的思想来管理内存，给每个对象分配一个对象<strong>年龄计数器 Age</strong>，储存在<strong>对象头</strong>中。</p>
 <ul>
 <li>当对象在 Eden 出生，经过了第一次 Minor GC，存活下来后若能被 Survivor 容纳，则移动到 Survivor 区，并将对象年龄设置为 1。</li>
 <li>对象每次在 Minor GC 中存活下来，年龄就增长 1。</li>
-<li>当年龄增长到阈值后被放入老年代。可以通过 <code>-XX:MaxTenuringThreshold</code> 来改变这个阈值。</li>
+<li>当年龄增长到阈值后（默认为 15）被放入老年代。可以通过 <code>-XX:MaxTenuringThreshold</code> 来改变这个阈值。</li>
 </ul>
-<h4 id="4-3-对象动态年龄判断机制"><a href="#4-3-对象动态年龄判断机制" class="headerlink" title="4.3 对象动态年龄判断机制"></a>4.3 对象动态年龄判断机制</h4><p>在那块非空的 Survivor 区，若<strong>一批对象的总大小</strong>超过了该区内存的 50%, 则此时大于等于该批对象中最大年龄的对象，可以直接进入老年代。</p>
+<p><strong><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/4098CB7903B94C2289BC15C32FFE94BF/8890" alt="对象的组成"></strong></p>
+<h4 id="4-3-对象动态年龄判断机制"><a href="#4-3-对象动态年龄判断机制" class="headerlink" title="4.3 对象动态年龄判断机制"></a>4.3 对象动态年龄判断机制</h4><p>在那块非空的 Survivor 区，若某批对象的<strong>总大小</strong>超过了该区内存的 50%，则此时 Survivor 区中，大于等于该批对象中最大年龄的对象，可以直接进入老年代。</p>
 <ul>
 <li>该机制是为了让那些可能会长期存活的对象提前进入老年代。</li>
 <li>该机制的触发一般是在 Minor GC 之后。</li>
 <li>内存阈值可以调整：<code>-XX:TargetSurvivorRatio</code></li>
 </ul>
+<h4 id="4-4-空间分配的担保机制"><a href="#4-4-空间分配的担保机制" class="headerlink" title="4.4 空间分配的担保机制"></a>4.4 空间分配的担保机制</h4><p>担保机制是指当发生 Minor GC 时，另一块 Survivor 区不足以存放所有的新生代存活下来的对象，因此新生代中的对象会提前进入老年代，称为<strong>担保机制</strong>。</p>
+<p>在年轻代发生 Minor GC 之前，JVM 会检查老年代中的最大可用的连续空间是否大于新生代中所有对象的总空间，因为最坏的情况下所有新生代对象都会存活下来：</p>
+<ul>
+<li>如果大于，则 JVM 认为该次 Minor GC 是安全的。可以正常进行 Minor GC。</li>
+<li>如果小于，则判断 <code>-XX:HandlePromotionFailure</code> 参数是否允许担保失败：<ul>
+<li>如果不允许担保失败，则直接进行 Full GC，回收新生代与老年代中的垃圾对象。</li>
+<li>如果允许担保失败，则检查老年代中的最大可用的连续空间是否大于历史晋升到老年代中的对象的平均大小：<ul>
+<li>如果大于，则承担此次担保失败的风险，并进行 Minor GC；</li>
+<li>如果小于，则认为一定会失败，直接进行 Full GC。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>JDK 1.6 之后，<strong>默认允许担保</strong>，即 <code>-XX:HandlePromotionFailure</code> 参数失效，直接判断老年代中的最大可用的连续空间是否大于新生代中所有对象的总空间或者历史晋升到老年代中的对象的平均大小，如果可行就尝试进行 Minor GC，否则直接进行 Full GC。</p>
+</blockquote>
 <hr>
 <h2 id="5-如何判断对象已死"><a href="#5-如何判断对象已死" class="headerlink" title="5. 如何判断对象已死"></a>5. 如何判断对象已死</h2><p>判断一个对象是否还存活可以采用：</p>
 <ol>
@@ -578,8 +587,7 @@
 <ul>
 <li>Full GC 会导致 STW 时间更长，因此 JVM 调优就要减少 full GC 的次数。</li>
 </ul>
-<p>Stop the World 的原因:</p>
-<ol>
+<h5 id="Stop-the-World-的原因"><a href="#Stop-the-World-的原因" class="headerlink" title="Stop the World 的原因"></a>Stop the World 的原因</h5><ol>
 <li>为了判断垃圾对象：在利用可达性分析算法来判断对象是否存活时，为了防止对象的引用关系发生变化，从而避免堆中对象的 GC 标记（是否为垃圾对象）发生变化。</li>
 <li>为了整理内存碎片：垃圾回收后，存活的对象需要被复制或移动到其他内存，并更新引用地址，这是一个负重的操作。</li>
 </ol>
@@ -714,36 +722,35 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                <a href="/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Java 四种引用类型">
                         
-                        <span class="card-title">线程状态及其转化</span>
+                        <span class="card-title">Java 四种引用类型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
-Java 线程状态转化图：
-
-3.1 Java 线程的 6 个状态Thread.State 源码:
-public enum State {
-    NEW,         
+                            四种引用类型1. 强引用强引用就是最普通的引用方式。
+GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
+Object o = new Object();
+方法中的局部变量的强引用会在方法退出栈帧后自动销毁引用。
+对于类的
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    多线程与并发
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -753,8 +760,8 @@ public enum State {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                        <span class="chip bg-color">多线程与并发</span>
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
                     </a>
                     
                 </div>
