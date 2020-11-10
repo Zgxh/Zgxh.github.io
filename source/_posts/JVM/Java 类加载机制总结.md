@@ -40,12 +40,12 @@ ClassFile {
     u2             constant_pool_count;	// 常量池数量
     cp_info        constant_pool[constant_pool_count-1];// 常量池信息
     u2             access_flags;				// 访问标志：标识类或接口的访问级信息
-    u2             this_class;//类索引
-    u2             super_class;//父类索引
+    u2             this_class;// 类索引
+    u2             super_class;// 父类索引
     u2             interfaces_count;//接口数(2位，所以一个类最多65535个接口)
     u2             interfaces[interfaces_count];//接口索引 
     u2             fields_count;//字段数
-    field_info     fields[fields_count];//字段表集合 
+    field_info     fields[fields_count];		// 字段表集合：描述接口或类中的变量，包括类变量和实例变量
     u2             methods_count;//方法数
     method_info    methods[methods_count];//方法集合
     u2             attributes_count;//属性数
@@ -56,15 +56,18 @@ ClassFile {
 
 ### 1.2 静态常量池
 
-查看 class 文件常量池：
+常量池中存放两大类变量：**字面量** Literal 和 **符号引用** Symbolic Reference。
 
-```
+- 字面量：文本字符串、final 常量等。
+- 符号引用：包信息、类和接口的全限定名、字段的名称与描述符、方法的名称与描述符、方法句柄和方法类型、动态调用点和动态常量。
+
+在 Class 文件中不会保存各个方法、字段的最终内存布局信息，因此这些字段、方法的符号引用不经过运行期转换的话无法得到真正的内存入口地址，也就无法直接被虚拟机使用。当虚拟机运行时，需要从常量池获得对应的符号引用，再在类创建时或运行时解析、翻译到具体的内存地址之中。
+
+使用命令行查看 class 文件常量池：
+
+```shell
 javap -v 文件名.class
 ```
-
-class 文件常量池是 class 文件中的资源仓库，保存了开发者定义的各种常量，用于之后在运行期使用。
-- 在Class文件中不会保存各个方法、字段的最终内存布局信息，因此这些字段、方法的符号引用不经过运行期转换的话无法得到真正的内存入口地址，也就无法直接被虚拟机使用。
-- 当虚拟机运行时，需要从常量池获得对应的符号引用，再在类创建时或运行时解析、翻译到具体的内存地址之中。
 
 ## 2. 类加载机制
 
