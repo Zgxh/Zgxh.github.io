@@ -392,23 +392,25 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CAS 与 原子操作">
                             
-                            <span class="card-title">进程与线程</span>
+                            <span class="card-title">CAS 与 原子操作</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                0. 进程与线程进程是应用程序在内存中分配的空间，也就是正在运行的程序。各个进程之间互不干扰，进程保存着程序的每个时刻的运行状态。
-线程是进程的子任务，每个进程可以包含多个线程，每个线程单独负责一个子任务。
-0.1 进程与线程的区别
-进程是
+                                10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
+
+要么全部成功，要么全部失败。
+原子操作能保证线程安全性。
+
+10.1.1 Java 中的原子类java.util.c
                             
                         </div>
                         <div class="publish-info">
@@ -442,7 +444,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/12.%20%E5%B9%B6%E5%8F%91%E7%9A%84%E6%B5%81/">
                         <div class="card-image">
                             
                             
@@ -455,12 +457,57 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
+                                
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-要么全部成功，要么全部失败。
-原子操作能保证线程安全性。
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">多线程与并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
+                            
+                            <span class="card-title">进程与线程</span>
+                        </div>
+                    </a>
 
-10.1.1 Java 中的原子类java.util.c
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                0. 进程与线程进程是应用程序在内存中分配的空间，也就是正在运行的程序。各个进程之间互不干扰，进程保存着程序的每个时刻的运行状态。
+线程是进程的子任务，每个进程可以包含多个线程，每个线程单独负责一个子任务。
+0.1 进程与线程的区别
+进程是
                             
                         </div>
                         <div class="publish-info">
@@ -515,6 +562,58 @@
 
 其中前两种比较常见。
 1
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">多线程与并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
+                            
+                            <span class="card-title">线程状态及其转化</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
+
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
                             
                         </div>
                         <div class="publish-info">
@@ -616,53 +715,6 @@ Object o = new Object();
 1. JVM 运行时数据结构详情看 [JVM 内存结构总结]。
 2. 方法调用方法调用是指确定方法的版本，不涉及方法内部的执行过程。
 一切
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/JVM/">
-                            <span class="chip bg-color">JVM</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/09/26/JVM/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java 类加载机制">
-                            
-                            <span class="card-title">Java 类加载机制</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Java 类加载机制总结类加载是把字节码 .class 文件加载到内存里，从而生成对应类的 Class 对象，同一个类只有一个 Class 对象。当该类需要被实例化的时候，即用 new 关键字来创建对象时，JVM 会去获取该 Class 对
                             
                         </div>
                         <div class="publish-info">
@@ -824,57 +876,6 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
 
 
 
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/JVM/">
-                            <span class="chip bg-color">JVM</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/09/26/JVM/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="堆中的对象内存分布">
-                            
-                            <span class="card-title">堆中的对象内存分布</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
-
-    private Object obj1 = new Object();
-
-    public static void ma
                             
                         </div>
                         <div class="publish-info">
