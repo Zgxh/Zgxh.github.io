@@ -465,7 +465,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-11-10
                 </div>
                 
 
@@ -676,28 +676,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="内存模型 JMM">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CAS 与 原子操作">
                         
-                        <span class="card-title">内存模型 JMM</span>
+                        <span class="card-title">CAS 与 原子操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
+                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
 
-消息传递并发模型
-共享内存并发模型
+要么全部成功，要么全部失败。
+原子操作能保证线程安全性。
 
-
-Java 中，采用的是第二种：共享内存并发模型
-6.2 JVM 运行时数据区
-
-方法区 和 堆，
+10.1.1 Java 中的原子类java.util.c
                         
                     </div>
                     <div class="publish-info">
@@ -734,36 +730,35 @@ Java 中，采用的是第二种：共享内存并发模型
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
+                <a href="/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CAS 与 原子操作">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Java 四种引用类型">
                         
-                        <span class="card-title">CAS 与 原子操作</span>
+                        <span class="card-title">Java 四种引用类型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
-
-要么全部成功，要么全部失败。
-原子操作能保证线程安全性。
-
-10.1.1 Java 中的原子类java.util.c
+                            四种引用类型1. 强引用强引用就是最普通的引用方式。
+GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
+Object o = new Object();
+方法中的局部变量的强引用会在方法退出栈帧后自动销毁引用。
+对于类的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    多线程与并发
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -773,8 +768,8 @@ Java 中，采用的是第二种：共享内存并发模型
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                        <span class="chip bg-color">多线程与并发</span>
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
                     </a>
                     
                 </div>

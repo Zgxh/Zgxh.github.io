@@ -462,14 +462,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-11-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    611
+                    722
                 </div>
                 
 
@@ -514,6 +514,11 @@
 <li>该优先级只是给操作系统一个<strong>参考值</strong>，最终优先级决定权在于 操作系统，依赖于具体的线程调度算法。</li>
 <li>默认线程优先级为 <code>5</code>。</li>
 <li><code>Thread</code> 类的实例方法 <code>setPriority(优先级)</code> 方法来设置优先级。</li>
+</ul>
+<p>线程调度可以通过设置线程的优先级来给操作系统建议，但是线程调度最终还是操作系统决定。Java 中线程优先级有十种。</p>
+<ul>
+<li>操作系统的优先级数目可能比 Java 少，如 Windows 中就只有 7 种，所以 Java 中不同的优先级可能对应到相同的操作系统优先级。</li>
+<li>优先级可能会被系统自动改变。</li>
 </ul>
 <h4 id="2-2-1-线程调度器"><a href="#2-2-1-线程调度器" class="headerlink" title="2.2.1 线程调度器"></a>2.2.1 线程调度器</h4><p><strong>Java 线程调度器</strong>来监视和控制处于 Runnable 状态的线程。</p>
 <p>线程的调度策略采用 <strong>抢占式</strong>。</p>
@@ -644,22 +649,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/7.%20%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%20%E4%B8%8E%20happens-before/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="指令重排 与 happens-before">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
                         
-                        <span class="card-title">指令重排 与 happens-before</span>
+                        <span class="card-title">线程状态及其转化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            7. 指令重排 与 happens-before指令重排可以在 CPU 闲置（等待变量装载等）时，先执行其他指令，提高性能。分为：
+                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
 
-编译器优化重排：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
-指令并行重排：现代处理
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
                         
                     </div>
                     <div class="publish-info">

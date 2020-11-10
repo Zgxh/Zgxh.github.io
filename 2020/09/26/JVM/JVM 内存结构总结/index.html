@@ -463,7 +463,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-11-10
                 </div>
                 
 
@@ -511,10 +511,11 @@
 <li>使用 <code>-Xss</code> 设置栈大小，通常几百K就够用了。由于栈是线程私有的，线程数越多，占用栈空间越大。</li>
 </ul>
 <p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/D724E9EB4C4A4BD4ABC5E3DCA1DCF0D5/8856" alt="image"></p>
-<h3 id="2-1-局部变量表"><a href="#2-1-局部变量表" class="headerlink" title="2.1 局部变量表"></a>2.1 局部变量表</h3><p>局部变量表用于储存变量：包括 <strong>方法参数</strong> 和 <strong>方法内定义的局部变量</strong>：</p>
+<h3 id="2-1-局部变量表"><a href="#2-1-局部变量表" class="headerlink" title="2.1 局部变量表"></a>2.1 局部变量表</h3><p>局部变量表用于储存：</p>
 <ul>
-<li><strong>基本数据类型</strong></li>
-<li><strong>对象引用</strong>（包括 <strong>方法参数</strong> 和 <strong>局部变量</strong>）</li>
+<li><strong>基本数据类型</strong>（boolean, byte, char, int, long, float, double）</li>
+<li><strong>对象引用</strong>（包括 <strong>方法参数</strong> 和 <strong>局部变量</strong>）:可以是直接地址指针，或者句柄</li>
+<li><strong>returnAddress 类型</strong>（指向一条字节码指令的地址）</li>
 </ul>
 <h4 id="2-1-1-变量槽-Variable-Slot"><a href="#2-1-1-变量槽-Variable-Slot" class="headerlink" title="2.1.1 变量槽 Variable Slot"></a>2.1.1 变量槽 Variable Slot</h4><p>局部变量表的最小单位是 <strong>变量槽（Variable Slot）</strong>，每个变量槽 32 位（4字节）。</p>
 <ul>

@@ -461,14 +461,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-11-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    576
+                    1.2k
                 </div>
                 
 
@@ -497,6 +497,37 @@
 <p>CPU 为某个线程分配 CPU 时间片来实现多线程机制，CPU 通过时间片分配算法来循环执行任务，当前任务执行一个时间片后会切换到下一个任务。</p>
 <ul>
 <li>在任务切换前会保存上一个任务的运行状态，该任务从保存到加载的过程就是一次上下文切换。</li>
+</ul>
+<h3 id="0-3-线程的实现"><a href="#0-3-线程的实现" class="headerlink" title="0.3 线程的实现"></a>0.3 线程的实现</h3><p>线程的 3 种实现方式：</p>
+<ul>
+<li>直接使用内核线程 1:1 实现</li>
+<li>使用用户线程 1：N实现</li>
+<li>使用用户线程+轻量级线程混合实现 N:M实现</li>
+</ul>
+<h4 id="0-3-1-内核线程实现"><a href="#0-3-1-内核线程实现" class="headerlink" title="0.3.1 内核线程实现"></a>0.3.1 内核线程实现</h4><p>内核线程直接由操作系统内核来支持，并由内核来完成线程切换，内核通过操作调度器对线程进行调度，并将线程映射到处理器上。</p>
+<p>内核线程的升级版是轻量级进程，每个轻量级进程对应一个内核线程。1:1的对应关系。</p>
+<p><strong>缺点</strong>是：</p>
+<ul>
+<li>线程操作需要进行系统调用，代价高，需要在用户态和内核态之间来回切换。切换的主要成本在于响应中断、保护和恢复现场。</li>
+<li>要占用内核资源，如内核线程的栈空间，从而限制了线程数量。</li>
+</ul>
+<h4 id="0-3-2-用户线程实现"><a href="#0-3-2-用户线程实现" class="headerlink" title="0.3.2 用户线程实现"></a>0.3.2 用户线程实现</h4><p>用户线程指完全建立在用户空间的线程库上，内核不能感知用户线程的存在及具体实现。</p>
+<ul>
+<li>用户线程的建立、同步、销毁、调度完全在用户态进行，不需要内核的帮助。</li>
+<li>快速、高效，支持大规模。</li>
+</ul>
+<h4 id="0-3-3-混合实现"><a href="#0-3-3-混合实现" class="headerlink" title="0.3.3 混合实现"></a>0.3.3 混合实现</h4><p>既存在轻量级线程，又存在用户线程。轻量级线程作为用户线程和内核线程之间的桥梁，用户线程的系统调用要通过轻量级进程来实现。</p>
+<h4 id="0-3-4-Java-中的线程实现"><a href="#0-3-4-Java-中的线程实现" class="headerlink" title="0.3.4 Java 中的线程实现"></a>0.3.4 Java 中的线程实现</h4><p>主流 JVM 采用直接把 Java 线程<strong>一对一</strong>映射到操作系统的原生线程，中间没有额外的间接结构，底层完全由操作系统来解决。也有少数的 JVM 采用其他两种线程的实现方式。</p>
+<h3 id="0-4-Java-线程调度"><a href="#0-4-Java-线程调度" class="headerlink" title="0.4 Java 线程调度"></a>0.4 Java 线程调度</h3><p>线程调度有两种方式：</p>
+<ol>
+<li>协同式调度 Cooperative Threads-Scheduling</li>
+<li>抢占式调度 Preemptive Threads-Scheduling</li>
+</ol>
+<p>Java 中使用的是<strong>抢占式调度</strong>。</p>
+<p>线程调度可以通过设置线程的优先级来给操作系统建议，Java 中线程优先级有十种。但是<strong>线程调度最终还是操作系统决定</strong>。因为：</p>
+<ul>
+<li>操作系统的优先级数目可能比 Java 中的线程优先级数目少，如 Windows 中就只有 7 种，所以 Java 中不同的优先级可能对应到相同的操作系统优先级。</li>
+<li>优先级可能会被系统自动改变。</li>
 </ul>
 
             </div>
@@ -660,28 +691,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="内存模型 JMM">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CAS 与 原子操作">
                         
-                        <span class="card-title">内存模型 JMM</span>
+                        <span class="card-title">CAS 与 原子操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
+                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
 
-消息传递并发模型
-共享内存并发模型
+要么全部成功，要么全部失败。
+原子操作能保证线程安全性。
 
-
-Java 中，采用的是第二种：共享内存并发模型
-6.2 JVM 运行时数据区
-
-方法区 和 堆，
+10.1.1 Java 中的原子类java.util.c
                         
                     </div>
                     <div class="publish-info">

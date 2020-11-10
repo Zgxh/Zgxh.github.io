@@ -462,7 +462,7 @@ Object o = new Object();
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-11-10
                 </div>
                 
 
@@ -630,24 +630,26 @@ str <span class="token operator">=</span> null<span class="token punctuation">;<
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/1.%20Java%20%E4%B8%AD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="线程状态及其转化">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Java 中多线程的实现">
                         
-                        <span class="card-title">线程状态及其转化</span>
+                        <span class="card-title">Java 中多线程的实现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
-Java 线程状态转化图：
+                            1. Java 中多线程的实现主要有三种方案：
 
-3.1 Java 线程的 6 个状态Thread.State 源码:
-public enum State {
-    NEW,         
+继承 Thread 类，并重写 run() 方法
+实现 Runnable 接口，并重写 run() 方法
+实现 Callable 接口，并重写 call() 方法
+
+其中前两种比较常见。
+1
                         
                     </div>
                     <div class="publish-info">
@@ -684,23 +686,22 @@ public enum State {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/26/JVM/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+                <a href="/2020/09/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="垃圾回收机制">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="字节码执行引擎">
                         
-                        <span class="card-title">垃圾回收机制</span>
+                        <span class="card-title">字节码执行引擎</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 堆内的垃圾回收 GCJVM 垃圾回收 GC
-1. 方法区的垃圾回收方法区的垃圾回收主要针对：废弃的常量和不再使用的类型信息。
-
-废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。
-回收类型信
+                            JVM 字节码执行引擎JVM 输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
+1. JVM 运行时数据结构详情看 [JVM 内存结构总结]。
+2. 方法调用方法调用是指确定方法的版本，不涉及方法内部的执行过程。
+一切
                         
                     </div>
                     <div class="publish-info">

@@ -465,7 +465,7 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-11-10
                 </div>
                 
 
@@ -699,25 +699,22 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/11.%20AQS/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/4.%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="AQS 抽象类">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="线程间通信">
                         
-                        <span class="card-title">AQS 抽象类</span>
+                        <span class="card-title">线程间通信</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            11. AQSAQS，AbstractQueuedSynchronizer，抽象队列同步器，是一个抽象类。
-
-是用来构建锁和同步器的框架。基于 AQS 实现的锁:
-ReentrantLock
-ReentrantReadWriteLock
-
-
+                            4. 线程间通信4.1 锁与同步JAVA 中的锁都是对象锁，是基于对象的。
+4.1.1 线程同步线程同步是指约束线程按照一定的顺序执行。
+线程同步可以通过锁 synchronized 来实现:
+public class ObjectLock
                         
                     </div>
                     <div class="publish-info">
@@ -754,19 +751,20 @@ ReentrantReadWriteLock
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/ReentrantLock%20%E4%B8%8E%20synchronized/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="ReentrantLock 与 synchronized">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 关键字">
                         
-                        <span class="card-title">ReentrantLock 与 synchronized</span>
+                        <span class="card-title">volatile 关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ReentrantLock 与 synchronized1. synchronized 与 ReentrantLock 的对比synchronized 与 ReentrantLock 都具备线程重入性，但 synchronized 表现为原
+                            8. volatile8.0 为什么存在内存可见性问题 -&gt; 缓存一致性问题可见性是指某线程修改了一个变量的值，新值对于其他线程是立即可见的。
+为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操
                         
                     </div>
                     <div class="publish-info">

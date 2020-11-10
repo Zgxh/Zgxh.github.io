@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-08
+                    2020-11-10
                 </div>
                 
 
@@ -701,21 +701,28 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 关键字">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="内存模型 JMM">
                         
-                        <span class="card-title">volatile 关键字</span>
+                        <span class="card-title">内存模型 JMM</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            8. volatile8.0 为什么存在内存可见性问题为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操作完并并不一定实时写回内存。volatile 关键字能解决这个问题。
+                            6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
 
-8.1 volatile
+消息传递并发模型
+共享内存并发模型
+
+
+Java 中，采用的是第二种：共享内存并发模型
+6.2 JVM 运行时数据区
+
+方法区 和 堆，
                         
                     </div>
                     <div class="publish-info">
