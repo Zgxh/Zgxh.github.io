@@ -561,20 +561,29 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/11.%20%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88/">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CAS 与 原子操作">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="6.内存模型 JMM">
                             
-                            <span class="card-title">CAS 与 原子操作</span>
+                            <span class="card-title">6.内存模型 JMM</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                
+                                6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
+
+消息传递并发模型
+共享内存并发模型
+
+
+Java 中，采用的是第二种：共享内存并发模型
+6.2 JVM 运行时数据区
+
+方法区 和 堆，
                             
                         </div>
                         <div class="publish-info">
@@ -612,9 +621,9 @@
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Java 对象锁">
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
                             
-                            <span class="card-title">Java 对象锁</span>
+                            <span class="card-title">9.Java 对象锁</span>
                         </div>
                     </a>
 
@@ -663,9 +672,9 @@
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="线程间通信">
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="4.线程间通信">
                             
-                            <span class="card-title">线程间通信</span>
+                            <span class="card-title">4.线程间通信</span>
                         </div>
                     </a>
 
@@ -767,9 +776,9 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 关键字">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="8.volatile 关键字">
                             
-                            <span class="card-title">volatile 关键字</span>
+                            <span class="card-title">8.volatile 关键字</span>
                         </div>
                     </a>
 
@@ -815,9 +824,9 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="指令重排 与 happens-before">
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="7.指令重排 与 happens-before">
                             
-                            <span class="card-title">指令重排 与 happens-before</span>
+                            <span class="card-title">7.指令重排 与 happens-before</span>
                         </div>
                     </a>
 
@@ -828,62 +837,6 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
 
 编译器优化重排：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
 指令并行重排：现代处理
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    多线程与并发
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                            <span class="chip bg-color">多线程与并发</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="内存模型 JMM">
-                            
-                            <span class="card-title">内存模型 JMM</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
-
-消息传递并发模型
-共享内存并发模型
-
-
-Java 中，采用的是第二种：共享内存并发模型
-6.2 JVM 运行时数据区
-
-方法区 和 堆，
                             
                         </div>
                         <div class="publish-info">
@@ -968,13 +921,65 @@ Java 中的并发包： java.util.concurrent , 又叫 JUC。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="3.线程状态及其转化">
+                            
+                            <span class="card-title">3.线程状态及其转化</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
+
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">多线程与并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="线程组 与 优先级">
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2.线程组 与 优先级">
                             
-                            <span class="card-title">线程组 与 优先级</span>
+                            <span class="card-title">2.线程组 与 优先级</span>
                         </div>
                     </a>
 

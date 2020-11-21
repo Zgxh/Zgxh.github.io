@@ -7,10 +7,9 @@
     <meta name="keywords" content="JVM 内存结构, Zgxh,">
     <meta name="description" content="JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
 
-
 1. 程序计数器 Program Counter
 线程私有，是当前线程的字节码行号指示器。
-如果线程执行 Java 方法，指示字节码指令的地">
+如果线程执行 Java 方法，指示字节码指令的地址">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -463,14 +462,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-10
+                    2020-11-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    3.1k
                 </div>
                 
 
@@ -484,8 +483,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="JVM内存区域划分"><a href="#JVM内存区域划分" class="headerlink" title="JVM内存区域划分"></a>JVM内存区域划分</h2><p>JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。</p>
-<img src="http://upload-images.jianshu.io/upload_images/2179030-f81a3bf0df216749.png?imageMogr2/auto-orient/strip|imageView2/2/w/813/format/webp" alt="JVM内存结构" style="zoom:67%;" />
-
+<p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/C4F20F70EE974588BDA971F1D97162AB/18114" alt="JVM内存布局"></p>
 <h2 id="1-程序计数器-Program-Counter"><a href="#1-程序计数器-Program-Counter" class="headerlink" title="1. 程序计数器 Program Counter"></a>1. 程序计数器 Program Counter</h2><ul>
 <li>线程私有，是<strong>当前线程</strong>的字节码行号指示器。<ul>
 <li>如果线程执行 Java 方法，指示字节码指令的地址（行号指示器）；</li>
@@ -590,20 +588,18 @@
 <h2 id="5-方法区-Method-Area-（元空间-Meta-Space）"><a href="#5-方法区-Method-Area-（元空间-Meta-Space）" class="headerlink" title="5. 方法区 Method Area （元空间 Meta Space）"></a>5. 方法区 Method Area （元空间 Meta Space）</h2><ul>
 <li>存放已被虚拟机加载的 <strong>类信息</strong>、<strong>常量</strong>、<strong>static变量</strong>、*<em>即时编译后的代码 *</em>等。<ul>
 <li>存放每个类的结构信息</li>
-<li>类属性</li>
+<li>类属性，这里的常量应该是 <code>static final</code> 类常量</li>
 <li>类的方法</li>
 <li>方法和类的构造函数的代码（包括类实例在初始化、接口初始化中使用的特殊方法）</li>
 </ul>
 </li>
 <li><strong>线程共享</strong>。</li>
-<li><strong>运行时常量池</strong>是方法区的一部分。</li>
 <li>在 JDK 1.7 及以前，方法区是堆的一个<strong>逻辑部分</strong>；为了与堆区分，被称为“非堆”或“<strong>永久代</strong>”。JDK 1.8 时，把方法区改名为元空间，直接占用本地内存。</li>
 </ul>
-<img src="http://images2018.cnblogs.com/blog/1425453/201808/1425453-20180801203110267-64138529.png" alt="方法区组成a" style="zoom:70%;" />
-
-<h3 id="5-1-运行时常量池"><a href="#5-1-运行时常量池" class="headerlink" title="5.1 运行时常量池"></a>5.1 运行时常量池</h3><ul>
+<h3 id="5-1-运行时常量池"><a href="#5-1-运行时常量池" class="headerlink" title="5.1 运行时常量池"></a>5.1 运行时常量池</h3><p><strong>运行时常量池</strong>的概念是相对于静态常量池（class文件常量池）的，因为在运行时常量也会增加。运行时常量池是方法区的一部分，类加载时 class 文件常量池会被加载到 运行时常量池中。</p>
+<ul>
 <li>运行时常量池是<strong>线程共享</strong>的。</li>
-<li>存储 Java class文件常量池中的<strong>符号信息</strong>。在类加载时，第一步是“<strong>加载 Loading</strong>”，包括三步,其中，<strong>第（2）步</strong>中就包含了 <strong>class文件常量池</strong> 进入 <strong>运行时常量池</strong> 的过程。：<ol>
+<li>存储 Java class文件常量池中的<strong>符号信息</strong>。在类加载时，第一步是“<strong>加载 Loading</strong>”，包括三步,其中，<strong>第（2）步</strong>中就包含了.class文件中的 <strong>class文件常量池</strong> 进入 <strong>运行时常量池</strong> 的过程。：<ol>
 <li>通过类全限定名来获取二进制字节流；</li>
 <li>把字节流所代表的<strong>静态存储结构</strong>转化为方法区的<strong>运行时数据结构</strong>；</li>
 <li>方法区中生成类对应的 Class 对象，作为该类的各种数据访问入口。</li>
@@ -651,11 +647,11 @@ String str1 <span class="token operator">=</span> <span class="token keyword">ne
 <li>-XX:MetaspaceSize</li>
 <li>-XX:MaxMetaspaceSize</li>
 </ul>
-<h2 id="6-栈、堆、方法区的指向关系"><a href="#6-栈、堆、方法区的指向关系" class="headerlink" title="6. 栈、堆、方法区的指向关系"></a>6. 栈、堆、方法区的指向关系</h2><h3 id="6-1-栈指向堆"><a href="#6-1-栈指向堆" class="headerlink" title="6.1 栈指向堆"></a>6.1 栈指向堆</h3><p>当方法中new变量时，会在堆中新建对象，然后返回对象引用给栈帧中的局部变量表</p>
+<h2 id="6-栈、堆、方法区的指向关系"><a href="#6-栈、堆、方法区的指向关系" class="headerlink" title="6. 栈、堆、方法区的指向关系"></a>6. 栈、堆、方法区的指向关系</h2><h3 id="6-1-栈指向堆"><a href="#6-1-栈指向堆" class="headerlink" title="6.1 栈指向堆"></a>6.1 栈指向堆</h3><p>当方法中 <code>new</code> 变量时，会在堆中新建对象，然后返回对象引用给栈帧中的局部变量表</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     Object A <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="6-2-方法区指向堆"><a href="#6-2-方法区指向堆" class="headerlink" title="6.2 方法区指向堆"></a>6.2 方法区指向堆</h3><p>方法区中存放类变量（static）、常量等。</p>
+<h3 id="6-2-方法区指向堆"><a href="#6-2-方法区指向堆" class="headerlink" title="6.2 方法区指向堆"></a>6.2 方法区指向堆</h3><p>方法区中存放类变量（<code>static</code>）、常量等。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Object A <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="6-3-堆指向方法区"><a href="#6-3-堆指向方法区" class="headerlink" title="6.3 堆指向方法区"></a>6.3 堆指向方法区</h3><p>堆中的对象想要拿到类信息，需要从对象头指向方法区中的类信息。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/rongtaoup/article/details/89142396" target="_blank" rel="noopener">一文搞懂JVM内存结构</a></p>
