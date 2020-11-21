@@ -247,7 +247,6 @@ Object[] arr = new Object[10];
 2. 通过子类访问父类的**静态域**时，只有父类会被初始化（即真正声明这个域的类）。
 3. 引用常量不会导致类的初始化，因为常量在编译期就被加入了常量池。
 
-
 ## Reference
 
 [虚拟机类加载机制 深入理解Java虚拟机总结](https://www.jianshu.com/p/20f902788988)
@@ -261,3 +260,5 @@ Object[] arr = new Object[10];
 [深入理解JVM内存分配和常量池](https://www.cnblogs.com/zzuli/p/9403928.html)
 
 [ZhouJ00 Blog-类变量和类方法解析](https://zhouj000.github.io/2019/03/27/java-base-jvm6/)
+
+《深入理解 Java 虚拟机》
