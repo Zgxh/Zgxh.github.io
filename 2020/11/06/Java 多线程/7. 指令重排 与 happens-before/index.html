@@ -615,24 +615,28 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="3.线程状态及其转化">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="6.内存模型 JMM">
                         
-                        <span class="card-title">3.线程状态及其转化</span>
+                        <span class="card-title">6.内存模型 JMM</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
-Java 线程状态转化图：
+                            6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
 
-3.1 Java 线程的 6 个状态Thread.State 源码:
-public enum State {
-    NEW,         
+消息传递并发模型
+共享内存并发模型
+
+
+Java 中，采用的是第二种：共享内存并发模型
+6.2 JVM 运行时数据区
+
+方法区 和 堆，
                         
                     </div>
                     <div class="publish-info">
@@ -669,22 +673,20 @@ public enum State {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="0.进程与线程">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="8.volatile 关键字">
                         
-                        <span class="card-title">0.进程与线程</span>
+                        <span class="card-title">8.volatile 关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0. 进程与线程进程是应用程序在内存中分配的空间，也就是正在运行的程序。各个进程之间互不干扰，进程保存着程序的每个时刻的运行状态。
-线程是进程的子任务，每个进程可以包含多个线程，每个线程单独负责一个子任务。
-0.1 进程与线程的区别
-进程是
+                            8. volatile8.0 为什么存在内存可见性问题 -&gt; 缓存一致性问题可见性是指某线程修改了一个变量的值，新值对于其他线程是立即可见的。
+为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操
                         
                     </div>
                     <div class="publish-info">

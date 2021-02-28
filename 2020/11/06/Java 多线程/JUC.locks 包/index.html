@@ -699,22 +699,23 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/4.%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="4.线程间通信">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2.线程组 与 优先级">
                         
-                        <span class="card-title">4.线程间通信</span>
+                        <span class="card-title">2.线程组 与 优先级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            4. 线程间通信4.1 锁与同步JAVA 中的锁都是对象锁，是基于对象的。
-4.1.1 线程同步线程同步是指约束线程按照一定的顺序执行。
-线程同步可以通过锁 synchronized 来实现:
-public class ObjectLock
+                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
+
+线程依赖于线程组而存在。
+线程组可以统一控制线程的优先级和检查线程的权限。
+线程组中的线程只允许访问自己所在线
                         
                     </div>
                     <div class="publish-info">
@@ -751,20 +752,28 @@ public class ObjectLock
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="8.volatile 关键字">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="6.内存模型 JMM">
                         
-                        <span class="card-title">8.volatile 关键字</span>
+                        <span class="card-title">6.内存模型 JMM</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            8. volatile8.0 为什么存在内存可见性问题 -&gt; 缓存一致性问题可见性是指某线程修改了一个变量的值，新值对于其他线程是立即可见的。
-为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操
+                            6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
+
+消息传递并发模型
+共享内存并发模型
+
+
+Java 中，采用的是第二种：共享内存并发模型
+6.2 JVM 运行时数据区
+
+方法区 和 堆，
                         
                     </div>
                     <div class="publish-info">

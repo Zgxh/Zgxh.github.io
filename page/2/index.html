@@ -392,23 +392,21 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="0.进程与线程">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="8.volatile 关键字">
                             
-                            <span class="card-title">0.进程与线程</span>
+                            <span class="card-title">8.volatile 关键字</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                0. 进程与线程进程是应用程序在内存中分配的空间，也就是正在运行的程序。各个进程之间互不干扰，进程保存着程序的每个时刻的运行状态。
-线程是进程的子任务，每个进程可以包含多个线程，每个线程单独负责一个子任务。
-0.1 进程与线程的区别
-进程是
+                                8. volatile8.0 为什么存在内存可见性问题 -&gt; 缓存一致性问题可见性是指某线程修改了一个变量的值，新值对于其他线程是立即可见的。
+为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操
                             
                         </div>
                         <div class="publish-info">
@@ -442,27 +440,24 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/1.%20Java%20%E4%B8%AD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="1.Java 中多线程的实现">
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
                             
-                            <span class="card-title">1.Java 中多线程的实现</span>
+                            <span class="card-title">9.Java 对象锁</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1. Java 中多线程的实现主要有三种方案：
+                                9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
 
-继承 Thread 类，并重写 run() 方法
-实现 Runnable 接口，并重写 run() 方法
-实现 Callable 接口，并重写 call() 方法
+每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
 
-其中前两种比较常见。
-1
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
                             
                         </div>
                         <div class="publish-info">
@@ -496,24 +491,23 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/4.%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2.线程组 与 优先级">
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="4.线程间通信">
                             
-                            <span class="card-title">2.线程组 与 优先级</span>
+                            <span class="card-title">4.线程间通信</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
-
-线程依赖于线程组而存在。
-线程组可以统一控制线程的优先级和检查线程的权限。
-线程组中的线程只允许访问自己所在线
+                                4. 线程间通信4.1 锁与同步JAVA 中的锁都是对象锁，是基于对象的。
+4.1.1 线程同步线程同步是指约束线程按照一定的顺序执行。
+线程同步可以通过锁 synchronized 来实现:
+public class ObjectLock
                             
                         </div>
                         <div class="publish-info">
@@ -598,6 +592,57 @@ Object o = new Object();
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2020/09/26/JVM/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="堆中的对象内存分布">
+                            
+                            <span class="card-title">堆中的对象内存分布</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
+
+    private Object obj1 = new Object();
+
+    public static void ma
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/JVM/" class="post-category">
+                                    JVM
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/JVM/">
+                            <span class="chip bg-color">JVM</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2020/09/26/JVM/JVM%20%E5%9F%BA%E7%A1%80/">
                         <div class="card-image">
                             
@@ -623,6 +668,56 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
 
 
 
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/JVM/" class="post-category">
+                                    JVM
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/JVM/">
+                            <span class="chip bg-color">JVM</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2020/09/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="字节码执行引擎">
+                            
+                            <span class="card-title">字节码执行引擎</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                JVM 字节码执行引擎JVM 输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
+1. JVM 运行时数据结构详情看 [JVM 内存结构总结]。
+2. 方法调用方法调用是指确定方法的版本，不涉及方法内部的执行过程。
+一切
                             
                         </div>
                         <div class="publish-info">
@@ -721,107 +816,6 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
 
 废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。
 回收类型信
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/JVM/">
-                            <span class="chip bg-color">JVM</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/09/26/JVM/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="堆中的对象内存分布">
-                            
-                            <span class="card-title">堆中的对象内存分布</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
-
-    private Object obj1 = new Object();
-
-    public static void ma
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/JVM/">
-                            <span class="chip bg-color">JVM</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/09/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="字节码执行引擎">
-                            
-                            <span class="card-title">字节码执行引擎</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                JVM 字节码执行引擎JVM 输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
-1. JVM 运行时数据结构详情看 [JVM 内存结构总结]。
-2. 方法调用方法调用是指确定方法的版本，不涉及方法内部的执行过程。
-一切
                             
                         </div>
                         <div class="publish-info">

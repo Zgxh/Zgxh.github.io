@@ -632,20 +632,26 @@ Java 中，采用的是第二种：共享内存并发模型
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/JUC.locks%20%E5%8C%85/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="8.volatile 关键字">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="JUC.locks 统览">
                         
-                        <span class="card-title">8.volatile 关键字</span>
+                        <span class="card-title">JUC.locks 统览</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            8. volatile8.0 为什么存在内存可见性问题 -&gt; 缓存一致性问题可见性是指某线程修改了一个变量的值，新值对于其他线程是立即可见的。
-为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操
+                            JUC.locks1. AQS 抽象类JUC.locks 包下有三个抽象类:
+
+AQS
+AQLS
+AOS
+
+AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
+2. Condition 接口Condition 条件对
                         
                     </div>
                     <div class="publish-info">
@@ -682,24 +688,22 @@ Java 中，采用的是第二种：共享内存并发模型
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/7.%20%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%20%E4%B8%8E%20happens-before/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="3.线程状态及其转化">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="7.指令重排 与 happens-before">
                         
-                        <span class="card-title">3.线程状态及其转化</span>
+                        <span class="card-title">7.指令重排 与 happens-before</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
-Java 线程状态转化图：
+                            7. 指令重排 与 happens-before指令重排可以在 CPU 闲置（等待变量装载等）时，先执行其他指令，提高性能。分为：
 
-3.1 Java 线程的 6 个状态Thread.State 源码:
-public enum State {
-    NEW,         
+编译器优化重排：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
+指令并行重排：现代处理
                         
                     </div>
                     <div class="publish-info">
