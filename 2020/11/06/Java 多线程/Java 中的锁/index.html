@@ -744,26 +744,19 @@ atomicInteger<span class="token punctuation">.</span><span class="token function
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/1.%20Java%20%E4%B8%AD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/reentrantlock%20%E4%B8%8E%20synchronized/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="1.Java 中多线程的实现">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="ReentrantLock 与 synchronized">
                         
-                        <span class="card-title">1.Java 中多线程的实现</span>
+                        <span class="card-title">ReentrantLock 与 synchronized</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. Java 中多线程的实现主要有三种方案：
-
-继承 Thread 类，并重写 run() 方法
-实现 Runnable 接口，并重写 run() 方法
-实现 Callable 接口，并重写 call() 方法
-
-其中前两种比较常见。
-1
+                            ReentrantLock 与 synchronized1. synchronized 与 ReentrantLock 的对比synchronized 与 ReentrantLock 都具备线程重入性，但 synchronized 由 JV
                         
                     </div>
                     <div class="publish-info">
@@ -800,24 +793,23 @@ atomicInteger<span class="token punctuation">.</span><span class="token function
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/11.%20aqs/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="AQS">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
                         
-                        <span class="card-title">AQS</span>
+                        <span class="card-title">9.Java 对象锁</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            11. AQSAQS，AbstractQueuedSynchronizer，抽象队列同步器，是一个抽象类。
+                            9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
 
-是用来构建锁和同步器的框架。基于 AQS 实现的锁:
-ReentrantLock
-ReentrantReadWriteLock
-C
+每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
+
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
                         
                     </div>
                     <div class="publish-info">

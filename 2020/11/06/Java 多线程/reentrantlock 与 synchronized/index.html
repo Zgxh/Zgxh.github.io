@@ -923,22 +923,25 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/4.%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/java%20%E5%AF%B9%E8%B1%A1%E5%A4%B4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="4.线程间通信">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Java 对象头">
                         
-                        <span class="card-title">4.线程间通信</span>
+                        <span class="card-title">Java 对象头</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            4. 线程间通信4.1 锁与同步JAVA 中的锁都是对象锁，是基于对象的。
-4.1.1 线程同步线程同步是指约束线程按照一定的顺序执行。
-线程同步可以通过锁 synchronized 来实现:
-public class ObjectLock
+                            Java 对象头1. Java 对象头的组成
+Mark Word
+指向类元信息的指针 Klass Pointer
+数组的长度
+
+
+1.1 Mark WordMark Word 在 32 位 JVM 中的长度是 32 bit，在 64 位 J
                         
                     </div>
                     <div class="publish-info">
@@ -975,26 +978,23 @@ public class ObjectLock
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/1.%20Java%20%E4%B8%AD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%20%E4%B8%AD%E7%9A%84%E9%94%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="1.Java 中多线程的实现">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java 锁分类">
                         
-                        <span class="card-title">1.Java 中多线程的实现</span>
+                        <span class="card-title">Java 锁分类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. Java 中多线程的实现主要有三种方案：
-
-继承 Thread 类，并重写 run() 方法
-实现 Runnable 接口，并重写 run() 方法
-实现 Callable 接口，并重写 call() 方法
-
-其中前两种比较常见。
-1
+                            Java 中的锁
+Java 中的并发包： java.util.concurrent , 又叫 JUC。
+1. 乐观锁 与 悲观锁
+1.1 乐观锁乐观锁总是假设对共享资源的访问没有冲突，线程可以不停地执行，无需加锁，也无需等待。
+一旦多个线程
                         
                     </div>
                     <div class="publish-info">

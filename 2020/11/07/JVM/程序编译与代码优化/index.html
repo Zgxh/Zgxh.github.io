@@ -696,24 +696,26 @@ JDK 1.8 中代替为尾插法，
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/1.%20Java%20%E4%B8%AD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="10.CAS 与 原子操作">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="1.Java 中多线程的实现">
                         
-                        <span class="card-title">10.CAS 与 原子操作</span>
+                        <span class="card-title">1.Java 中多线程的实现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
+                            1. Java 中多线程的实现主要有三种方案：
 
-要么全部成功，要么全部失败。
-原子操作能保证线程安全性。
+继承 Thread 类，并重写 run() 方法
+实现 Runnable 接口，并重写 run() 方法
+实现 Callable 接口，并重写 call() 方法
 
-10.1.1 Java 中的原子类java.util.c
+其中前两种比较常见。
+1
                         
                     </div>
                     <div class="publish-info">
