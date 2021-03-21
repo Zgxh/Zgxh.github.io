@@ -5,10 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="字节码执行引擎, Zgxh,">
-    <meta name="description" content="JVM 字节码执行引擎JVM 输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
-1. JVM 运行时数据结构详情看 [JVM 内存结构总结]。
-2. 方法调用方法调用是指确定方法的版本，不涉及方法内部的执行过程。
-一切">
+    <meta name="description" content="JVM 字节码执行引擎JVM 作为字节码与操作系统之间的中间件，实现了 java 的跨平台性。
+JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就是将字节码指令解释/编译为对应平台上的本地机器指令才可以。简单">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -468,7 +466,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    689
+                    978
                 </div>
                 
 
@@ -481,7 +479,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="JVM-字节码执行引擎"><a href="#JVM-字节码执行引擎" class="headerlink" title="JVM 字节码执行引擎"></a>JVM 字节码执行引擎</h1><p>JVM 输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。</p>
+                <h1 id="JVM-字节码执行引擎"><a href="#JVM-字节码执行引擎" class="headerlink" title="JVM 字节码执行引擎"></a>JVM 字节码执行引擎</h1><p>JVM 作为字节码与操作系统之间的中间件，实现了 java 的跨平台性。</p>
+<p>JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就是将字节码指令解释/编译为对应平台上的本地机器指令才可以。简单来说，JVM 中的执行引擎充当了将高级语言翻译为机器语言的译者。</p>
 <h2 id="1-JVM-运行时数据结构"><a href="#1-JVM-运行时数据结构" class="headerlink" title="1. JVM 运行时数据结构"></a>1. JVM 运行时数据结构</h2><p>详情看 [JVM 内存结构总结]。</p>
 <h2 id="2-方法调用"><a href="#2-方法调用" class="headerlink" title="2. 方法调用"></a>2. 方法调用</h2><p>方法调用是指确定方法的版本，不涉及方法内部的执行过程。</p>
 <p>一切方法调用在 .class 文件里存储的都只是<strong>符号引用</strong>，这是需要在<strong>类加载</strong>期间或者是<strong>运行期</strong>间，才能确定为方法在实际 运行时内存布局中的入口地址（相当于类加载中解析阶段中把符号引用替换为<strong>直接引用</strong>）。</p>
@@ -524,6 +523,18 @@
 </ul>
 <p>虚方法表一般在类加载的连接阶段进行初始化。</p>
 <p><a href="http://qinzhaokun.github.io/2017/08/01/Java%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B%EF%BC%88%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE%EF%BC%89/" target="_blank" rel="noopener">qianzhaokun-Java方法的调用过程</a></p>
+<h2 id="3-代码编译与字节码执行过程"><a href="#3-代码编译与字节码执行过程" class="headerlink" title="3. 代码编译与字节码执行过程"></a>3. 代码编译与字节码执行过程</h2><p>Java 的编译期有两个阶段：</p>
+<ol>
+<li>前端编译器把 java 文件编译成 .class 字节码文件；</li>
+<li>JIT 编译器把字节码编译成机器码；</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/96B4665B64724CB0AE58AFAAD81BF458/27070" alt="代码编译"></p>
+<p>字节码主要是为了实现特定软件运行和软件环境、与硬件环境无关。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/A5258882AF484C22B9DBE9B9F019107D/27042" alt="字节码的执行"></p>
+<p>主流 JVM 如 HotSpot 虚拟机采用解释器与JIT并存的结构。</p>
+<h4 id="字节码解释器"><a href="#字节码解释器" class="headerlink" title="字节码解释器"></a>字节码解释器</h4><p>解释器采用逐行解释的操作，当一条字节码指令被解释执行完成后，接着在根据 PC 寄存器中记录的下一条需要被执行的字节码指令执行解释操作。</p>
+<h4 id="JIT-编译器"><a href="#JIT-编译器" class="headerlink" title="JIT 编译器"></a>JIT 编译器</h4><p>JVM 将字节码直接编译成和本地机器平台相关的机器语言。</p>
+<p>编译时会花费较多时间，但编译完之后运行速度变快。</p>
 
             </div>
             <hr/>
