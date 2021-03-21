@@ -462,7 +462,7 @@ Object o = new Object();
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-28
+                    2021-03-21
                 </div>
                 
 
@@ -630,22 +630,20 @@ str <span class="token operator">=</span> null<span class="token punctuation">;<
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/4.%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="4.线程间通信">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="8.volatile 关键字">
                         
-                        <span class="card-title">4.线程间通信</span>
+                        <span class="card-title">8.volatile 关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            4. 线程间通信4.1 锁与同步JAVA 中的锁都是对象锁，是基于对象的。
-4.1.1 线程同步线程同步是指约束线程按照一定的顺序执行。
-线程同步可以通过锁 synchronized 来实现:
-public class ObjectLock
+                            8. volatile8.0 为什么存在内存可见性问题 -&gt; 缓存一致性问题可见性是指某线程修改了一个变量的值，新值对于其他线程是立即可见的。
+为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操
                         
                     </div>
                     <div class="publish-info">
@@ -682,23 +680,23 @@ public class ObjectLock
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/26/JVM/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
+                <a href="/2020/09/26/JVM/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="堆中的对象内存分布">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JVM 内存结构">
                         
-                        <span class="card-title">堆中的对象内存分布</span>
+                        <span class="card-title">JVM 内存结构</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 堆中的对象内存1. java中的对象指向问题public class HeapMemory {
+                            JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
 
-    private Object obj1 = new Object();
-
-    public static void ma
+1. 程序计数器 Program Counter
+线程私有，是当前线程的字节码行号指示器。
+如果线程执行 Java 方法，指示字节码指令的地址
                         
                     </div>
                     <div class="publish-info">

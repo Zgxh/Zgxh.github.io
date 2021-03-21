@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="6.内存模型 JMM, Zgxh,">
+    <meta name="keywords" content="内存模型 JMM, Zgxh,">
     <meta name="description" content="6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
 
 消息传递并发模型
@@ -22,7 +22,7 @@ Java 中，采用的是第二种：共享内存并发模型
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>6.内存模型 JMM | Zgxh的博客</title>
+    <title>内存模型 JMM | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@ Java 中，采用的是第二种：共享内存并发模型
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">6.内存模型 JMM</h1>
+                    <h1 class="description center-align post-title">内存模型 JMM</h1>
                 </div>
             </div>
         </div>
@@ -467,14 +467,14 @@ Java 中，采用的是第二种：共享内存并发模型
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-28
+                    2021-03-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    401
+                    563
                 </div>
                 
 
@@ -500,18 +500,21 @@ Java 中，采用的是第二种：共享内存并发模型
 <li>栈、PC 是线程私有的。</li>
 </ul>
 <p>Java 中内存可见性是指堆中的共享变量。</p>
-<h3 id="6-3-Java-内存模型-JMM"><a href="#6-3-Java-内存模型-JMM" class="headerlink" title="6.3 Java 内存模型 JMM"></a>6.3 Java 内存模型 JMM</h3><p>Java 的并发是通过<strong>共享内存</strong>来实现的。</p>
-<p>JMM 定义了 <strong>线程</strong> 与 <strong>主内存</strong> 之间的抽象关系。</p>
+<h3 id="6-3-Java-内存模型-JMM"><a href="#6-3-Java-内存模型-JMM" class="headerlink" title="6.3 Java 内存模型 JMM"></a>6.3 Java 内存模型 JMM</h3><p>JMM 即java 内存模型，它屏蔽了硬件与操作系统对内存访问的差异，从而实现了java程序的跨平台一致性。</p>
+<p>JMM定义了<strong>线程</strong>和<strong>主内存</strong>之间的抽象关系：共享变量存储在主内存中，每个线程对应自己的私有<strong>工作内存</strong>。</p>
 <ul>
-<li>所有的共享变量都在主内存中</li>
-<li>每个线程保存一份共享变量的副本</li>
+<li>线程对变量的所有操作都必须在工作内存中进行，不能直接读写主内存中的变量。</li>
+<li>而线程之间通信也要以主内存为媒介，一个线程先把自己工作内存中的值刷新到主内存，然后另一个线程再从主内存中取值。</li>
 </ul>
-<p><strong>线程之间通信需要以主内存为媒介</strong>，而 JMM 来控制 <strong>主内存</strong> 与 <strong>本地内存</strong> 的交互：</p>
-<ul>
-<li>线程对共享变量的操作必须在线程自己的<strong>本地内存</strong>中进行</li>
-<li>线程通信需要一个线程先把线程中的共享变量更新到主内存</li>
-<li>然后另一个线程从主内存中读取刷新后的共享变量</li>
+<p>JMM主要解决了几个问题：</p>
+<ol>
+<li>内存可见性问题。可以通过 volatile 或 synchronized 来实现。为什么存在内存可见性问题 -&gt; volatile 解决内存可见性问题。</li>
+<li>指令重排序问题。重排序的分类 -&gt; happens before -&gt; 内存屏障。</li>
+<li>原子性问题。JMM 通过read,load,store等8个指令保证了对于基本类型变量、引用类型变量和volatile变量的读写是原子性的。但不包括i++这种复合操作，因为是先读值，再赋值。<ul>
+<li>如果想实现更大作用域的原子性，就要使用锁机制。</li>
 </ul>
+</li>
+</ol>
 <p><img src="http://concurrent.redspider.group/article/02/imgs/JMM%E6%8A%BD%E8%B1%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt="JMM内存模型"></p>
 <h4 id="6-3-1-volatile-关键字"><a href="#6-3-1-volatile-关键字" class="headerlink" title="6.3.1 volatile 关键字"></a>6.3.1 volatile 关键字</h4><ul>
 <li>保证多线程操作共享变量的可见性</li>
@@ -632,26 +635,24 @@ Java 中，采用的是第二种：共享内存并发模型
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/JUC.locks%20%E5%8C%85/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="JUC.locks 统览">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="3.线程状态及其转化">
                         
-                        <span class="card-title">JUC.locks 统览</span>
+                        <span class="card-title">3.线程状态及其转化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JUC.locks1. AQS 抽象类JUC.locks 包下有三个抽象类:
+                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
 
-AQS
-AQLS
-AOS
-
-AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
-2. Condition 接口Condition 条件对
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
                         
                     </div>
                     <div class="publish-info">

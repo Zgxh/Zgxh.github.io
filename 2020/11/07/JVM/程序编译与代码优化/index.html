@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-28
+                    2021-03-21
                 </div>
                 
 
@@ -640,54 +640,49 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/07/JVM/%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E4%B8%8E%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">
+                <a href="/2021/02/21/Java%20%E5%9F%BA%E7%A1%80/concurrenthashmap/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="编译与优化">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="ConcurrentHashMap 源码分析">
                         
-                        <span class="card-title">编译与优化</span>
+                        <span class="card-title">ConcurrentHashMap 源码分析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 逃逸分析逃逸是指一个对象在某个方法中被创建后，会被其他方法或其他线程所引用。
-
-方法逃逸：该对象被作为参数传递到其他方法中。
-线程逃逸：该对象被关联到其他线程中可以访问到的实例变量中。
-
-线程逃逸的逃逸程度比方法逃逸更高。
-如果能证明
+                            ConcurrentHashMap0. 为什么 HashMap 线程不安全
+多线程插入数据导致数据被覆盖
+在 JDK 1.7 时，采用的头插法，多线程同时执行 resize() 可能造成环形链表，造成死循环
+JDK 1.8 中代替为尾插法，
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-21
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JVM/" class="post-category">
-                                    JVM
+                            <a href="/categories/%E5%BC%80%E5%8F%91/" class="post-category">
+                                    开发
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
@@ -701,24 +696,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="3.线程状态及其转化">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="10.CAS 与 原子操作">
                         
-                        <span class="card-title">3.线程状态及其转化</span>
+                        <span class="card-title">10.CAS 与 原子操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
-Java 线程状态转化图：
+                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
 
-3.1 Java 线程的 6 个状态Thread.State 源码:
-public enum State {
-    NEW,         
+要么全部成功，要么全部失败。
+原子操作能保证线程安全性。
+
+10.1.1 Java 中的原子类java.util.c
                         
                     </div>
                     <div class="publish-info">

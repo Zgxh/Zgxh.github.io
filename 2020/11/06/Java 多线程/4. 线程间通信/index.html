@@ -461,7 +461,7 @@ public class ObjectLock">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-28
+                    2021-03-21
                 </div>
                 
 
@@ -897,23 +897,23 @@ test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
                         
-                        <span class="card-title">9.Java 对象锁</span>
+                        <span class="card-title">进程与线程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
+                            0. 进程与线程进程是应用程序在某块独立内存上的运行活动，是系统进行资源分配的基本单位。各个进程之间互不干扰，包括程序段、数据、PCB。
 
-每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
-
-为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
+程序段：程序运行的代码；
+数据段：程序运行期的相关数据；
+PCB 进程控制块：描述进程的基本情况和运
                         
                     </div>
                     <div class="publish-info">
@@ -950,35 +950,31 @@ test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/reentrantlock%20%E4%B8%8E%20synchronized/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Java 四种引用类型">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="ReentrantLock 与 synchronized">
                         
-                        <span class="card-title">Java 四种引用类型</span>
+                        <span class="card-title">ReentrantLock 与 synchronized</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            四种引用类型1. 强引用强引用就是最普通的引用方式。
-GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
-Object o = new Object();
-方法中的局部变量的强引用会在方法退出栈帧后自动销毁引用。
-对于类的
+                            ReentrantLock 与 synchronized1. synchronized 与 ReentrantLock 的对比synchronized 与 ReentrantLock 都具备线程重入性，但 synchronized 由 JV
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JVM/" class="post-category">
-                                    JVM
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
                                 </a>
                             
                             
@@ -988,8 +984,8 @@ Object o = new Object();
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
                     </a>
                     
                 </div>

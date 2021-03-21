@@ -4,15 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JUC.locks 统览, Zgxh,">
-    <meta name="description" content="JUC.locks1. AQS 抽象类JUC.locks 包下有三个抽象类:
+    <meta name="keywords" content="Java 对象头, Zgxh,">
+    <meta name="description" content="Java 对象头1. Java 对象头的组成
+Mark Word
+指向类元信息的指针 Klass Pointer
+数组的长度
 
-AQS
-AQLS
-AOS
 
-AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
-2. Condition 接口Condition 条件对">
+1.1 Mark WordMark Word 在 32 位 JVM 中的长度是 32 bit，在 64 位 J">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +19,7 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JUC.locks 统览 | Zgxh的博客</title>
+    <title>Java 对象头 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +310,12 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JUC.locks 统览</h1>
+                    <h1 class="description center-align post-title">Java 对象头</h1>
                 </div>
             </div>
         </div>
@@ -465,14 +464,14 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-28
+                    2021-03-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    296
                 </div>
                 
 
@@ -485,111 +484,27 @@ AQS 是 ReentrantLock 等锁的基础，具体看 AQS 部分。
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="JUC-locks"><a href="#JUC-locks" class="headerlink" title="JUC.locks"></a>JUC.locks</h1><h2 id="1-AQS-抽象类"><a href="#1-AQS-抽象类" class="headerlink" title="1. AQS 抽象类"></a>1. AQS 抽象类</h2><p>JUC.locks 包下有三个抽象类:</p>
+                <h1 id="Java-对象头"><a href="#Java-对象头" class="headerlink" title="Java 对象头"></a>Java 对象头</h1><h2 id="1-Java-对象头的组成"><a href="#1-Java-对象头的组成" class="headerlink" title="1. Java 对象头的组成"></a>1. Java 对象头的组成</h2><ol>
+<li><code>Mark Word</code></li>
+<li>指向类元信息的指针 <code>Klass Pointer</code></li>
+<li>数组的长度</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/4098CB7903B94C2289BC15C32FFE94BF/8890" alt="对象头信息"></p>
+<h3 id="1-1-Mark-Word"><a href="#1-1-Mark-Word" class="headerlink" title="1.1 Mark Word"></a>1.1 Mark Word</h3><p><code>Mark Word</code> 在 32 位 JVM 中的长度是 32 bit，在 64 位 JVM 中长度是 64bit。以 32 位为例：</p>
 <ul>
-<li>AQS</li>
-<li>AQLS</li>
-<li>AOS</li>
+<li>使用 1 bit 来指示 是否为偏向锁</li>
+<li>使用 2 bit 来标志 锁的状态</li>
 </ul>
-<p>AQS 是 <code>ReentrantLock</code> 等锁的基础，具体看 AQS 部分。</p>
-<h2 id="2-Condition-接口"><a href="#2-Condition-接口" class="headerlink" title="2. Condition 接口"></a>2. Condition 接口</h2><p><code>Condition</code> 条件对象提供了 <code>await()</code>，<code>signal()</code> 等方法，提供了类似于 <code>Object</code> 类的监视器方法，它与 <code>Lock</code> 配合可以实现 等待/通知 模式。</p>
-<p><code>Condition</code> 的实例是通过 <code>Lock</code> 接口实现类的 <code>newCondition()</code> 方法来创建的。</p>
-<h3 id="2-1-等待队列"><a href="#2-1-等待队列" class="headerlink" title="2.1 等待队列"></a>2.1 等待队列</h3><p>AQS 中的 <code>ConditionObject</code> 类是 <code>Condition</code> 接口的实现类。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConditionObject</span> <span class="token keyword">implements</span> <span class="token class-name">Condition</span><span class="token punctuation">,</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>Serializable <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 头结点</span>
-    <span class="token keyword">private</span> <span class="token keyword">transient</span> Node firstWaiter<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 尾结点</span>
-    <span class="token keyword">private</span> <span class="token keyword">transient</span> Node lastWaiter<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="http://note.youdao.com/yws/public/resource/03e442b43c9103c3bcce438252939ad9/xmlnote/B202E4EC01A84A7C8548FDA4676780B8/16953" alt=""></p>
-<p>一个 <code>Condition</code> 实例对象对应一个<strong>单向等待队列</strong>，队列的结点是 <code>AQS.Node</code> 类，每个结点对应一个线程。</p>
+<p><code>Mark Word</code> 用来存放对象信息或锁信息。<code>Mark Word</code> 被设计成可以复用的形式，</p>
 <ul>
-<li>如果线程调用 <code>condition.await()</code> 方法，则会以当前线程构造一个 <code>Node</code> 结点，然后加入该等待队列尾部，并释放锁，从而使该线程进入等待状态。<ul>
-<li><code>Condition</code> 对象持有队列的尾指针，新加入一个对象只需要连接在当前尾结点的后面即可。</li>
+<li>当对象是<strong>无锁态</strong>时，<code>Mark Word</code> 记录对象的 hashCode，锁标志位是 01，是否为偏向锁位为 0；</li>
+<li>当对象锁为<strong>偏向锁</strong>时，锁标志位依然是 01，是否为偏向锁位为 1，<code>Mark Word</code> 的前 23 位标志占有偏向锁的线程 id；</li>
+<li>当对象锁为<strong>轻量级锁</strong>时，锁标志位是 00，前 30 位指向栈帧中锁记录的指针</li>
+<li>当对象锁位<strong>重量级锁</strong>时，锁标志位是 10，前 30 位为指向重量级锁的指针</li>
 </ul>
-</li>
-</ul>
-<h3 id="2-2-await-与-notify-的过程"><a href="#2-2-await-与-notify-的过程" class="headerlink" title="2.2 await() 与 notify() 的过程"></a>2.2 await() 与 notify() 的过程</h3><p><img src="http://note.youdao.com/yws/public/resource/03e442b43c9103c3bcce438252939ad9/xmlnote/E0B31346E36F462188FCADE31B9A336C/16888" alt=""></p>
-<p>在一个 <code>Lock</code> 对象中，同时拥有<strong>一个同步队列</strong>和<strong>多个等待队列</strong>。如 <code>ReentrantLock</code>。</p>
-<p>从方法调用者的角度来看，一个线程如果调用了 <code>Condition.await()</code> 方法，则意味着该线程一定正持有锁，所以该线程结点位于同步队列的头结点。</p>
-<h4 id="2-2-1-等待"><a href="#2-2-1-等待" class="headerlink" title="2.2.1 等待"></a>2.2.1 等待</h4><p>当调用某个 <code>Condition</code> 实例的 <code>await()</code> 方法后，会把当前线程结点从<strong>同步队列的头结点</strong>移动到该 <code>Condition</code> 实例对应的<strong>等待队列的尾结点</strong>，然后释放已获得的锁，并唤醒同步队列中的下一个节点，然后当前线程会进入等待状态。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">interrupted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InterruptedException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 把当前的线程加入等待队列尾部</span>
-    Node node <span class="token operator">=</span> <span class="token function">addConditionWaiter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 释放当前线程持有的锁</span>
-    <span class="token keyword">int</span> savedState <span class="token operator">=</span> <span class="token function">fullyRelease</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> interruptMode <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isOnSyncQueue</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        LockSupport<span class="token punctuation">.</span><span class="token function">park</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>interruptMode <span class="token operator">=</span> <span class="token function">checkInterruptWhileWaiting</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">acquireQueued</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> savedState<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> interruptMode <span class="token operator">!=</span> THROW_IE<span class="token punctuation">)</span>
-        interruptMode <span class="token operator">=</span> REINTERRUPT<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>nextWaiter <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// clean up if cancelled</span>
-        <span class="token function">unlinkCancelledWaiters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>interruptMode <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token function">reportInterruptAfterWait</span><span class="token punctuation">(</span>interruptMode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2-2-2-通知"><a href="#2-2-2-通知" class="headerlink" title="2.2.2 通知"></a>2.2.2 通知</h4><p>调用某个 <code>Condition</code> 实例对应的 <code>signal()</code> 之类的方法，会唤醒当前 <code>Condition</code> 实例对应的等待队列中已等待时间最长的线程（即等待队列中的头结点），会将结点移入同步队列的尾部。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">signal</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isHeldExclusively</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalMonitorStateException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 拿到等待队列的头结点</span>
-    Node first <span class="token operator">=</span> firstWaiter<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>first <span class="token operator">!=</span> null<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true">// 从等待队列中删除该结点，并放入同步队列中</span>
-        <span class="token function">doSignal</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><a href="https://blog.csdn.net/MakeContral/article/details/78135531" target="_blank" rel="noopener">Condition 等待通知的使用与对应的同步队列与等待队列状态分析</a></p>
-<h3 id="2-2-Object-的监视器与-Condition-对象的对比"><a href="#2-2-Object-的监视器与-Condition-对象的对比" class="headerlink" title="2.2 Object 的监视器与 Condition 对象的对比"></a>2.2 Object 的监视器与 Condition 对象的对比</h3><p><img src="http://note.youdao.com/yws/public/resource/03e442b43c9103c3bcce438252939ad9/xmlnote/BCC66A93BCBE4CBEB9CB3C673A88ACDE/16933" alt=""></p>
-<p>AQS 中的 <code>ConditionObject</code> 是 <code>Condition</code> 接口的实现类。</p>
-<p><code>Condition</code> 对象是依赖于 <code>Lock</code> 对象的。</p>
-<ul>
-<li>调用 <code>Condition</code> 的方法，首先需要获得 <code>Condition</code> 对象所关联的锁。</li>
-</ul>
-<h2 id="3-Lock-接口"><a href="#3-Lock-接口" class="headerlink" title="3. Lock 接口"></a>3. Lock 接口</h2><p><code>Lock</code> 接口的几个实现类：<code>ReentrantLock</code>，<code>ReentrantReadWriteLock.ReadLock</code>，<code>ReentrantReadWriteLock.WriteLock</code></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Lock</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 加锁</span>
-    <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 支持中断响应</span>
-    <span class="token keyword">void</span> <span class="token function">lockInterruptibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException<span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token keyword">long</span> time<span class="token punctuation">,</span> TimeUnit unit<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 释放锁</span>
-    <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// 创建一个 Condition 实例</span>
-    Condition <span class="token function">newCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-1-Lock-获取锁的方法"><a href="#3-1-Lock-获取锁的方法" class="headerlink" title="3.1 Lock 获取锁的方法"></a>3.1 Lock 获取锁的方法</h3><p><code>Lock</code> 中获取锁的方法对比：</p>
-<ul>
-<li><code>lock()</code>：获取锁，如果获得了锁，则继续进行；如果没有获得锁，则一直等待。</li>
-<li><code>tryLock()</code>：尝试获取锁，无论是否获取到锁，都会立即返回，不会在没有获得锁时一直等待。如果获取到了锁则返回 true，否则返回 false。<ul>
-<li><code>tryLock(time, unit)</code>：尝试获取锁，并在没有拿到锁的时候尝试等待一段时间，如果在此期间获得了锁，则返回 true，否则返回 false。</li>
-</ul>
-</li>
-<li><code>lockInterruptibly()</code>：获取锁，但<strong>等待锁的过程中</strong>可以响应中断。一旦线程获取到了锁，则不会被中断。</li>
-</ul>
-<h3 id="3-2-获取锁的代码"><a href="#3-2-获取锁的代码" class="headerlink" title="3.2 获取锁的代码"></a>3.2 获取锁的代码</h3><p><code>Lock</code> 必须显式地加锁和解锁，并在 <code>finally</code> 块中释放锁，从而保证锁一定会被释放而防止死锁</p>
-<pre class="line-numbers language-java"><code class="language-java">Lock lock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-<span class="token keyword">try</span> <span class="token punctuation">{</span>  
-    <span class="token comment" spellcheck="true">// 互斥区</span>
-<span class="token keyword">finally</span> <span class="token punctuation">{</span>  
-    lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 锁必须在 finally 块中释放 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-3-ReentrantLock"><a href="#3-3-ReentrantLock" class="headerlink" title="3.3 ReentrantLock"></a>3.3 ReentrantLock</h3><p>详见 ReentrantLock 章节</p>
-<h2 id="4-ReadWriteLock-接口"><a href="#4-ReadWriteLock-接口" class="headerlink" title="4. ReadWriteLock 接口"></a>4. ReadWriteLock 接口</h2><p><code>ReadWriteLock</code> 分别维护了读锁和写锁。该接口被 <code>ReentrantReadWriteLock</code> 实现。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ReadWriteLock</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 读锁</span>
-    Lock <span class="token function">readLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// 写锁</span>
-    Lock <span class="token function">writeLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="4-1-ReentrantReadWriteLock"><a href="#4-1-ReentrantReadWriteLock" class="headerlink" title="4.1 ReentrantReadWriteLock"></a>4.1 ReentrantReadWriteLock</h3><h2 id="5-StampedLock"><a href="#5-StampedLock" class="headerlink" title="5. StampedLock"></a>5. StampedLock</h2><p>Java 8 中加入的新锁，性能比之前的锁更高。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/B7669EB5178041248F525FB44AC284E2/13025" alt=""></p>
+<h3 id="1-2-Klass-Pointer"><a href="#1-2-Klass-Pointer" class="headerlink" title="1.2 Klass Pointer"></a>1.2 Klass Pointer</h3><p>对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="https://blog.csdn.net/javazejian/article/details/72828483" target="_blank" rel="noopener">深入理解Java并发之synchronized实现原理</a></p>
 
             </div>
             <hr/>
@@ -615,7 +530,7 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/JUC.locks%20%E5%8C%85/">https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/JUC.locks%20%E5%8C%85/</a>
+                    <a href="https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/java%20%E5%AF%B9%E8%B1%A1%E5%A4%B4/">https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/java%20%E5%AF%B9%E8%B1%A1%E5%A4%B4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -699,23 +614,23 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2.线程组 与 优先级">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
                         
-                        <span class="card-title">2.线程组 与 优先级</span>
+                        <span class="card-title">9.Java 对象锁</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
+                            9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
 
-线程依赖于线程组而存在。
-线程组可以统一控制线程的优先级和检查线程的权限。
-线程组中的线程只允许访问自己所在线
+每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
+
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
                         
                     </div>
                     <div class="publish-info">
@@ -752,28 +667,23 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/6.%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%20JMM/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="6.内存模型 JMM">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
                         
-                        <span class="card-title">6.内存模型 JMM</span>
+                        <span class="card-title">进程与线程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            6. Java 内存模型6.1 并发模型线程间进行通信和同步，可以通过 2 种方式的并发模型来实现：
+                            0. 进程与线程进程是应用程序在某块独立内存上的运行活动，是系统进行资源分配的基本单位。各个进程之间互不干扰，包括程序段、数据、PCB。
 
-消息传递并发模型
-共享内存并发模型
-
-
-Java 中，采用的是第二种：共享内存并发模型
-6.2 JVM 运行时数据区
-
-方法区 和 堆，
+程序段：程序运行的代码；
+数据段：程序运行期的相关数据；
+PCB 进程控制块：描述进程的基本情况和运
                         
                     </div>
                     <div class="publish-info">

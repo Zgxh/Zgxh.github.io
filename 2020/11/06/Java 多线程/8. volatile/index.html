@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-28
+                    2021-03-21
                 </div>
                 
 
@@ -642,22 +642,22 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/7.%20%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%20%E4%B8%8E%20happens-before/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/12.%20%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="7.指令重排 与 happens-before">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Java 线程池">
                         
-                        <span class="card-title">7.指令重排 与 happens-before</span>
+                        <span class="card-title">Java 线程池</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            7. 指令重排 与 happens-before指令重排可以在 CPU 闲置（等待变量装载等）时，先执行其他指令，提高性能。分为：
+                            12. 线程池 Thread Pool12.1 线程池简介线程池 Thread Pool 是一种基于池化思想管理线程的工具，经常出现在多线程服务器中。
 
-编译器优化重排：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
-指令并行重排：现代处理
+如数据库连接池、httpClient连接池。
+Java 中的线程池是 ThreadPo
                         
                     </div>
                     <div class="publish-info">
@@ -694,35 +694,35 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
+                <a href="/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Java 四种引用类型">
                         
-                        <span class="card-title">9.Java 对象锁</span>
+                        <span class="card-title">Java 四种引用类型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
-
-每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
-
-为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
+                            四种引用类型1. 强引用强引用就是最普通的引用方式。
+GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
+Object o = new Object();
+方法中的局部变量的强引用会在方法退出栈帧后自动销毁引用。
+对于类的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    多线程与并发
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -732,8 +732,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                        <span class="chip bg-color">多线程与并发</span>
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
                     </a>
                     
                 </div>
