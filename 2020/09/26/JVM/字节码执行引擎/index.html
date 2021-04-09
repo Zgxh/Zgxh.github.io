@@ -459,14 +459,14 @@ JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-21
+                    2021-04-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    978
+                    1.2k
                 </div>
                 
 
@@ -523,18 +523,31 @@ JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就�
 </ul>
 <p>虚方法表一般在类加载的连接阶段进行初始化。</p>
 <p><a href="http://qinzhaokun.github.io/2017/08/01/Java%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B%EF%BC%88%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE%EF%BC%89/" target="_blank" rel="noopener">qianzhaokun-Java方法的调用过程</a></p>
-<h2 id="3-代码编译与字节码执行过程"><a href="#3-代码编译与字节码执行过程" class="headerlink" title="3. 代码编译与字节码执行过程"></a>3. 代码编译与字节码执行过程</h2><p>Java 的编译期有两个阶段：</p>
+<h2 id="3-代码编译与字节码执行过程"><a href="#3-代码编译与字节码执行过程" class="headerlink" title="3. 代码编译与字节码执行过程"></a>3. 代码编译与字节码执行过程</h2><p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/96B4665B64724CB0AE58AFAAD81BF458/27070" alt="静态代码编译"></p>
+<p>Java 的编译期有两个阶段：</p>
 <ol>
-<li>前端编译器把 java 文件编译成 .class 字节码文件；</li>
-<li>JIT 编译器把字节码编译成机器码；</li>
+<li>静态编译阶段：前端编译器把 java 文件编译成 .class 字节码文件；</li>
+<li>动态编译阶段：JIT 编译器把字节码编译成机器码；</li>
 </ol>
-<p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/96B4665B64724CB0AE58AFAAD81BF458/27070" alt="代码编译"></p>
-<p>字节码主要是为了实现特定软件运行和软件环境、与硬件环境无关。</p>
+<p>其中第二阶段不是必须的，它是JVM对热点代码作出的一些优化。</p>
+<h4 id="字节码解释器-interpreter"><a href="#字节码解释器-interpreter" class="headerlink" title="字节码解释器 interpreter"></a>字节码解释器 interpreter</h4><p>解释器采用逐行解释的操作，当一条字节码指令被解释执行完成后，接着在根据 PC 寄存器中记录的下一条需要被执行的字节码指令执行解释操作。</p>
+<h4 id="JIT，-just-in-time-compiler-即时编译器"><a href="#JIT，-just-in-time-compiler-即时编译器" class="headerlink" title="JIT， just in time compiler 即时编译器"></a>JIT， just in time compiler 即时编译器</h4><p>JVM 将字节码直接编译成和本地机器平台相关的机器语言。主流 JVM 如 HotSpot 虚拟机采用解释器与JIT并存的结构。</p>
+<p>早期的虚拟机是只采用解释器 interpreter 对字节码进行逐行解释执行，当虚拟机发现了<strong>热点代码</strong>时，会采用 JIT 编译的方式把字节码直接编译成机器码，加快执行速度。</p>
+<ul>
+<li><strong>时间开销</strong>：速度加快指的是编译后的执行速度加快，但编译需要一定的时间</li>
+<li><strong>空间开销</strong>：字节码编译成机器码后，内存膨胀10x。所以只对热点代码进行编译，否则会造成<strong>代码爆炸</strong>。</li>
+</ul>
+<h5 id="如何发现热点代码"><a href="#如何发现热点代码" class="headerlink" title="如何发现热点代码"></a>如何发现热点代码</h5><p>两种方式：</p>
+<ol>
+<li>周期性的对线程栈进行采样，出现频次高的。<ul>
+<li>缺点：线程由于阻塞或其他原因可能导致长期位于线程栈中，导致结果不准确</li>
+</ul>
+</li>
+<li>为方法/代码块建立计数器，次数达到阈值。</li>
+</ol>
+<p>hot spot 虚拟机采用的是<strong>计数器法</strong>。</p>
 <p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/A5258882AF484C22B9DBE9B9F019107D/27042" alt="字节码的执行"></p>
-<p>主流 JVM 如 HotSpot 虚拟机采用解释器与JIT并存的结构。</p>
-<h4 id="字节码解释器"><a href="#字节码解释器" class="headerlink" title="字节码解释器"></a>字节码解释器</h4><p>解释器采用逐行解释的操作，当一条字节码指令被解释执行完成后，接着在根据 PC 寄存器中记录的下一条需要被执行的字节码指令执行解释操作。</p>
-<h4 id="JIT-编译器"><a href="#JIT-编译器" class="headerlink" title="JIT 编译器"></a>JIT 编译器</h4><p>JVM 将字节码直接编译成和本地机器平台相关的机器语言。</p>
-<p>编译时会花费较多时间，但编译完之后运行速度变快。</p>
+<p>字节码主要是为了实现特定软件运行和软件环境、与硬件环境无关。</p>
 
             </div>
             <hr/>

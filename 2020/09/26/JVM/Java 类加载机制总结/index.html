@@ -458,14 +458,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-21
+                    2021-04-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.4k
+                    5.6k
                 </div>
                 
 
@@ -533,6 +533,12 @@
 <img src="http://upload-images.jianshu.io/upload_images/12219352-2d61700695ba47c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/662/format/webp" alt="类加载过程a" style="zoom:80%;" />
 
 <p>图中前五部分被称为类加载。包括：<strong>加载、验证、准备、解析、初始化</strong>。</p>
+<p>类加载的三个大阶段：</p>
+<ul>
+<li>加载</li>
+<li>连接</li>
+<li>初始化</li>
+</ul>
 <h3 id="2-1-类加载的前提：编译"><a href="#2-1-类加载的前提：编译" class="headerlink" title="2.1 类加载的前提：编译"></a>2.1 类加载的前提：编译</h3><p>在 JVM 运行之前，java 代码被编译器 javac 编译成 .class 字节码文件。一些类加载时需要用到的编译期知识：</p>
 <ul>
 <li>编译期间的常量：<ul>
@@ -555,8 +561,8 @@
 </ul>
 </li>
 <li>将这个字节流所代表的<strong>静态存储结构</strong>转化为方法区的<strong>运行时数据结构</strong>。</li>
-<li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象，作为<strong>方法区</strong>中该类的各种数据的访问入口。<ul>
-<li>Class类是特殊的对象，不一定分配在堆中，Hot Spot 虚拟机分配在方法区中。</li>
+<li>在内存中生成一个代表这个类的 <code>java.lang.Class</code> 对象，作为该类的各种数据的访问入口。<ul>
+<li>Class类是特殊的对象，不一定分配在堆中，Hot Spot 虚拟机分配在方法区中（1.7之前）。</li>
 </ul>
 </li>
 </ol>
@@ -572,11 +578,11 @@
 <ul>
 <li><strong>启动类加载器</strong>：C++实现，没有对应的Java对象。用于加载最基础、最重要的类，如JRE的 /lib 目录下的 jar 包中的类。</li>
 <li><strong>扩展类加载器</strong>：负责加载次要但通用的类，如JRE的 /lib/ext 目录下 jar 包中的类。</li>
-<li><strong>应用类加载器</strong>：负责加载应用程序路径下的类。</li>
+<li><strong>应用类加载器</strong>：负责加载应用程序路径 <code>classpath</code> 下的类。</li>
 </ul>
 <h4 id="2-2-2-双亲委派机制"><a href="#2-2-2-双亲委派机制" class="headerlink" title="2.2.2 双亲委派机制"></a>2.2.2 双亲委派机制</h4><blockquote>
 <p>当一个类加载器收到类加载任务，它自己首先<strong>不会</strong>自己主动去加载这个类，而是先交给其<strong>父类加载器</strong>去尝试加载，直到传递到顶层的<strong>启动类加载器</strong>。只有当父类加载器无法完成加载任务时，才会尝试<strong>子类加载器</strong>执行加载任务。</p>
-<p><strong>双亲委派机制保证了</strong>：对同一个类，不管是哪个加载器加载这个类，最终都是委托给可能的最顶层的类加载器进行加载，来保证使用不同的类加载器都会得到相同的 Object 对象。</p>
+<p><strong>双亲委派机制保证了</strong>：对同一个类，不管是哪个加载器加载这个类，最终都是委托给可能的最顶层的类加载器进行加载，来保证使用不同的类加载器都会得到相同的 Object 对象。同时可以防止核心 API 库被随意篡改。</p>
 </blockquote>
 <img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2A8C9B8B5D744E08ABAEA94B4CD8B3AB/9138" alt="a" style="zoom:70%;" />
 
@@ -665,18 +671,29 @@
 <li>否则，查找失败。</li>
 </ol>
 <p>接口所有方法都是 <code>public</code> 方法，所以不存在访问权限问题。</p>
-<h3 id="2-4-初始化-Initialization"><a href="#2-4-初始化-Initialization" class="headerlink" title="2.4 初始化 Initialization"></a>2.4 初始化 Initialization</h3><p>初始化阶段是真正开始执行字节码进行赋值操作，会把准备阶段的默认值替换为真正的初始值。初始化过程会执行构造器方法。</p>
-<p>初始化过程就是<code>&lt;clinit&gt;()</code>执行的过程。初始化完成后，类即成为可执行状态。</p>
+<h3 id="2-4-初始化-Initialization"><a href="#2-4-初始化-Initialization" class="headerlink" title="2.4 初始化 Initialization"></a>2.4 初始化 Initialization</h3><p>初始化阶段是真正开始执行字节码进行赋值操作，会把准备阶段的默认值替换为真正的初始值。</p>
+<p>编译时，编译器会按照代码顺序自动收集类中所有的 <strong>静态变量的赋值动作</strong> 和 <strong>静态语句块</strong> 中的语句，合并产生<code>&lt;clinit&gt;()</code>方法。初始化过程就是<code>&lt;clinit&gt;()</code>执行的过程。初始化完成后，类即成为可执行状态。</p>
+<h4 id="2-4-0-方法与-方法"><a href="#2-4-0-方法与-方法" class="headerlink" title="2.4.0 () 方法与 () 方法"></a>2.4.0 <clinit>() 方法与 <init>() 方法</h4><p><code>&lt;clinit&gt;()</code> 方法是对静态域的初始化操作，它的执行时期是类加载的初始化阶段。</p>
 <ul>
 <li>在一个类的<code>&lt;clinit&gt;()</code>方法执行前，其父类的<code>&lt;clinit&gt;()</code>方法已经执行完毕。因此第一个执行该方法的类肯定是<code>java.lang.Object</code>。</li>
 <li>如果一个实现类或子接口实现了某父接口，则不需要先执行父接口的<code>&lt;clinit&gt;()</code>方法。当父接口中的某些属性被使用到的时候才会触发父接口的初始化。</li>
 <li>JVM 会通过加锁来保证类的<code>&lt;clinit&gt;()</code>方法只被执行一次。</li>
 </ul>
+<p><code>&lt;init&gt;()</code> 方法是对象实例的构造器方法。</p>
+<ul>
+<li>当通过 new 关键字去创建对象时触发，具体阶段是在对象实例的内存分配完毕之后，并初始化了默认值，然后会调用对象的构造器 Constructor。</li>
+</ul>
 <h4 id="2-4-1-初始化何时被触发"><a href="#2-4-1-初始化何时被触发" class="headerlink" title="2.4.1 初始化何时被触发"></a>2.4.1 初始化何时被触发</h4><p>JVM 规定了 5 种情况必须进行<strong>立即</strong>初始化，也被称为<strong>主动引用</strong>。</p>
 <ol>
-<li>当虚拟机启动时，主类（main 方法所在的类）被初始化。</li>
-<li><code>new</code> 实例化一个类对象时；或者调用或设置某类的静态方法或静态字段（除<code>final</code>）时，初始化所在的类。</li>
-<li>当初始化子类时，如果父类还没初始化，则先触发父类的初始化。若类实现了某定义了<code>default</code>方法的接口，则该类的初始化会触发该接口的初始化。</li>
+<li>当虚拟机启动时，<strong>主类</strong>（main 方法所在的类）被初始化。</li>
+<li><code>new</code> <strong>实例化</strong>一个类对象时；或者调用或设置某类的<strong>静态方法</strong>或<strong>静态字段</strong>（除<strong>编译期常量</strong>）时，初始化所在的类。<ul>
+<li>编译期常量是指编译期就能确定值的 <code>final</code> 修饰的字段。</li>
+</ul>
+</li>
+<li>当初始化子类时，如果父类还没初始化，则先触发<strong>父类的初始化</strong>。<ul>
+<li>若类实现了某定义了 <code>default</code> 方法的接口（1.8及之后），则该类的初始化会触发该接口的初始化。</li>
+</ul>
+</li>
 <li>使用反射 API 对某个类进行反射调用时。</li>
 <li>JDK 1.7 开始提供的<strong>动态语言支持</strong>，如果一个 <code>java.lang.invoke.MethodHandle</code> 实例解析的结果<code>REF_getStatic</code>，<code>REF_putStatic</code>，<code>REF_invokeStatic</code> 的方法句柄对应的类没有被初始化，需要触发其初始化。</li>
 </ol>
@@ -688,6 +705,83 @@
 <li>通过子类访问父类的<strong>静态域</strong>时，只有父类会被初始化（即真正声明这个域的类）。</li>
 <li>引用常量不会导致类的初始化，因为常量在编译期就被加入了常量池。</li>
 </ol>
+<h2 id="3-Class-类"><a href="#3-Class-类" class="headerlink" title="3. Class 类"></a>3. Class 类</h2><p>类加载分为三个阶段：</p>
+<ul>
+<li>加载</li>
+<li>连接</li>
+<li>初始化</li>
+</ul>
+<p>Class 类在类加载的 <strong>加载</strong> 阶段被加载到内存中。</p>
+<h3 id="3-1-获取-Class-类导致类加载？"><a href="#3-1-获取-Class-类导致类加载？" class="headerlink" title="3.1 获取 Class 类导致类加载？"></a>3.1 获取 Class 类导致类加载？</h3><p>通过<strong>反射调用</strong>和继承自 <code>Object</code> 类的方法的方式来获取 Class 类对象时，会触发完整的类加载：</p>
+<ul>
+<li><code>Class.forName(&quot;com.zgxh.Zgxh&quot;)</code></li>
+<li><code>instance.getClass()</code></li>
+</ul>
+<p>通过<strong>字面量</strong>的形式来获取 Class 类对象的引用时，只会触发到类加载的加载过程，把 <code>Class</code> 加载进来，而不会触发初始化。</p>
+<ul>
+<li><code>Zgxh.class</code></li>
+</ul>
+<h2 id="ClassLoader-详解"><a href="#ClassLoader-详解" class="headerlink" title="ClassLoader 详解"></a>ClassLoader 详解</h2><p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/CE379F1C3202473DAF88DBF2354530F6/20145" alt="ClassLoader 继承图"></p>
+<p><code>ExtClassLoader</code> 和 <code>AppClassLoader</code> 都继承自 <code>URLClassLoader</code>。</p>
+<p>顶层类加载器是 <code>ClassLoader</code>。</p>
+<h3 id="一些方法分析"><a href="#一些方法分析" class="headerlink" title="一些方法分析"></a>一些方法分析</h3><h4 id="loadClass"><a href="#loadClass" class="headerlink" title="loadClass()"></a>loadClass()</h4><p><code>loadClass()</code> 方法用于实现具体的加载逻辑：</p>
+<p>当类加载请求来临时，先从缓存中查找该 class 对象，如果有了，就不加载了。</p>
+<p>如果没有，则通过双亲委派模型去交给父类来加载，如果没有父类的话，则交给 <code>BootstrapClassLoader</code> 去加载。 </p>
+<p>如果都没有找到对应的类加载器，则使用 <code>findClass()</code> 去加载。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">protected</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">loadClass</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span class="token keyword">boolean</span> resolve<span class="token punctuation">)</span> <span class="token keyword">throws</span> ClassNotFoundException
+<span class="token punctuation">{</span>
+  <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token function">getClassLoadingLock</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 先从缓存查找该class对象</span>
+      Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> c <span class="token operator">=</span> <span class="token function">findLoadedClass</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">long</span> t0 <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">nanoTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment" spellcheck="true">// 尝试通过双亲委派机制来交给父类加载器去加载</span>
+          <span class="token keyword">try</span> <span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  c <span class="token operator">=</span> parent<span class="token punctuation">.</span><span class="token function">loadClass</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没有父类，则委托给启动加载器去加载</span>
+                  c <span class="token operator">=</span> <span class="token function">findBootstrapClassOrNull</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">ClassNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token comment" spellcheck="true">// ClassNotFoundException thrown if class not found</span>
+              <span class="token comment" spellcheck="true">// from the non-null parent class loader</span>
+          <span class="token punctuation">}</span>
+
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token comment" spellcheck="true">// 如果都没有找到，则通过自定义实现的findClass去查找并加载</span>
+              c <span class="token operator">=</span> <span class="token function">findClass</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+              <span class="token comment" spellcheck="true">// this is the defining class loader; record the stats</span>
+              sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>PerfCounter<span class="token punctuation">.</span><span class="token function">getParentDelegationTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addTime</span><span class="token punctuation">(</span>t1 <span class="token operator">-</span> t0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+              sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>PerfCounter<span class="token punctuation">.</span><span class="token function">getFindClassTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addElapsedTimeFrom</span><span class="token punctuation">(</span>t1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+              sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>PerfCounter<span class="token punctuation">.</span><span class="token function">getFindClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment" spellcheck="true">// 是否需要在加载时进行解析</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>resolve<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">resolveClass</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> c<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="findClass"><a href="#findClass" class="headerlink" title="findClass()"></a>findClass()</h4><p>顶级类 <code>ClassLoader</code> 中 <code>findClass()</code> 方法是空方法，直接抛 <code>ClassNotFoundException</code>。</p>
+<p>可以通过改写 <code>findClass()</code> 方法来自定义自己的类加载逻辑。</p>
+<ul>
+<li>前提是在调用父类加载器加载失败时才会用到该方法进行加载。</li>
+</ul>
+<p><code>findClass()</code> 中一般要实现自己的获得 class 对应的字节流等方法。</p>
+<ul>
+<li><code>URLClassLoader</code> 类实现了 <code>findClass()</code> 等辅助方法。在自定义类加载器时通过继承 <code>URLClassLoader</code> 可以省略一些逻辑。</li>
+</ul>
+<h3 id="自定义文件类加载器、网络类加载器、热部署类加载器"><a href="#自定义文件类加载器、网络类加载器、热部署类加载器" class="headerlink" title="自定义文件类加载器、网络类加载器、热部署类加载器"></a>自定义文件类加载器、网络类加载器、热部署类加载器</h3><p>参考 <a href="https://blog.csdn.net/javazejian/article/details/73413292" target="_blank" rel="noopener">深入理解java类加载器</a></p>
+<h3 id="线程上下文类加载器"><a href="#线程上下文类加载器" class="headerlink" title="线程上下文类加载器"></a>线程上下文类加载器</h3><p>区别于 <code>API （Application Programming Interface</code>），Java 中的 <code>SPI （Service Provider Interface</code>），对外提供接口，供第三方来实现。</p>
+<p><code>SPI</code> 接口，如 <code>JDBC</code>，<code>JNDI</code> 等属于核心库，一般存在于 <code>rt.jar</code> 中，这个 <code>jar</code> 归 <code>Bootstrap</code> 类加载器负责。但开发中， <code>SPI</code> 的第三方实现代码在 <code>classpath</code> 下，不归 <code>Bootstrap</code> 类加载器负责，所以需要委派给特殊的类加载器– <strong>线程上下文类加载器</strong>。</p>
+<ul>
+<li>通过 <code>java.lang.Thread</code> 类中的 <code>getContextClassLoader()</code> 和  <code>setContextClassLoader(ClassLoader cl)</code> 方法来获取和设置<strong>线程的上下文类加载器</strong>。</li>
+</ul>
+<p>线程上下文类加载器不遵循双亲委派模型，逆向使用类加载器。如图，<code>Bootstrap</code> 类加载器加载核心 <code>rt.jar</code> 包，但该 <code>SPI</code> 依赖的实现类位于 <code>classpath</code> 路径下，无法通过 <code>Bootstrap</code> 类加载器来直接加载，于是 <code>Bootstrap</code> 类加载器委托 <code>Context</code> 类加载器来加载该实现类 <code>jdbc.jar</code>，然后 <code>rt.jar</code> 就可以调用 <code>jdbc.jar</code> 中的类了。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/D2F16C22BA0C420FBE3D8D1D41E86664/20090" alt="线程上下文类加载器工作流程"></p>
+<p>一般来说，获取到的线程上下文类加载器默认情况下可能就是 <code>AppClassLoader</code>，该类加载器可以直接通过 <code>getSystemClassLoader()</code> 来获取。但代码部署到不同服务器上时，可能用到的类加载器并非 <code>AppClassLoader</code>。所以使用 <code>ContextClassLoader</code> 总会获取到与当前程序相同的 ClassLoader，从而避免一些问题。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.jianshu.com/p/20f902788988" target="_blank" rel="noopener">虚拟机类加载机制 深入理解Java虚拟机总结</a></p>
 <p><a href="https://www.jianshu.com/p/8cab58ac37e3" target="_blank" rel="noopener">深入理解Java类加载机制</a></p>
 <p><a href="https://www.cnblogs.com/jimxz/p/3974939.html" target="_blank" rel="noopener">java类到底是如何加载并初始化的？</a></p>
@@ -695,6 +789,7 @@
 <p><a href="https://www.cnblogs.com/zzuli/p/9403928.html" target="_blank" rel="noopener">深入理解JVM内存分配和常量池</a></p>
 <p><a href="https://zhouj000.github.io/2019/03/27/java-base-jvm6/" target="_blank" rel="noopener">ZhouJ00 Blog-类变量和类方法解析</a></p>
 <p>《深入理解 Java 虚拟机》</p>
+<p><a href="https://blog.csdn.net/javazejian/article/details/73413292" target="_blank" rel="noopener">深入理解java类加载器</a></p>
 
             </div>
             <hr/>
@@ -854,35 +949,35 @@ JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/05/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%BE%8E%E9%A3%9F/%E4%BA%8E%E6%B0%8F%E9%BA%BB%E8%BE%A3%E5%B0%8F%E9%BE%99%E8%99%BE/">
+                <a href="/2020/09/26/JVM/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="于氏麻辣小龙虾">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="垃圾回收机制">
                         
-                        <span class="card-title">于氏麻辣小龙虾</span>
+                        <span class="card-title">垃圾回收机制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            于氏麻辣小龙虾
-浸泡吐脏东西：泡小龙虾的水加盐，泡2小时。
-清洗：戴手套，用刷子清洗小龙虾，并去虾线。
-再次浸泡去血水：水里加盐去血水。
-炒制：锅里热油两勺，加大葱段、姜片、大蒜、小葱结、干花椒，加火锅底料一小块，炒制出香。然后下入小龙虾，
+                            Java 垃圾回收 GC
+1. 方法区的垃圾回收方法区的垃圾回收主要针对：废弃的常量和不再使用的类型信息。
+
+废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。
+回收类型信息又被称为类型卸载。回收条件
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BE%8E%E9%A3%9F/" class="post-category">
-                                    美食
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -892,8 +987,8 @@ JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%BE%8E%E9%A3%9F/">
-                        <span class="chip bg-color">程序员美食</span>
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
                     </a>
                     
                 </div>

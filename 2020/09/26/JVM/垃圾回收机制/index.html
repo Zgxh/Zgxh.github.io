@@ -5,11 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="垃圾回收机制, Zgxh,">
-    <meta name="description" content="Java 堆内的垃圾回收 GCJVM 垃圾回收 GC
+    <meta name="description" content="Java 垃圾回收 GC
 1. 方法区的垃圾回收方法区的垃圾回收主要针对：废弃的常量和不再使用的类型信息。
 
 废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。
-回收类型信">
+回收类型信息又被称为类型卸载。回收条件">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -462,14 +462,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-21
+                    2021-04-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.8k
+                    4.7k
                 </div>
                 
 
@@ -482,7 +482,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Java-堆内的垃圾回收-GC"><a href="#Java-堆内的垃圾回收-GC" class="headerlink" title="Java 堆内的垃圾回收 GC"></a>Java 堆内的垃圾回收 GC</h1><h1 id="JVM-垃圾回收-GC"><a href="#JVM-垃圾回收-GC" class="headerlink" title="JVM 垃圾回收 GC"></a>JVM 垃圾回收 GC</h1><p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="堆的GC"></p>
+                <h1 id="Java-垃圾回收-GC"><a href="#Java-垃圾回收-GC" class="headerlink" title="Java 垃圾回收 GC"></a>Java 垃圾回收 GC</h1><p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/18FF35D98E7B4C84A637F1EDB0CD91F5/8810" alt="堆的GC"></p>
 <h2 id="1-方法区的垃圾回收"><a href="#1-方法区的垃圾回收" class="headerlink" title="1. 方法区的垃圾回收"></a>1. 方法区的垃圾回收</h2><p>方法区的垃圾回收主要针对：<strong>废弃的常量</strong>和<strong>不再使用的类型信息</strong>。</p>
 <ul>
 <li>废弃的常量，比如常量池中的字面量，如字符串池中的某个字符串的值已经不与任何字符串对象相同。</li>
@@ -497,15 +497,13 @@
 <li><strong>Eden 区</strong>：对象新建时，是在 Eden 区分配内存。当 Eden 满时，则触发 Minor GC。</li>
 <li><strong>Survivor 区</strong>：存放在 GC 中生存下来的对象，分为两块 <strong>大小相同</strong> 的空间：<code>S_0</code> 和 <code>S_1</code> ，又被称为 <strong>from 区</strong> 和 <strong>to 区</strong>。</li>
 </ul>
-<blockquote>
-<p>S_0 和 S_1 总有一个是空的，一个是非空的。当 Eden 区容量满的时候，会把 Eden 和那个非空的 Survivor 区(假设是 S_0 )进行 Minor GC ，有引用指向的对象（使用<strong>可达性分析算法</strong>）会被保留下来并复制到另一个空的 S 区(假设是 S_1 )，并且分代年龄（分代年龄存在于对象头中）加一，然后 Eden 和 S_0 中所有垃圾对象都会被回收。如此一来，S_0 和 S_1轮流作为非空的 Survivor 区。<br>担保机制：当回收 Eden 和非空的 survivor 区时，发现另一块空的 survivor 区空间不足以存放所有的存活下来的对象，则需要向老年代借用空间。</p>
-</blockquote>
-<ul>
-<li><p>如果老年区也没有空间了，即不能成功担保，则触发 Full GC，回收新生代+老年代中的所有垃圾对象。</p>
-</li>
-<li><p>如果 Full GC 完毕还是不够，则抛出 <code>OutOfMemory</code> 异常。</p>
-</li>
-</ul>
+<p>S_0 和 S_1 总有一个是空的，一个是非空的。当 Eden 区容量满的时候，会把 Eden 和那个非空的 Survivor 区(假设是 S_0 )进行 Minor GC ，有引用指向的对象（使用<strong>可达性分析算法</strong>）会被保留下来并复制到另一个空的 S 区(假设是 S_1 )，并且分代年龄（分代年龄存在于对象头中）加一，然后 Eden 和 S_0 中所有垃圾对象都会被回收。如此一来，S_0 和 S_1轮流作为非空的 Survivor 区。</p>
+<!--#### 担保机制-->
+
+<!--当回收 Eden 和非空的 survivor 区时，发现另一块空的 survivor 区空间不足以存放所有的存活下来的对象，则需要向老年代借用空间。-->
+<!--- 如果老年区也没有空间了，即不能成功担保，则触发 Full GC，回收新生代+老年代中的所有垃圾对象。-->
+<!--- 如果 Full GC 完毕还是不够，则抛出 `OutOfMemory` 异常。-->
+
 <h3 id="3-2-老年代"><a href="#3-2-老年代" class="headerlink" title="3.2 老年代"></a>3.2 老年代</h3><p>当年轻代中的对象经过多次 GC 后被保留下来的对象，如果其 <strong>分代年龄</strong> 到达老年代的要求，则会被放入老年代。</p>
 <ul>
 <li>新生代中的对象也可以通过一些机制来直接进入老年代。</li>
@@ -523,7 +521,7 @@
 <ul>
 <li>当对象在 Eden 出生，经过了第一次 Minor GC，存活下来后若能被 Survivor 容纳，则移动到 Survivor 区，并将对象年龄设置为 1。</li>
 <li>对象每次在 Minor GC 中存活下来，年龄就增长 1。</li>
-<li>当年龄增长到阈值后（默认为 15）被放入老年代。可以通过 <code>-XX:MaxTenuringThreshold</code> 来改变这个阈值。</li>
+<li>当年龄增长到阈值后（<strong>默认为 15</strong>，因为对象头中标识GC分代年龄的字段占4bit）被放入老年代。可以通过 <code>-XX:MaxTenuringThreshold</code> 来改变这个阈值。</li>
 </ul>
 <p><strong><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/4098CB7903B94C2289BC15C32FFE94BF/8890" alt="对象的组成"></strong></p>
 <h4 id="4-3-对象动态年龄判断机制"><a href="#4-3-对象动态年龄判断机制" class="headerlink" title="4.3 对象动态年龄判断机制"></a>4.3 对象动态年龄判断机制</h4><p>在那块非空的 Survivor 区，若某批对象的<strong>总大小</strong>超过了该区内存的 50%，则此时 Survivor 区中，大于等于该批对象中最大年龄的对象，可以直接进入老年代。</p>
@@ -547,23 +545,23 @@
 </li>
 </ul>
 <blockquote>
-<p>JDK 1.6 之后，<strong>默认允许担保</strong>，即 <code>-XX:HandlePromotionFailure</code> 参数失效，直接判断老年代中的最大可用的连续空间是否大于新生代中所有对象的总空间或者历史晋升到老年代中的对象的平均大小，如果可行就尝试进行 Minor GC，否则直接进行 Full GC。</p>
+<p>JDK 1.6 之后，<strong>默认允许担保失败</strong>，即 <code>-XX:HandlePromotionFailure</code> 参数失效，直接判断老年代中的最大可用的连续空间是否大于新生代中所有对象的总空间或者历史晋升到老年代中的对象的平均大小，如果可行就尝试进行 Minor GC，否则直接进行 Full GC。</p>
 </blockquote>
 <hr>
 <h2 id="5-如何判断对象已死"><a href="#5-如何判断对象已死" class="headerlink" title="5. 如何判断对象已死"></a>5. 如何判断对象已死</h2><p>判断一个对象是否还存活可以采用：</p>
 <ol>
-<li><strong>引用计数法</strong>：每引用一次计数器 +1，否则 -1</li>
+<li><strong>引用计数法</strong>：每引用一次计数器 +1，否则 -1。</li>
 <li><strong>可达性分析算法</strong></li>
 </ol>
-<p>JVM 中使用的是<strong>可达性分析算法</strong>。</p>
+<p>JVM 中使用的是<strong>可达性分析算法</strong>。因为对于引用计数法，当存在两个对象相互引用时，无法判断它们是死对象。</p>
 <h3 id="5-1-可达性分析算法"><a href="#5-1-可达性分析算法" class="headerlink" title="5.1 可达性分析算法"></a>5.1 可达性分析算法</h3><p>将 GC Roots 对象为根，向下搜索引用的对象，找到的对象标记为<strong>非垃圾对象</strong>，存在于堆中但未标记的对象都作为本次垃圾回收的<strong>垃圾对象</strong>。</p>
 <p>可以<strong>固定</strong>作为 GC Roots 的对象包括：</p>
 <ul>
 <li>虚拟机栈中引用的对象，如方法参数、局部变量等；</li>
 <li>本地方法栈中引用的对象；</li>
-<li>方法区中的静态类变量；</li>
-<li>方法区中的常量引用，如字符串池中的引用；</li>
-<li>Java 虚拟机内部的引用，如基本类型的 Class 对象，常驻的异常对象，系统类加载器等；</li>
+<li>静态属性的引用；</li>
+<li>常量引用，如字符串池中的引用；</li>
+<li>Java 虚拟机内部的引用，如基本类型对应的 Class 对象，常驻的异常对象，系统类加载器等；</li>
 <li>被同步锁持有的对象</li>
 </ul>
 <p>除了这些固定的 GC Roots 外，还可以有其他对象“临时”加入。</p>
@@ -572,8 +570,15 @@
 <ol>
 <li><strong>弱分代假说</strong>：大多数对象不会长时间存活，所以分为年轻代和老年代。</li>
 <li><strong>强分代假说</strong>：若一个对象熬过了多次 GC，则很有可能继续生存下去，即进入老年代。</li>
-<li><strong>跨代引用假说</strong>：老年代中的对象引用年轻代中的对象被称为跨代引用，认为跨代引用的对象只占少数。因此在新生代中划分一小块区域，叫做记忆集，用来指明老年代的哪一块内存会存在跨代引用，这样在扫描 GC Roots 的时候只需要额外扫描这一小块区域即可，不用扫描整个老年代。</li>
+<li><strong>跨代引用假说</strong>：老年代中的对象引用年轻代中的对象被称为跨代引用，认为跨代引用的对象只占少数。<ul>
+<li>因此在新生代中划分一小块区域，叫做<strong>记忆集</strong>，用来指明老年代的哪一块内存会存在跨代引用，这样在扫描 GC Roots 的时候只需要额外扫描这一小块区域即可，不用扫描整个老年代。</li>
+</ul>
+</li>
 </ol>
+<h5 id="卡表-Card-Table：记忆集的具体实现"><a href="#卡表-Card-Table：记忆集的具体实现" class="headerlink" title="卡表 Card Table：记忆集的具体实现"></a>卡表 Card Table：记忆集的具体实现</h5><p>把 Old 区分为多个 card，每个 card 中有多个对象，如果该card中存在引用指向 young区，则标记为 dirty card。这样进行 minor Gc 时只需扫描 dirty card 中的对象即可。</p>
+<ul>
+<li>card table 底层实现类似于 bitmap，每个bit对应一个card区</li>
+</ul>
 <h3 id="6-1-部分收集与整堆收集"><a href="#6-1-部分收集与整堆收集" class="headerlink" title="6.1 部分收集与整堆收集"></a>6.1 部分收集与整堆收集</h3><p>垃圾收集 GC 按照被收集的堆内区域，分为 :</p>
 <ul>
 <li><strong>部分收集 Partial GC</strong>：分为新生代收集和老年代收集。<ul>
@@ -581,8 +586,14 @@
 <li><strong>老年代收集 Major GC</strong>：只有 CMS 收集器会单独收集老年代。</li>
 </ul>
 </li>
-<li><strong>整堆收集 Full GC</strong>： 发生在老年代满的时候，回收范围是<strong>整个 Java 堆和方法区</strong>。</li>
+<li><strong>整堆收集 Full GC</strong>： 回收范围是<strong>整个 Java 堆和方法区</strong>。</li>
 </ul>
+<p>Full GC 触发条件：</p>
+<ol>
+<li>老年代满了</li>
+<li>方法区满了</li>
+<li>minor gc 时担保失败了</li>
+</ol>
 <h4 id="6-1-1-Stop-the-World-机制"><a href="#6-1-1-Stop-the-World-机制" class="headerlink" title="6.1.1 Stop the World 机制"></a>6.1.1 Stop the World 机制</h4><p>发生 GC 时会产生 <strong>STW （Stop the World）机制</strong>，全程暂停 <strong>用户应用线程</strong> 的运行，安心进行 GC。</p>
 <ul>
 <li>Full GC 会导致 STW 时间更长，因此 JVM 调优就要减少 full GC 的次数。</li>
@@ -614,8 +625,11 @@
 <h4 id="6-2-3-标记-整理算法"><a href="#6-2-3-标记-整理算法" class="headerlink" title="6.2.3 标记-整理算法"></a>6.2.3 标记-整理算法</h4><p>JVM 利用该算法对<strong>老年代</strong>进行回收。</p>
 <p>先标记出所有存活的对象，然后移动到内存空间的同一端，避免产生内存碎片。然后清除边界外的内存。</p>
 <h2 id="7-垃圾收集器"><a href="#7-垃圾收集器" class="headerlink" title="7. 垃圾收集器"></a>7. 垃圾收集器</h2><h3 id="7-1-Serial-收集器"><a href="#7-1-Serial-收集器" class="headerlink" title="7.1 Serial 收集器"></a>7.1 Serial 收集器</h3><p>特点是<strong>单线程</strong>。</p>
-<pre><code> 1. 只使用一个处理器或收集线程去完成垃圾收集工作；
- 2. 在垃圾收集时必须暂停其他所有工作线程 `Stop The World`，直到收集结束。</code></pre><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/86D61F30FD734BBD8379AD52ADB63C0F/18568" style="zoom:70%;" />
+<ol>
+<li>只使用一个处理器或收集线程去完成垃圾收集工作；</li>
+<li>在垃圾收集时必须暂停其他所有工作线程 <code>Stop The World</code>，直到收集结束。</li>
+</ol>
+<img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/86D61F30FD734BBD8379AD52ADB63C0F/18568" style="zoom:70%;" />
 
 <h4 id="7-1-1-Serial-Old-收集器"><a href="#7-1-1-Serial-Old-收集器" class="headerlink" title="7.1.1 Serial Old 收集器"></a>7.1.1 Serial Old 收集器</h4><p>是 <code>Serial</code> 收集器的老年代版本，单线程。</p>
 <ul>
@@ -628,7 +642,7 @@
 </ol>
 <h3 id="7-2-ParNew-收集器"><a href="#7-2-ParNew-收集器" class="headerlink" title="7.2 ParNew 收集器"></a>7.2 ParNew 收集器</h3><p><strong>并行</strong>版本的 Serial 收集器，首次实现了让垃圾收集线程与用户线程同时工作。</p>
 <ul>
-<li><code>ParNew</code> 只能配合 <code>CMS</code> 收集器。<code>ParNew</code> 用来收集新生代。</li>
+<li><code>ParNew</code> 配合 <code>CMS</code> 收集器。<code>ParNew</code> 用来收集新生代，CMS 来回收老年代。</li>
 </ul>
 <p><img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/FF7B6915A55C48E2A0E7323864EF520A/18570" alt=""></p>
 <h3 id="7-3-Parallel-Scavenge-收集器"><a href="#7-3-Parallel-Scavenge-收集器" class="headerlink" title="7.3 Parallel Scavenge 收集器"></a>7.3 Parallel Scavenge 收集器</h3><p>是一个新生代收集器。目标是使<strong>吞吐量可控</strong>，被称为吞吐量优先收集器。</p>
@@ -651,8 +665,8 @@
 <li>优点：并发收集、低停顿。</li>
 <li>缺点：<ol>
 <li>对处理器资源敏感，适用于多核处理器；</li>
-<li>并发标记与并发清理时，用户线程不被暂停，此时会产生“浮动垃圾”。CMS 收集器必须预留一部分空闲空间来保证并发收集时的程序运作，若预留不足则可能发生并发失败 <code>Concurrent Mode Failure</code> 而导致另一次完全 <code>Stop the World</code> 的 Full GC 发生。</li>
-<li>标记-清除算法会产生大量空间碎片，给大对象分配带来困难，可能导致提前的 Full GC。</li>
+<li>并发标记与并发清理时，用户线程不被暂停，此时会产生“浮动垃圾”。</li>
+<li>标记-清除算法会产生大量空间碎片，给大对象分配带来困难，可以通过JVM参数来设置 CMS 完成后进行一次碎片整理。</li>
 </ol>
 </li>
 </ul>
@@ -665,6 +679,8 @@
 </ol>
 <img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/9AE0F3DB89754FC29A8F1869EB66053A/18574" alt="CMS 收集器运行过程" style="zoom:70%;" />
 
+<p>CMS 不会等到内存饱和才去收集，因为GC并发标记阶段允许用户进程的并行进行，所以 CMS 收集器必须预留一部分空闲空间来保证用户进程的正常运作。一般当内存使用率阈值达到 <code>68%</code> 时，会执行 CMS 回收。</p>
+<p>若内存增长过快，则可能发生并发回收失败 <code>Concurrent Mode Failure</code>，此时需要使用 Serial Old 收集器来进行单线程的垃圾回收，全程 <code>Stop the World</code>。</p>
 <h3 id="7-5-G1-收集器"><a href="#7-5-G1-收集器" class="headerlink" title="7.5 G1 收集器"></a>7.5 G1 收集器</h3><p><code>G1</code> 即 <code>Garbage First</code> 收集器。</p>
 <ul>
 <li>面向全堆，且不需要其他收集器的配合。</li>
@@ -672,8 +688,10 @@
 <li>不会产生内存碎片。</li>
 </ul>
 <h5 id="Region-区域"><a href="#Region-区域" class="headerlink" title="Region 区域"></a>Region 区域</h5><p><code>G1</code> 收集器把堆内存划分为多个大小相等的独立区域 <code>Region</code>，每个 <code>Region</code> 都能独立扮演新生代的 <code>Eden</code>、<code>Survivor</code> 或者老年代。<code>Region</code> 是 <code>G1</code> 中的最小回收单元。</p>
+<p>在 G1 中，物理分代不再存在，但逻辑分代依然存在。</p>
 <p><code>Region</code> 大小可以存放 1~32MB 大小的对象。使用参数 <code>-XX:G1HeapRegionSize</code> 来设置。</p>
 <h5 id="Region-Humongous-区域"><a href="#Region-Humongous-区域" class="headerlink" title="Region Humongous 区域"></a>Region Humongous 区域</h5><p>超过一个 <code>Region</code> 大小一半的对象被判定为大对象，被专门储存在 <code>Region</code> 中的 <code>Humongous</code> 区域。对于超大对象，则会占用连续的 N 个 <code>Region Humongous</code> 区域。并把该区域看成老年代来处理。</p>
+<h5 id="RememberSet-记忆集"><a href="#RememberSet-记忆集" class="headerlink" title="RememberSet 记忆集"></a>RememberSet 记忆集</h5><p>每个 Region 中都有一个 RS，存放其他 Region 到本 Region 中的引用信息，通过扫描 RS 即可找到跨区引用。</p>
 <h5 id="TAMS-指针"><a href="#TAMS-指针" class="headerlink" title="TAMS 指针"></a>TAMS 指针</h5><p>每个 <code>Region</code> 中有两个 <code>TAMS</code> Top at Mark Start 指针，划分出当前 <code>Region</code> 中的一块区间，用于垃圾回收过程中用户线程的新对象分配。</p>
 <p>并发回收过程中的新分配的对象都要分配在这两个指针位置<strong>之上</strong>。</p>
 <p>如果垃圾收集速度赶不上新对象分配的速度，则可能导致内存不足，带来 Full GC。</p>
@@ -688,8 +706,31 @@
 </ol>
 <img src="http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/A925FFBDE8FC48189450C53151ED3B57/18576" alt="G1 运作过程" style="zoom:70%;" />
 
-
-
+<h3 id="三色标记法：对于CMS-和-G1"><a href="#三色标记法：对于CMS-和-G1" class="headerlink" title="三色标记法：对于CMS 和 G1"></a>三色标记法：对于CMS 和 G1</h3><p>是一种垃圾标记法，让JVM不发生停顿或短暂停顿来标记垃圾对象。用于 CMS 和 G1。</p>
+<p>三色标记法将对象的颜色分为了黑、灰、白，三种颜色。</p>
+<ul>
+<li>黑色：该对象已经被标记过了，且该对象下的属性也全部都被标记过了。（程序所需要的对象）</li>
+<li>灰色：该对象已经被标记过了，但该对象下的属性没有全被标记完。（GC需要从此对象中去寻找垃圾）</li>
+<li>白色：该对象没有被标记过。（对象垃圾）</li>
+</ul>
+<p>流程：</p>
+<ol>
+<li>在初始和并发标记阶段，从GC roots开始按照三色标记规则去标记存活对象。</li>
+<li>在扫描结束后，暂停用户线程，然后扫描灰色对象并完成标记</li>
+<li>最后清除所有的白色对象</li>
+</ol>
+<h5 id="CMS-增量更新来应对漏标问题"><a href="#CMS-增量更新来应对漏标问题" class="headerlink" title="CMS 增量更新来应对漏标问题"></a>CMS 增量更新来应对漏标问题</h5><p>若一个白色对象被重新引用，则引用它的对象，如果之前是黑色的，则要变成灰色的，下次标记时继续让GC线程完成标记。</p>
+<h5 id="SATB-snapshot-at-beginning-原始快照-在G1中解决漏标问题"><a href="#SATB-snapshot-at-beginning-原始快照-在G1中解决漏标问题" class="headerlink" title="SATB snapshot at beginning 原始快照 在G1中解决漏标问题"></a>SATB snapshot at beginning 原始快照 在G1中解决漏标问题</h5><ol>
+<li>在开始标记时生成一个存活对象的快照</li>
+<li>标记过程中，如果一个引用断开了，则推入GC堆栈，保证白色垃圾对象能被GC扫描到</li>
+<li>然后根据Rset，判断白色对象有没有其他Region引用它，没有的话就回收</li>
+</ol>
+<p><a href="https://juejin.cn/post/6859931488352370702" target="_blank" rel="noopener">CMS 与 G1</a></p>
+<h3 id="空闲列表与指针碰撞"><a href="#空闲列表与指针碰撞" class="headerlink" title="空闲列表与指针碰撞"></a>空闲列表与指针碰撞</h3><p>Java堆是被所有线程共享的一块内存区域，主要用于存放对象实例，为对象分配内存就是把一块大小确定的内存从堆内存中划分出来，通常有指针碰撞和空闲列表两种实现方式。</p>
+<p>1.指针碰撞法</p>
+<p>假设Java堆中内存时完整的，已分配的内存和空闲内存分别在不同的一侧，通过一个指针作为分界点，需要分配内存时，仅仅需要把指针往空闲的一端移动与对象大小相等的距离。使用的GC收集器：Serial、ParNew，适用堆内存规整（即没有内存碎片）的情况下。</p>
+<p>2.空闲列表法</p>
+<p>事实上，Java堆的内存并不是完整的，已分配的内存和空闲内存相互交错，JVM通过维护一个列表，记录可用的内存块信息，当分配操作发生时，从列表中找到一个足够大的内存块分配给对象实例，并更新列表上的记录。使用的GC收集器：CMS，适用堆内存不规整的情况下。</p>
 
             </div>
             <hr/>
@@ -799,23 +840,19 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/09/26/JVM/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
+                <a href="/2020/09/26/JVM/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JVM 内存结构">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java 类加载机制">
                         
-                        <span class="card-title">JVM 内存结构</span>
+                        <span class="card-title">Java 类加载机制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
-
-1. 程序计数器 Program Counter
-线程私有，是当前线程的字节码行号指示器。
-如果线程执行 Java 方法，指示字节码指令的地址
+                            Java 类加载机制总结类加载是把字节码 .class 文件加载到内存里，从而生成对应类的 Class 对象，同一个类只有一个 Class 对象。当该类需要被实例化的时候，即用 new 关键字来创建对象时，JVM 会去获取该 Class 对
                         
                     </div>
                     <div class="publish-info">
@@ -852,42 +889,35 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/26/JVM/JVM%20%E5%9F%BA%E7%A1%80/">
+                <a href="/2020/05/05/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%BE%8E%E9%A3%9F/%E4%BA%8E%E6%B0%8F%E9%BA%BB%E8%BE%A3%E5%B0%8F%E9%BE%99%E8%99%BE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="JVM 基础">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="于氏麻辣小龙虾">
                         
-                        <span class="card-title">JVM 基础</span>
+                        <span class="card-title">于氏麻辣小龙虾</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JVM 基础1. Java 程序的执行流程
-java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
-
-字节码的运行过程：
-
-通过类装载子系统来加载数据到运行时数据区
-通过字节码执行引擎来执行代码
-
-
-
-
-
+                            于氏麻辣小龙虾
+浸泡吐脏东西：泡小龙虾的水加盐，泡2小时。
+清洗：戴手套，用刷子清洗小龙虾，并去虾线。
+再次浸泡去血水：水里加盐去血水。
+炒制：锅里热油两勺，加大葱段、姜片、大蒜、小葱结、干花椒，加火锅底料一小块，炒制出香。然后下入小龙虾，
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JVM/" class="post-category">
-                                    JVM
+                            <a href="/categories/%E7%BE%8E%E9%A3%9F/" class="post-category">
+                                    美食
                                 </a>
                             
                             
@@ -897,8 +927,8 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
+                    <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%BE%8E%E9%A3%9F/">
+                        <span class="chip bg-color">程序员美食</span>
                     </a>
                     
                 </div>
