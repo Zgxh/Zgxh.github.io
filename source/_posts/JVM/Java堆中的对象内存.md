@@ -39,12 +39,12 @@ public class HeapMemory {
 
 java 中的对象内存布局：
 
-- 对象头 Header
-  - mark word ： 8 字节
+1. 对象头 Header
+  - mark word ： 8 字节。存放对象的hashcode、同步状态、指向同步信息的指针、GC状态位。
   - class pointer ： 未指针压缩时 8 字节，压缩后 4 字节
   - 数组 length （数组对象特有）： 4 字节
-- 对象实例数据 Instance Data ：
-- 对齐填充 Padding ： 填充为 8 字节的整数倍
+2. 对象实例数据 Instance Data ：存放对象的所有属性字段，按字段类型来分配空间，如int占4字节；
+3. 对齐填充 Padding ： 填充为 8 字节的整数倍，目的是为了寻址方便
 
 ![a](http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/88CB4B6F16FA4A71A606DA0E62EC8BE5/9123)
 

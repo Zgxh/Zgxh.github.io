@@ -77,6 +77,11 @@ Java中的类加载、连接和初始化都是在**运行时**完成的，Java�
 
 图中前五部分被称为类加载。包括：**加载、验证、准备、解析、初始化**。
 
+类加载的三个大阶段：
+- 加载
+- 连接
+- 初始化
+
 ### 2.1 类加载的前提：编译
 
 在 JVM 运行之前，java 代码被编译器 javac 编译成 .class 字节码文件。一些类加载时需要用到的编译期知识：
@@ -95,8 +100,8 @@ Java中的类加载、连接和初始化都是在**运行时**完成的，Java�
 1. 通过一个类的全限定名来获取定义此类的**二进制字节流**。
    - 二进制字节流的来源：.class 文件、jar 包等压缩包、网络中获取、动态代理动态生成 .class 文件等
 2. 将这个字节流所代表的**静态存储结构**转化为方法区的**运行时数据结构**。
-3. 在内存中生成一个代表这个类的`java.lang.Class`对象，作为**方法区**中该类的各种数据的访问入口。
-   - Class类是特殊的对象，不一定分配在堆中，Hot Spot 虚拟机分配在方法区中。
+3. 在内存中生成一个代表这个类的 `java.lang.Class` 对象，作为该类的各种数据的访问入口。
+   - Class类是特殊的对象，不一定分配在堆中，Hot Spot 虚拟机分配在方法区中（1.7之前）。
 
 #### 2.2.1 类加载器
 
@@ -111,13 +116,13 @@ Java中的类加载、连接和初始化都是在**运行时**完成的，Java�
 
 - **启动类加载器**：C++实现，没有对应的Java对象。用于加载最基础、最重要的类，如JRE的 /lib 目录下的 jar 包中的类。
 - **扩展类加载器**：负责加载次要但通用的类，如JRE的 /lib/ext 目录下 jar 包中的类。
-- **应用类加载器**：负责加载应用程序路径下的类。
+- **应用类加载器**：负责加载应用程序路径 `classpath` 下的类。
 
 #### 2.2.2 双亲委派机制
 
 > 当一个类加载器收到类加载任务，它自己首先**不会**自己主动去加载这个类，而是先交给其**父类加载器**去尝试加载，直到传递到顶层的**启动类加载器**。只有当父类加载器无法完成加载任务时，才会尝试**子类加载器**执行加载任务。
 >
-> **双亲委派机制保证了**：对同一个类，不管是哪个加载器加载这个类，最终都是委托给可能的最顶层的类加载器进行加载，来保证使用不同的类加载器都会得到相同的 Object 对象。
+> **双亲委派机制保证了**：对同一个类，不管是哪个加载器加载这个类，最终都是委托给可能的最顶层的类加载器进行加载，来保证使用不同的类加载器都会得到相同的 Object 对象。同时可以防止核心 API 库被随意篡改。
 
 <img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2A8C9B8B5D744E08ABAEA94B4CD8B3AB/9138" alt="a" style="zoom:70%;" />
 
@@ -132,6 +137,8 @@ Java中的类加载、连接和初始化都是在**运行时**完成的，Java�
 - **自定义类加载器**：可以通过继承 `java.lang.ClassLoader` 来自定义类加载器,一般我们都选择继承 `URLClassLoader` 来进行适当的改写就可以了。
 
 > 可以通过继承  `java.lang.ClassLoader` ，并重写其中的 `loadClass()` 方法来破坏双亲委派机制。
+
+
 
 ### 2.3 连接 Linking
 
@@ -210,22 +217,32 @@ Java中的类加载、连接和初始化都是在**运行时**完成的，Java�
 
 ### 2.4 初始化 Initialization
 
-初始化阶段是真正开始执行字节码进行赋值操作，会把准备阶段的默认值替换为真正的初始值。初始化过程会执行构造器方法。
+初始化阶段是真正开始执行字节码进行赋值操作，会把准备阶段的默认值替换为真正的初始值。
 
-初始化过程就是`<clinit>()`执行的过程。初始化完成后，类即成为可执行状态。
+编译时，编译器会按照代码顺序自动收集类中所有的 **静态变量的赋值动作** 和 **静态语句块** 中的语句，合并产生`<clinit>()`方法。初始化过程就是`<clinit>()`执行的过程。初始化完成后，类即成为可执行状态。
+
+#### 2.4.0 <clinit>() 方法与 <init>() 方法
+
+`<clinit>()` 方法是对静态域的初始化操作，它的执行时期是类加载的初始化阶段。
 
 - 在一个类的`<clinit>()`方法执行前，其父类的`<clinit>()`方法已经执行完毕。因此第一个执行该方法的类肯定是`java.lang.Object`。
 - 如果一个实现类或子接口实现了某父接口，则不需要先执行父接口的`<clinit>()`方法。当父接口中的某些属性被使用到的时候才会触发父接口的初始化。
 - JVM 会通过加锁来保证类的`<clinit>()`方法只被执行一次。
 
+`<init>()` 方法是对象实例的构造器方法。
+
+- 当通过 new 关键字去创建对象时触发，具体阶段是在对象实例的内存分配完毕之后，并初始化了默认值，然后会调用对象的构造器 Constructor。
+
 #### 2.4.1 初始化何时被触发
 
 JVM 规定了 5 种情况必须进行**立即**初始化，也被称为**主动引用**。
 
-1. 当虚拟机启动时，主类（main 方法所在的类）被初始化。
-2. `new` 实例化一个类对象时；或者调用或设置某类的静态方法或静态字段（除`final`）时，初始化所在的类。
-4. 当初始化子类时，如果父类还没初始化，则先触发父类的初始化。若类实现了某定义了`default`方法的接口，则该类的初始化会触发该接口的初始化。
-6. 使用反射 API 对某个类进行反射调用时。
+1. 当虚拟机启动时，**主类**（main 方法所在的类）被初始化。
+2. `new` **实例化**一个类对象时；或者调用或设置某类的**静态方法**或**静态字段**（除**编译期常量**）时，初始化所在的类。
+    - 编译期常量是指编译期就能确定值的 `final` 修饰的字段。
+3. 当初始化子类时，如果父类还没初始化，则先触发**父类的初始化**。
+    - 若类实现了某定义了 `default` 方法的接口（1.8及之后），则该类的初始化会触发该接口的初始化。
+4. 使用反射 API 对某个类进行反射调用时。
 5. JDK 1.7 开始提供的**动态语言支持**，如果一个 `java.lang.invoke.MethodHandle` 实例解析的结果`REF_getStatic`，`REF_putStatic`，`REF_invokeStatic` 的方法句柄对应的类没有被初始化，需要触发其初始化。
 
 ##### 2.4.2.1 对于父接口
@@ -247,6 +264,112 @@ Object[] arr = new Object[10];
 2. 通过子类访问父类的**静态域**时，只有父类会被初始化（即真正声明这个域的类）。
 3. 引用常量不会导致类的初始化，因为常量在编译期就被加入了常量池。
 
+## 3. Class 类
+
+类加载分为三个阶段：
+- 加载
+- 连接
+- 初始化
+
+Class 类在类加载的 **加载** 阶段被加载到内存中。
+
+### 3.1 获取 Class 类导致类加载？
+
+通过**反射调用**和继承自 `Object` 类的方法的方式来获取 Class 类对象时，会触发完整的类加载：
+- `Class.forName("com.zgxh.Zgxh")`
+- `instance.getClass()`
+
+通过**字面量**的形式来获取 Class 类对象的引用时，只会触发到类加载的加载过程，把 `Class` 加载进来，而不会触发初始化。
+- `Zgxh.class`
+
+## ClassLoader 详解
+
+![ClassLoader 继承图](http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/CE379F1C3202473DAF88DBF2354530F6/20145)
+
+`ExtClassLoader` 和 `AppClassLoader` 都继承自 `URLClassLoader`。
+
+顶层类加载器是 `ClassLoader`。
+
+### 一些方法分析
+
+#### loadClass()
+
+`loadClass()` 方法用于实现具体的加载逻辑：
+
+当类加载请求来临时，先从缓存中查找该 class 对象，如果有了，就不加载了。
+
+如果没有，则通过双亲委派模型去交给父类来加载，如果没有父类的话，则交给 `BootstrapClassLoader` 去加载。 
+
+如果都没有找到对应的类加载器，则使用 `findClass()` 去加载。
+
+```java
+protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException
+{
+  synchronized (getClassLoadingLock(name)) {
+      // 先从缓存查找该class对象
+      Class<?> c = findLoadedClass(name);
+      if (c == null) {
+          long t0 = System.nanoTime();
+          // 尝试通过双亲委派机制来交给父类加载器去加载
+          try {
+              if (parent != null) {
+                  c = parent.loadClass(name, false);
+              } else { // 如果没有父类，则委托给启动加载器去加载
+                  c = findBootstrapClassOrNull(name);
+              }
+          } catch (ClassNotFoundException e) {
+              // ClassNotFoundException thrown if class not found
+              // from the non-null parent class loader
+          }
+
+          if (c == null) {
+              // 如果都没有找到，则通过自定义实现的findClass去查找并加载
+              c = findClass(name);
+
+              // this is the defining class loader; record the stats
+              sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+              sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+              sun.misc.PerfCounter.getFindClasses().increment();
+          }
+      }
+      // 是否需要在加载时进行解析
+      if (resolve) {
+          resolveClass(c);
+      }
+      return c;
+   }
+}
+```
+
+#### findClass()
+
+顶级类 `ClassLoader` 中 `findClass()` 方法是空方法，直接抛 `ClassNotFoundException`。
+
+可以通过改写 `findClass()` 方法来自定义自己的类加载逻辑。
+- 前提是在调用父类加载器加载失败时才会用到该方法进行加载。
+
+`findClass()` 中一般要实现自己的获得 class 对应的字节流等方法。
+- `URLClassLoader` 类实现了 `findClass()` 等辅助方法。在自定义类加载器时通过继承 `URLClassLoader` 可以省略一些逻辑。
+
+### 自定义文件类加载器、网络类加载器、热部署类加载器
+
+参考 [深入理解java类加载器](https://blog.csdn.net/javazejian/article/details/73413292)
+
+### 线程上下文类加载器
+
+区别于 `API （Application Programming Interface`），Java 中的 `SPI （Service Provider Interface`），对外提供接口，供第三方来实现。
+
+`SPI` 接口，如 `JDBC`，`JNDI` 等属于核心库，一般存在于 `rt.jar` 中，这个 `jar` 归 `Bootstrap` 类加载器负责。但开发中， `SPI` 的第三方实现代码在 `classpath` 下，不归 `Bootstrap` 类加载器负责，所以需要委派给特殊的类加载器-- **线程上下文类加载器**。
+- 通过 `java.lang.Thread` 类中的 `getContextClassLoader()` 和  `setContextClassLoader(ClassLoader cl)` 方法来获取和设置**线程的上下文类加载器**。
+
+线程上下文类加载器不遵循双亲委派模型，逆向使用类加载器。如图，`Bootstrap` 类加载器加载核心 `rt.jar` 包，但该 `SPI` 依赖的实现类位于 `classpath` 路径下，无法通过 `Bootstrap` 类加载器来直接加载，于是 `Bootstrap` 类加载器委托 `Context` 类加载器来加载该实现类 `jdbc.jar`，然后 `rt.jar` 就可以调用 `jdbc.jar` 中的类了。
+
+![线程上下文类加载器工作流程](http://note.youdao.com/yws/public/resource/4abadcd0262eda3859a001aa3e1fcc28/xmlnote/D2F16C22BA0C420FBE3D8D1D41E86664/20090)
+
+一般来说，获取到的线程上下文类加载器默认情况下可能就是 `AppClassLoader`，该类加载器可以直接通过 `getSystemClassLoader()` 来获取。但代码部署到不同服务器上时，可能用到的类加载器并非 `AppClassLoader`。所以使用 `ContextClassLoader` 总会获取到与当前程序相同的 ClassLoader，从而避免一些问题。
+
+
+
 ## Reference
 
 [虚拟机类加载机制 深入理解Java虚拟机总结](https://www.jianshu.com/p/20f902788988)
@@ -262,3 +385,5 @@ Object[] arr = new Object[10];
 [ZhouJ00 Blog-类变量和类方法解析](https://zhouj000.github.io/2019/03/27/java-base-jvm6/)
 
 《深入理解 Java 虚拟机》
+
+[深入理解java类加载器](https://blog.csdn.net/javazejian/article/details/73413292)
