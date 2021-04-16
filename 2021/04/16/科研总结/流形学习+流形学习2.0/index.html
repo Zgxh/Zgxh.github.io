@@ -4,12 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="9.Java 对象锁, Zgxh,">
-    <meta name="description" content="9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
-
-每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
-
-为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，">
+    <meta name="keywords" content="流形学习+流形学习2.0, Zgxh,">
+    <meta name="description" content="流形学习与流形学习2.01. 流形学习流形学习也是降维的一种，对应非线性降维。流形学习的输入数据在全局上是不满足欧几里得结构的，但在局部上满足欧式空间的性质。
+在三维球面上，利用极坐标表示的坐标系可以通过r、$\theta$、$\phi$三">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>9.Java 对象锁 | Zgxh的博客</title>
+    <title>流形学习+流形学习2.0 | Zgxh的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +305,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">9.Java 对象锁</h1>
+                    <h1 class="description center-align post-title">流形学习+流形学习2.0</h1>
                 </div>
             </div>
         </div>
@@ -430,8 +427,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                                <span class="chip bg-color">多线程与并发</span>
+                            <a href="/tags/%E7%A7%91%E7%A0%94/">
+                                <span class="chip bg-color">科研</span>
                             </a>
                         
                     </div>
@@ -442,8 +439,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                多线程与并发
+                            <a href="/categories/%E7%A7%91%E7%A0%94/" class="post-category">
+                                科研
                             </a>
                         
                     </div>
@@ -455,7 +452,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-06
+                    2021-04-16
                 </div>
                 
 
@@ -469,7 +466,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.4k
+                    533
                 </div>
                 
 
@@ -482,175 +479,31 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="9-锁"><a href="#9-锁" class="headerlink" title="9. 锁"></a>9. 锁</h2><p><strong>Java中的锁都是对象锁</strong>，Class 类是特殊的 Java 对象，所以类锁也是对象锁。</p>
-<ul>
-<li>每个类只有一个 Class 对象，类锁就是 Class 对象的锁。</li>
-</ul>
-<h4 id="为什么任意一个-Java-对象都能成为锁对象？"><a href="#为什么任意一个-Java-对象都能成为锁对象？" class="headerlink" title="为什么任意一个 Java 对象都能成为锁对象？"></a>为什么任意一个 Java 对象都能成为锁对象？</h4><p>对象派生自 <code>Object</code>，每个 Java 对象都会对应一个监视器锁 <code>Monitor</code>，这个 <code>Monitor</code> 底层利用了操作系统的 <code>Mutex Lock</code> 互斥锁，并维护了线程阻塞与唤醒的 API。</p>
-<p><code>synchronized</code> 对对象加锁时，就是通过对象内置的 <code>Monitor</code> 来加锁的。</p>
-<h4 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h4><p><code>Monitor</code> 是线程私有的数据结构，每一个线程都有一个可用 <code>monitor record</code> 列表，同时还有一个全局的可用列表。每一个被锁住的对象都会和一个 <code>monitor</code> 关联，同时 <code>monitor</code> 中有一个 <code>Owner</code> 字段存放拥有该锁的线程的唯一标识，表示该锁被这个线程占用。</p>
-<h3 id="9-1-临界区"><a href="#9-1-临界区" class="headerlink" title="9.1 临界区"></a>9.1 临界区</h3><p>临界区就是一块互斥的代码区域，它在同一时刻只能由一个线程执行。</p>
-<h3 id="9-2-锁的分类"><a href="#9-2-锁的分类" class="headerlink" title="9.2 锁的分类"></a>9.2 锁的分类</h3><p>Java 6 之前，所有的 <code>synchronized</code> 锁都是重量级锁，是利用了对象的监视器 Monitor，本质是利用了操作系统的互斥量 Mutex；Java 6 之后，对 <code>synchronized</code> 锁进行了优化，有四种对象锁状态：</p>
+                <h1 id="流形学习与流形学习2-0"><a href="#流形学习与流形学习2-0" class="headerlink" title="流形学习与流形学习2.0"></a>流形学习与流形学习2.0</h1><h2 id="1-流形学习"><a href="#1-流形学习" class="headerlink" title="1. 流形学习"></a>1. 流形学习</h2><p>流形学习也是降维的一种，对应非线性降维。流形学习的输入数据在全局上是不满足欧几里得结构的，但在局部上满足欧式空间的性质。</p>
+<p>在三维球面上，利用极坐标表示的坐标系可以通过r、$\theta$、$\phi$三个参数来唯一确定。$\theta$、$\phi$可变，所以自由度为2，对应一个2维流形，即该球对应的本真流形维度（intrinsic dimension）是2维。</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>流形学习一般用于数据的可视化与数据的预处理。一般在流形学习之后，要接其他的机器学习算法。</p>
+<p>缺点是：</p>
 <ol>
-<li><strong>无锁</strong></li>
-<li><strong>偏向锁</strong></li>
-<li><strong>轻量级锁</strong></li>
-<li><strong>重量级锁</strong></li>
+<li>参数需要调整，来保证下游任务的正常运行；</li>
+<li>预处理时需要人工提取特征</li>
 </ol>
-<p>偏向锁 和 轻量级锁 是对 <code>synchronized</code> 的优化，但是锁竞争激烈时，反而会降低执行效率。</p>
-<p>锁会随着锁竞争发生<strong>锁升级</strong>。锁状态只能升级，不能降级。</p>
-<p><a href="https://tech.meituan.com/2018/11/15/java-lock.html" target="_blank" rel="noopener">美团技术团队-不可不说的锁事</a></p>
-<h4 id="9-2-1-Java-对象头"><a href="#9-2-1-Java-对象头" class="headerlink" title="9.2.1 Java 对象头"></a>9.2.1 Java 对象头</h4><p>Java 对象头的组成：</p>
-<ol>
-<li><code>Mark Word</code></li>
-<li>指向类信息的指针 <code>Klass Pointer</code></li>
-<li>数组的长度</li>
-</ol>
-<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/4098CB7903B94C2289BC15C32FFE94BF/8890" alt="对象头信息"></p>
-<h5 id="Mark-Word"><a href="#Mark-Word" class="headerlink" title="Mark Word"></a>Mark Word</h5><p><code>Mark Word</code> 在 32 位 JVM 中的长度是 32 bit，在 64 位 JVM 中长度是 64bit。以 32 位为例：</p>
-<ul>
-<li>使用 1 bit 来指示 是否为偏向锁</li>
-<li>使用 2 bit 来标志 锁的状态</li>
-</ul>
-<p><code>Mark Word</code> 用来存放对象信息或锁信息。<code>Mark Word</code> 被设计成可以复用的形式，会随着锁标志位的变化而发生变化。</p>
-<ul>
-<li>当对象是<strong>无锁态</strong>时，<code>Mark Word</code> 默认记录对象的 hashCode，锁标志位是 01，是否为偏向锁位为 0；</li>
-<li>当对象锁为<strong>偏向锁</strong>时，锁标志位依然是 01，是否为偏向锁位为 1，<code>Mark Word</code> 的前 23 位标志占有偏向锁的线程 id；</li>
-<li>当对象锁为<strong>轻量级锁</strong>时，锁标志位是 00，前 30 位指向栈帧中锁记录的指针</li>
-<li>当对象锁位<strong>重量级锁</strong>时，锁标志位是 10，前 30 位为指向重量级锁的指针</li>
-</ul>
-<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/B7669EB5178041248F525FB44AC284E2/13025" alt=""></p>
-<h5 id="Klass-Pointer"><a href="#Klass-Pointer" class="headerlink" title="Klass Pointer"></a>Klass Pointer</h5><p>对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
-<h4 id="9-2-2-偏向锁"><a href="#9-2-2-偏向锁" class="headerlink" title="9.2.2 偏向锁"></a>9.2.2 偏向锁</h4><p>线程在<strong>第一次</strong>进入同步块的时候，会在对象头和栈帧中记录偏向锁的线程 id，当下一次该线程再次进入同步块的时候，会检查 <code>Mark Word</code> 中的线程 id 是否为当前线程，如果是当前线程，则直接可以执行。</p>
-<p>引入偏向锁，是为了在<strong>无多线程竞争</strong>的情况下，尽量减少不必要的资源占用。</p>
-<ul>
-<li>偏向锁会在资源无竞争的情况下消除同步语句</li>
-<li>偏向的意思是：偏向锁总会偏向与第一个访问锁的线程</li>
-<li>偏向锁会在 <strong>对象头</strong> 中 记录 <strong>线程 ID</strong></li>
-<li>偏向锁不会主动去释放锁，在有线程竞争锁的时候才会释放锁。</li>
-</ul>
-<h5 id="1-偏向锁的加锁与撤销过程"><a href="#1-偏向锁的加锁与撤销过程" class="headerlink" title="1. 偏向锁的加锁与撤销过程"></a>1. 偏向锁的加锁与撤销过程</h5><p>线程在访问同步代码块时，会先检查对象头中的 <code>Mark Word</code>，如果是 <code>01</code>，代表目前处于无锁或偏向锁状态；然后再检查对象头，具体是无锁还是偏向锁：</p>
-<ol>
-<li>如果是无锁状态，则尝试使用 CAS 操作来来尝试修改 <code>Mark Word</code> 中的线程 id 为当前线程的 id：<ol>
-<li>如果修改成功，则说明是第一次上锁，当前线程则会获得该偏向锁，从而在 <code>Mark Word</code> 中记录自己线程 ID 和获取锁的时间 epoch 等信息，然后执行同步代码块。</li>
-<li>如果修改失败了，则说明有别的线程在此时抢先拿到了偏向锁，此时锁状态为偏向锁状态。执行偏向锁的流程。</li>
-</ol>
-</li>
-<li>如果是偏向锁状态，先判断 <code>Mark Word</code> 中的线程 ID 是不是自己的 ID：<ol>
-<li>如果是，则说明该线程之前已经获得了该偏向锁，且没被撤销，于是直接访问该同步资源；</li>
-<li>如果不是，则说明目前该同步资源之前被其他线程访问过，偏向锁状态还没撤消（因为偏向锁不会在线程退出同步代码块后主动撤消）。此时会执行<strong>锁撤消</strong>，需要等原持有偏向锁的线程到达<strong>全局安全点</strong>（Safe Point）时将其暂停，然后会检查其是否已经退出同步：<ol>
-<li>如果退出了，则把锁状态设置为无锁态（包括修改线程 ID 为空，偏向锁状态为 <code>0</code>），然后让其他线程去竞争该同步资源，之后会唤醒该撤销了锁的线程（如果它还活着），因为该线程目前不占用该同步资源了。</li>
-<li>如果没有退出同步，则锁需要升级为轻量级锁：把锁标志位设置为 <code>00</code>，然后唤醒被暂停的线程。同时之后对该同步资源的锁竞争会进入轻量级锁状态。</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<!--![](http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/4076FDBA616E4A178978CD27D5070783/12666)-->
-
-<h5 id="2-偏向锁撤销的细节"><a href="#2-偏向锁撤销的细节" class="headerlink" title="2. 偏向锁撤销的细节"></a>2. 偏向锁撤销的细节</h5><p>偏向锁的释放总是在有线程竞争该偏向锁的时候。</p>
-<p>偏向锁进行锁升级时，会在<strong>全局安全点</strong>暂停之前占有偏向锁的线程，这个<strong>开销很大</strong>。</p>
-<ul>
-<li>若进程中锁经常处于竞争状态，则不应设置偏向锁，因为反而会降低效率。</li>
-<li>JVM 中，偏向锁<strong>默认开启</strong>，关闭偏向锁的方式：<code>-XX:-UseBiasedLocking=false</code>，关闭后默认直接进入<strong>轻量级锁</strong>状态。</li>
-<li><strong>全局安全点</strong>：在该时间节点上，没有字节码正在执行</li>
-</ul>
-<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2CEFD38921E74AD6B240DCF315B6D98E/13575" alt=""></p>
-<h5 id="3-锁升级的过程"><a href="#3-锁升级的过程" class="headerlink" title="3. 锁升级的过程"></a>3. 锁升级的过程</h5><p>当锁存在竞争时，之前持有偏向锁的线程会被在全局安全点暂停，然后判断是否执行完了同步代码块，如果没执行完，则锁会升级为轻量级锁。</p>
-<ol start="2">
-<li>遍历线程栈，如果存在锁记录的话，需要修复锁记录和 <code>Mark Word</code>，使其变成无锁状态。</li>
-<li>偏向锁成功升级成轻量级锁，唤醒之前被暂停但没退出同步代码块的线程来持有该轻量级锁，并从 Safa Point 处继续往下执行，其他线程则通过轻量级锁的方式来进行锁竞争。</li>
-</ol>
+<h2 id="2-潜图学习（隐图学习）：现代环境下的流形学习"><a href="#2-潜图学习（隐图学习）：现代环境下的流形学习" class="headerlink" title="2. 潜图学习（隐图学习）：现代环境下的流形学习"></a>2. 潜图学习（隐图学习）：现代环境下的流形学习</h2><p>图神经网络应用的前提是提供图结构，但很多时候我们没有现成可用的图，所以要用到潜图学习。而且，它适用于小样本学习，减少数据标注的开销。</p>
+<p>潜图学习是学习具有空边集的图，在数据中推断图结构。</p>
+<p>输入高维点云，利用深度学习方法学习图结构。</p>
 <blockquote>
-<p>负责锁撤消和锁升级的是其他的线程。</p>
+<p>潜图可能会传达关于数据的重要理解，并提供解释某些结论的方式，有时比任务本身更加重要。</p>
 </blockquote>
-<h4 id="9-2-3-轻量级锁"><a href="#9-2-3-轻量级锁" class="headerlink" title="9.2.3 轻量级锁"></a>9.2.3 轻量级锁</h4><p><strong>轻量级锁</strong>通过自旋来尝试获取轻量级锁，不会发生线程的阻塞与唤醒，从而减少重量级锁带来的性能消耗。</p>
-<ul>
-<li>轻量级锁通过<strong>自旋</strong>的方式来尝试获取锁，不会阻塞线程，因此性能比重量级锁更高；</li>
-<li>轻量级锁对象的对象头中 <code>Mark Word</code> 指向线程栈的栈帧中的<strong>锁记录</strong> <code>Lock Record</code>。</li>
-</ul>
-<h5 id="栈帧中的锁记录-Lock-Record"><a href="#栈帧中的锁记录-Lock-Record" class="headerlink" title="栈帧中的锁记录 Lock Record"></a>栈帧中的锁记录 Lock Record</h5><img src="http://note.youdao.com/yws/public/resource/03e442b43c9103c3bcce438252939ad9/xmlnote/FED996F3A4D84D96994D90AF9E285259/18111" alt="栈帧中的锁记录" style="zoom:70%;" />
-
-<p><code>Lock Record</code> 的结构：</p>
-<ul>
-<li><code>Displaced Mark Word</code>， 存放对象头中 <code>Mark Word</code> 的拷贝；</li>
-<li><code>owner</code> 指针，用于指向对象头的 <code>Mark Word</code>。</li>
-</ul>
-<p>当<strong>锁被重入</strong>时，会在线程栈中继续添加一个新的 <code>Lock Record</code>，该 <code>Lock Record</code> 中的 <code>Displaced Mark Word</code> 为 <code>null</code>，用所有的 <code>Lock Record</code> 来进行重入计数。</p>
-<img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/2C14F9A8A8424636B194A1848D56D6B7/12758" alt="轻量级锁的加锁与释放" style="zoom:80%;" />
-
-<h5 id="轻量级锁的加锁"><a href="#轻量级锁的加锁" class="headerlink" title="轻量级锁的加锁"></a>轻量级锁的加锁</h5><p>在代码进入同步块时，如果同步对象锁状态为<strong>无锁</strong>状态（锁标志位为 <code>01</code> 状态，是否为偏向锁为 <code>0</code>）：</p>
+<p>应用：</p>
 <ol>
-<li>虚拟机首先将在当前线程的<strong>栈帧</strong>中建立一个名为<strong>锁记录</strong><code>Lock Record</code>的空间；</li>
-<li>然后拷贝对象头中的 <code>Mark Word</code> 到<code>Lock Record</code> 作为 <code>Displaced Mark Word</code>；<ul>
-<li>到这为止的修改都是对当前线程进行的修改，接下来尝试对同步资源的对象头进行修改，尝试获取锁。</li>
-</ul>
-</li>
-<li>拷贝成功后，虚拟机将使用 CAS 操作尝试将对象的 <code>Mark Word</code> <strong>更新</strong>为指向 <code>Lock Record</code> 的指针，并将 <code>Lock Record</code> 里的 <code>owner</code> 指针指向对象的 <code>Mark Word</code>。<ol>
-<li>如果更新成功了，则该线程就成功获得了对象锁。</li>
-<li>若替换失败，则表示 <code>Mark Word</code> 已经被替换成其他线程的锁记录指针，说明存在竞争锁的线程，则当前线程自旋请求锁。</li>
+<li>社会科学，如发现用户关注图；</li>
+<li>化学，学习分子键连接结构；</li>
+<li>生物学，观察蛋白质等生物分子的表达水平，并重建分子间的相互作用和信息传递网络。</li>
 </ol>
-</li>
-</ol>
-<p>如果同步对象是<strong>有锁</strong>状态，则先判断对象的 <code>Mark Word</code> 是否指向本线程的栈帧范围：</p>
-<ol>
-<li>如果是，则说明是锁的重入，不需要锁竞争；<ul>
-<li>此时会再次创建新的 <code>Lock Record</code>，来表示锁重入。</li>
-</ul>
-</li>
-<li>如果不是，则触发锁升级。</li>
-</ol>
-<h5 id="自旋"><a href="#自旋" class="headerlink" title="自旋"></a>自旋</h5><p>自旋只会发生在只有一个额外的线程来竞争锁资源时，即，如果当前同步资源正被某个线程占用，而且等待该资源的线程只有一个，则会通过自旋来等待。如果等待的线程超过一个，则轻量级锁会升级为重量级锁。</p>
-<h5 id="适应性自旋"><a href="#适应性自旋" class="headerlink" title="适应性自旋"></a>适应性自旋</h5><p>自旋来请求锁会一直占用 CPU，JDK 采用 <strong>适应性自旋</strong> 来避免 CPU 一直被占用：</p>
-<ul>
-<li>若线程自旋请求锁成功，则下次竞争锁时的可自旋次数增加</li>
-<li>若线程自旋请求锁失败，则下次竞争锁时的可自旋次数减少</li>
-</ul>
-<h5 id="轻量级锁升级"><a href="#轻量级锁升级" class="headerlink" title="轻量级锁升级"></a>轻量级锁升级</h5><p>轻量级锁升级的两种情况：</p>
-<ol>
-<li>当线程自旋到一定程度，依然没有获取到锁，则<strong>自旋失败</strong>，<strong>阻塞</strong>该线程。同时该轻量级<strong>锁升级</strong>为重量级锁。</li>
-<li>等待锁的线程超过了 <code>1</code> 个，则也会触发锁的升级。</li>
-</ol>
-<h5 id="轻量级锁的释放"><a href="#轻量级锁的释放" class="headerlink" title="轻量级锁的释放"></a>轻量级锁的释放</h5><p>线程使用完同步资源后，会释放轻量级锁，当前持有锁的线程会进行 CAS 操作，将 <code>Displaced Mark Word</code> 的内容复制回 <code>Mark Word</code>中:</p>
-<ul>
-<li>如果没有锁竞争，那么这个复制的操作会成功；</li>
-<li>如果之前有其他线程自旋失败导致轻量级锁升级成了重量级锁，那么 CAS 操作会失败，此时当前线程会直接释放锁并唤醒被阻塞的线程（自旋失败的线程）。<ul>
-<li>被唤醒的线程会重新争夺锁</li>
-</ul>
-</li>
-</ul>
-<h4 id="9-2-4-重量级锁"><a href="#9-2-4-重量级锁" class="headerlink" title="9.2.4 重量级锁"></a>9.2.4 重量级锁</h4><p>重量级锁依赖于操作系统的<strong>互斥量</strong>（mutex） 实现的，而操作系统中线程间状态的转换需要相对比较长的时间，所以重量级锁效率很低，但被阻塞的线程不会消耗 CPU。</p>
-<ul>
-<li>当对象锁为重量级锁时，<code>Mark Word</code> 中存储的是指向重量级锁（互斥量）的指针</li>
-<li>等待重量级锁的线程都会进入阻塞状态 </li>
-<li>当调用一个锁对象的 <code>notify()</code> 或 <code>wait()</code> 方法时，首先会将锁<strong>膨胀</strong>成重量级锁</li>
-</ul>
-<h4 id="9-2-5-锁的升级流程"><a href="#9-2-5-锁的升级流程" class="headerlink" title="9.2.5 锁的升级流程"></a>9.2.5 锁的升级流程</h4><p>当线程想要获取共享资源时：</p>
-<ol>
-<li>首先检查 <code>Mark Word</code> 中的线程 id 是不是自身，如果是，则对象锁为偏向锁；</li>
-<li>如果不是自己的线程 id，则尝试使用 CAS 操作来把 <code>Mark Word</code> 中的线程 id 修改为本线程的id，如果修改失败，则说明当前存在锁竞争，此时暂停正在占有锁的线程，并修改线程 id 为空，偏向锁升级为轻量级锁。之后恢复被暂停的线程。</li>
-<li>轻量级锁的线程，会在栈帧中新建锁记录，线程把锁对象的 hashcode 复制到对应的锁记录中，然后通过 CAS 操作把 <code>Mark Word</code> 修改为指向锁记录的指针。</li>
-<li>成功修改 <code>Mark Word</code> 的线程会获得轻量级锁，失败的线程自旋。</li>
-<li>若自旋的线程在自旋中成功获得了锁，则轻量级锁不会升级；</li>
-<li>如果自旋失败，则轻量级锁升级为重量级锁。此时，未获得锁的线程会阻塞，等待持有锁的线程在同步块内执行完成，并唤醒自己。从而重新进行锁竞争。</li>
-</ol>
-<h4 id="9-2-6-各种锁的对比"><a href="#9-2-6-各种锁的对比" class="headerlink" title="9.2.6 各种锁的对比"></a>9.2.6 各种锁的对比</h4><ul>
-<li><strong>偏向锁</strong> 是通过对比 Mark Word 来避免执行 CAS 操作</li>
-<li><strong>轻量级锁</strong> 是通过 CAS 操作和自旋来避免线程阻塞和唤醒，而影响性能</li>
-<li><strong>重量级锁</strong> 是将除了拥有锁的线程以外的其他线程直接阻塞</li>
-</ul>
-<p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/41C8A6DEB67B4DBA816F1BD5C96D5635/12783" alt=""></p>
-<h3 id="9-3-乐观锁与悲观锁"><a href="#9-3-乐观锁与悲观锁" class="headerlink" title="9.3 乐观锁与悲观锁"></a>9.3 乐观锁与悲观锁</h3><p><img src="http://note.youdao.com/yws/public/resource/bfce0e3d92cf4516094fe684a07f9b39/xmlnote/45FBCEC3BF6643D9A65FAF87FBF23D2A/12618" alt=""></p>
-<h4 id="9-3-1-乐观锁"><a href="#9-3-1-乐观锁" class="headerlink" title="9.3.1 乐观锁"></a>9.3.1 乐观锁</h4><p>乐观锁总是假设对共享资源的访问没有冲突，线程可以不停地执行，无需加锁，也无需等待。</p>
-<p>一旦多个线程发生冲突，则是使用 CAS 来解决线程安全性问题。</p>
-<p>乐观锁默认不加锁，所以不会出现死锁。</p>
-<p>乐观锁适用于 “多读少写” 的情况，避免冲突时频繁加锁，影响性能。</p>
-<h4 id="9-3-2-悲观锁"><a href="#9-3-2-悲观锁" class="headerlink" title="9.3.2 悲观锁"></a>9.3.2 悲观锁</h4><p>悲观锁总是假设访问共享资源会发生冲突，所以每次都会加锁，以保证临界区同时只有一个线程在执行。</p>
-<ul>
-<li><code>synchronized</code> 和 <code>Lock</code> 的实现类 都是悲观锁。</li>
-</ul>
-<p>悲观锁适用于 “多写少读” 的情况，避免频繁的失败和重试影响性能。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://juejin.im/post/6844903741796122631" target="_blank" rel="noopener">偏向锁的状态转移原理</a></p>
+<h3 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h3><h4 id="1-DGCNN-动态图卷积网络-开创性工作"><a href="#1-DGCNN-动态图卷积网络-开创性工作" class="headerlink" title="1. DGCNN 动态图卷积网络 : 开创性工作"></a>1. DGCNN 动态图卷积网络 : 开创性工作</h4><p>将图作为点云底层的<strong>局部平滑流形</strong>结构的一种粗糙表示。在网络处理过程中，图可以被更新。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/cNFA8C0uVPutq8IEHWJQBamibU5u0ADR1ZIQczMZjVzpcvCdiccI0WsIW5xyzKXmxlKj5kTSeRCyMAgHfrJKLP8g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="DGCNN"></p>
+<p>如图，DGCNN 可以被用于分割任务中。随着层数的加深，网络捕获到了不同的语义信息。</p>
+<h4 id="2-DGM"><a href="#2-DGM" class="headerlink" title="2. DGM"></a>2. DGM</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/cNFA8C0uVPutq8IEHWJQBamibU5u0ADR1h7NLdQQl7m5ebDnIaRklOdnnmvUpUbTG6mjUhLDL3r2y3hC8zyGXAg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="DGM"></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="https://mp.weixin.qq.com/s?__biz=MzUyMzAxNjk3MQ==&mid=2247484889&idx=2&sn=8b4e26f9acd9b248205c0437127a6c6c&chksm=f9c24bbdceb5c2ab2bd3adf022d0de7ecfdd05aedae129cfb1281b79ae682815e637cea69f8c&mpshare=1&scene=23&srcid=04141n1xeDr7qRLMSn9wLXYT&sharer_sharetime=1618399494098&sharer_shareid=fc06814c3a0ce2f45e4998813d787a8f#rd" target="_blank" rel="noopener">潜图学习</a></p>
 
             </div>
             <hr/>
@@ -676,7 +529,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">https://Zgxh.github.io/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/</a>
+                    <a href="https://Zgxh.github.io/2021/04/16/%E7%A7%91%E7%A0%94%E6%80%BB%E7%BB%93/%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A0+%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A02.0/">https://Zgxh.github.io/2021/04/16/%E7%A7%91%E7%A0%94%E6%80%BB%E7%BB%93/%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A0+%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A02.0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -714,8 +567,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                                    <span class="chip bg-color">多线程与并发</span>
+                                <a href="/tags/%E7%A7%91%E7%A0%94/">
+                                    <span class="chip bg-color">科研</span>
                                 </a>
                             
                         </div>
@@ -756,51 +609,49 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
+                <a href="/2021/04/16/%E7%A7%91%E7%A0%94%E6%80%BB%E7%BB%93/%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A0+%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A02.0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="10.CAS 与 原子操作">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="流形学习+流形学习2.0">
                         
-                        <span class="card-title">10.CAS 与 原子操作</span>
+                        <span class="card-title">流形学习+流形学习2.0</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
-
-要么全部成功，要么全部失败。
-原子操作能保证线程安全性。
-
-10.1.1 Java 中的原子类java.util.c
+                            流形学习与流形学习2.01. 流形学习流形学习也是降维的一种，对应非线性降维。流形学习的输入数据在全局上是不满足欧几里得结构的，但在局部上满足欧式空间的性质。
+在三维球面上，利用极坐标表示的坐标系可以通过r、$\theta$、$\phi$三
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    多线程与并发
+                            <a href="/categories/%E7%A7%91%E7%A0%94/" class="post-category">
+                                    科研
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                        <span class="chip bg-color">多线程与并发</span>
+                    <a href="/tags/%E7%A7%91%E7%A0%94/">
+                        <span class="chip bg-color">科研</span>
                     </a>
                     
                 </div>
@@ -814,34 +665,38 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/4.%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
+                <a href="/2021/03/01/%E4%B8%93%E4%B8%9A%E8%AF%BE/%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="4.线程间通信">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="网络复习">
                         
-                        <span class="card-title">4.线程间通信</span>
+                        <span class="card-title">网络复习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            4. 线程间通信4.1 锁与同步JAVA 中的锁都是对象锁，是基于对象的。
-4.1.1 线程同步线程同步是指约束线程按照一定的顺序执行。
-线程同步可以通过锁 synchronized 来实现:
-public class ObjectLock
+                            计算机网络复习0. OSI 7 层模型
+
+应用层：决定了向用户提供应用服务时通信的活动。
+FTP、DNS 服务、HTTP、SSH、SMTP、SSL/TLS 等
+
+
+表示层：对上层数据或信息进行变换，包括数据的加密、压缩、格式转换等。
+会话层
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    多线程与并发
+                            <a href="/categories/%E4%B8%93%E4%B8%9A%E8%AF%BE/" class="post-category">
+                                    专业课
                                 </a>
                             
                             
@@ -851,8 +706,8 @@ public class ObjectLock
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
-                        <span class="chip bg-color">多线程与并发</span>
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">计算机网络</span>
                     </a>
                     
                 </div>
@@ -989,6 +844,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
     <footer class="page-footer bg-color">

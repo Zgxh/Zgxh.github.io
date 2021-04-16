@@ -461,7 +461,7 @@ public class ObjectLock">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-09
+                    2021-04-16
                 </div>
                 
 
@@ -897,23 +897,23 @@ test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
                         
-                        <span class="card-title">进程与线程</span>
+                        <span class="card-title">9.Java 对象锁</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0. 进程与线程进程是应用程序在某块独立内存上的运行活动，是系统进行资源分配的基本单位。各个进程之间互不干扰，包括程序段、数据、PCB。
+                            9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
 
-程序段：程序运行的代码；
-数据段：程序运行期的相关数据；
-PCB 进程控制块：描述进程的基本情况和运
+每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
+
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
                         
                     </div>
                     <div class="publish-info">

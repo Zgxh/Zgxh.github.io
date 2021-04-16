@@ -465,7 +465,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-09
+                    2021-04-16
                 </div>
                 
 
@@ -676,37 +676,35 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/07/JVM/%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E4%B8%8E%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="编译与优化">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
                         
-                        <span class="card-title">编译与优化</span>
+                        <span class="card-title">进程与线程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 逃逸分析逃逸是指一个对象在某个方法中被创建后，会被其他方法或其他线程所引用。
+                            0. 进程与线程进程是应用程序在某块独立内存上的运行活动，是系统进行资源分配的基本单位。各个进程之间互不干扰，包括程序段、数据、PCB。
 
-方法逃逸：该对象被作为参数传递到其他方法中。
-线程逃逸：该对象被关联到其他线程中可以访问到的实例变量中。
-
-线程逃逸的逃逸程度比方法逃逸更高。
-如果能证明
+程序段：程序运行的代码；
+数据段：程序运行期的相关数据；
+PCB 进程控制块：描述进程的基本情况和运
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-07
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JVM/" class="post-category">
-                                    JVM
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
                                 </a>
                             
                             
@@ -716,8 +714,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
                     </a>
                     
                 </div>
@@ -731,24 +729,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%20%E4%B8%AD%E7%9A%84%E9%94%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="10.CAS 与 原子操作">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java 锁分类">
                         
-                        <span class="card-title">10.CAS 与 原子操作</span>
+                        <span class="card-title">Java 锁分类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
-
-要么全部成功，要么全部失败。
-原子操作能保证线程安全性。
-
-10.1.1 Java 中的原子类java.util.c
+                            Java 中的锁
+Java 中的并发包： java.util.concurrent , 又叫 JUC。
+1. 乐观锁 与 悲观锁
+1.1 乐观锁乐观锁总是假设对共享资源的访问没有冲突，线程可以不停地执行，无需加锁，也无需等待。
+一旦多个线程
                         
                     </div>
                     <div class="publish-info">
