@@ -392,6 +392,107 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
+                            
+                            <span class="card-title">9.Java 对象锁</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
+
+每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
+
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">多线程与并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/4.%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="4.线程间通信">
+                            
+                            <span class="card-title">4.线程间通信</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                4. 线程间通信4.1 锁与同步JAVA 中的锁都是对象锁，是基于对象的。
+4.1.1 线程同步线程同步是指约束线程按照一定的顺序执行。
+线程同步可以通过锁 synchronized 来实现:
+public class ObjectLock
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">多线程与并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/12.%20%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
                         <div class="card-image">
                             
@@ -442,25 +543,26 @@ Java 中的线程池是 ThreadPo
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/11.%20aqs/">
+                    <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/java%20%E5%AF%B9%E8%B1%A1%E5%A4%B4/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="AQS">
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Java 对象头">
                             
-                            <span class="card-title">AQS</span>
+                            <span class="card-title">Java 对象头</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                11. AQSAQS，AbstractQueuedSynchronizer，抽象队列同步器，是一个抽象类。
+                                Java 对象头1. Java 对象头的组成
+Mark Word
+指向类元信息的指针 Klass Pointer
+数组的长度
 
-是用来构建锁和同步器的框架。基于 AQS 实现的锁:
-ReentrantLock
-ReentrantReadWriteLock
-C
+
+1.1 Mark WordMark Word 在 32 位 JVM 中的长度是 32 bit，在 64 位 J
                             
                         </div>
                         <div class="publish-info">
@@ -545,115 +647,6 @@ Object o = new Object();
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/09/26/JVM/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JVM 内存结构">
-                            
-                            <span class="card-title">JVM 内存结构</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
-
-1. 程序计数器 Program Counter
-线程私有，是当前线程的字节码行号指示器。
-如果线程执行 Java 方法，指示字节码指令的地址
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/JVM/">
-                            <span class="chip bg-color">JVM</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/09/26/JVM/JVM%20%E5%9F%BA%E7%A1%80/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="JVM 基础">
-                            
-                            <span class="card-title">JVM 基础</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                JVM 基础1. Java 程序的执行流程
-java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
-
-字节码的运行过程：
-
-通过类装载子系统来加载数据到运行时数据区
-通过字节码执行引擎来执行代码
-
-
-
-
-
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/JVM/">
-                            <span class="chip bg-color">JVM</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
                     <a href="/2020/09/26/JVM/Java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/">
                         <div class="card-image">
                             
@@ -705,68 +698,24 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/09/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E/">
+                    <a href="/2020/09/26/JVM/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="字节码执行引擎">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JVM 内存结构">
                             
-                            <span class="card-title">字节码执行引擎</span>
+                            <span class="card-title">JVM 内存结构</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                JVM 字节码执行引擎JVM 作为字节码与操作系统之间的中间件，实现了 java 的跨平台性。
-JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就是将字节码指令解释/编译为对应平台上的本地机器指令才可以。简单
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+                                JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/JVM/">
-                            <span class="chip bg-color">JVM</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/09/26/JVM/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java 类加载机制">
-                            
-                            <span class="card-title">Java 类加载机制</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Java 类加载机制总结类加载是把字节码 .class 文件加载到内存里，从而生成对应类的 Class 对象，同一个类只有一个 Class 对象。当该类需要被实例化的时候，即用 new 关键字来创建对象时，JVM 会去获取该 Class 对
+1. 程序计数器 Program Counter
+线程私有，是当前线程的字节码行号指示器。
+如果线程执行 Java 方法，指示字节码指令的地址
                             
                         </div>
                         <div class="publish-info">
@@ -851,36 +800,32 @@ JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就�
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/05/05/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%BE%8E%E9%A3%9F/%E4%BA%8E%E6%B0%8F%E9%BA%BB%E8%BE%A3%E5%B0%8F%E9%BE%99%E8%99%BE/">
+                    <a href="/2020/09/26/JVM/Java%20%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="于氏麻辣小龙虾">
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java 类加载机制">
                             
-                            <span class="card-title">于氏麻辣小龙虾</span>
+                            <span class="card-title">Java 类加载机制</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                于氏麻辣小龙虾
-浸泡吐脏东西：泡小龙虾的水加盐，泡2小时。
-清洗：戴手套，用刷子清洗小龙虾，并去虾线。
-再次浸泡去血水：水里加盐去血水。
-炒制：锅里热油两勺，加大葱段、姜片、大蒜、小葱结、干花椒，加火锅底料一小块，炒制出香。然后下入小龙虾，
+                                Java 类加载机制总结类加载是把字节码 .class 文件加载到内存里，从而生成对应类的 Class 对象，同一个类只有一个 Class 对象。当该类需要被实例化的时候，即用 new 关键字来创建对象时，JVM 会去获取该 Class 对
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E7%BE%8E%E9%A3%9F/" class="post-category">
-                                    美食
+                                <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                                 
                                 
@@ -891,8 +836,66 @@ JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就�
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%BE%8E%E9%A3%9F/">
-                            <span class="chip bg-color">程序员美食</span>
+                        <a href="/tags/JVM/">
+                            <span class="chip bg-color">JVM</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2020/09/26/JVM/JVM%20%E5%9F%BA%E7%A1%80/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="JVM 基础">
+                            
+                            <span class="card-title">JVM 基础</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                JVM 基础1. Java 程序的执行流程
+java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
+
+字节码的运行过程：
+
+通过类装载子系统来加载数据到运行时数据区
+通过字节码执行引擎来执行代码
+
+
+
+
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/JVM/" class="post-category">
+                                    JVM
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/JVM/">
+                            <span class="chip bg-color">JVM</span>
                         </a>
                         
                     </div>

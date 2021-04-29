@@ -458,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-16
+                    2021-04-29
                 </div>
                 
 
@@ -923,25 +923,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/java%20%E5%AF%B9%E8%B1%A1%E5%A4%B4/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Java 对象头">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="10.CAS 与 原子操作">
                         
-                        <span class="card-title">Java 对象头</span>
+                        <span class="card-title">10.CAS 与 原子操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 对象头1. Java 对象头的组成
-Mark Word
-指向类元信息的指针 Klass Pointer
-数组的长度
+                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
 
+要么全部成功，要么全部失败。
+原子操作能保证线程安全性。
 
-1.1 Mark WordMark Word 在 32 位 JVM 中的长度是 32 bit，在 64 位 J
+10.1.1 Java 中的原子类java.util.c
                         
                     </div>
                     <div class="publish-info">
@@ -978,23 +977,23 @@ Mark Word
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2.线程组 与 优先级">
                         
-                        <span class="card-title">进程与线程</span>
+                        <span class="card-title">2.线程组 与 优先级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0. 进程与线程进程是应用程序在某块独立内存上的运行活动，是系统进行资源分配的基本单位。各个进程之间互不干扰，包括程序段、数据、PCB。
+                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
 
-程序段：程序运行的代码；
-数据段：程序运行期的相关数据；
-PCB 进程控制块：描述进程的基本情况和运
+线程依赖于线程组而存在。
+线程组可以统一控制线程的优先级和检查线程的权限。
+线程组中的线程只允许访问自己所在线
                         
                     </div>
                     <div class="publish-info">

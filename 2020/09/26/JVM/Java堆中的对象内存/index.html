@@ -462,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-16
+                    2021-04-29
                 </div>
                 
 
@@ -627,35 +627,28 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/09/26/JVM/JVM%20%E5%9F%BA%E7%A1%80/">
+                <a href="/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="JVM 基础">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Java 四种引用类型">
                         
-                        <span class="card-title">JVM 基础</span>
+                        <span class="card-title">Java 四种引用类型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JVM 基础1. Java 程序的执行流程
-java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
-
-字节码的运行过程：
-
-通过类装载子系统来加载数据到运行时数据区
-通过字节码执行引擎来执行代码
-
-
-
-
-
+                            四种引用类型1. 强引用强引用就是最普通的引用方式。
+GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
+Object o = new Object();
+方法中的局部变量的强引用会在方法退出栈帧后自动销毁引用。
+对于类的
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-26
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
                         </span>
                         <span class="publish-author">
                             
@@ -687,20 +680,23 @@ java 程序首先经过编译器 javac 的编译，然后交给虚拟机 java。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E/">
+                <a href="/2020/09/26/JVM/JVM%20%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="字节码执行引擎">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JVM 内存结构">
                         
-                        <span class="card-title">字节码执行引擎</span>
+                        <span class="card-title">JVM 内存结构</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JVM 字节码执行引擎JVM 作为字节码与操作系统之间的中间件，实现了 java 的跨平台性。
-JVM 输入的是字节码文件，执行引擎（Execution Engine) 的任务就是将字节码指令解释/编译为对应平台上的本地机器指令才可以。简单
+                            JVM内存区域划分JVM运行时数据区分为：堆、方法区、栈（虚拟机栈、本地方法栈）、程序计数器。
+
+1. 程序计数器 Program Counter
+线程私有，是当前线程的字节码行号指示器。
+如果线程执行 Java 方法，指示字节码指令的地址
                         
                     </div>
                     <div class="publish-info">

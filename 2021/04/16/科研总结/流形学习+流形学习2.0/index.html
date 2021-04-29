@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-16
+                    2021-04-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    533
+                    702
                 </div>
                 
 
@@ -487,6 +487,9 @@
 <li>参数需要调整，来保证下游任务的正常运行；</li>
 <li>预处理时需要人工提取特征</li>
 </ol>
+<h3 id="流形学习与图学习"><a href="#流形学习与图学习" class="headerlink" title="流形学习与图学习"></a>流形学习与图学习</h3><p>流形在全局上是不满足欧几里得结构的，但在局部上我们仍假设它满足欧式空间的性质。</p>
+<p>图数据在本质上是非欧空间的数据，图数据的信息隐含在结点与结点之间的关系中，每个结点的邻居结点的数目不一定相同，所以很多传统的基于欧式空间的算法无法直接应用在图数据的处理中。</p>
+<h3 id="社区发现"><a href="#社区发现" class="headerlink" title="社区发现"></a>社区发现</h3><p>把复杂网络中的结点划分为若干个社团，社团内部链接稠密，社团之间的边连接尽可能稀疏。</p>
 <h2 id="2-潜图学习（隐图学习）：现代环境下的流形学习"><a href="#2-潜图学习（隐图学习）：现代环境下的流形学习" class="headerlink" title="2. 潜图学习（隐图学习）：现代环境下的流形学习"></a>2. 潜图学习（隐图学习）：现代环境下的流形学习</h2><p>图神经网络应用的前提是提供图结构，但很多时候我们没有现成可用的图，所以要用到潜图学习。而且，它适用于小样本学习，减少数据标注的开销。</p>
 <p>潜图学习是学习具有空边集的图，在数据中推断图结构。</p>
 <p>输入高维点云，利用深度学习方法学习图结构。</p>
@@ -609,31 +612,32 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/16/%E7%A7%91%E7%A0%94%E6%80%BB%E7%BB%93/%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A0+%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A02.0/">
+                <a href="/2021/04/19/%E7%A7%91%E7%A0%94%E6%80%BB%E7%BB%93/%E5%9B%BE%E5%B5%8C%E5%85%A5/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="流形学习+流形学习2.0">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="图嵌入">
                         
-                        <span class="card-title">流形学习+流形学习2.0</span>
+                        <span class="card-title">图嵌入</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            流形学习与流形学习2.01. 流形学习流形学习也是降维的一种，对应非线性降维。流形学习的输入数据在全局上是不满足欧几里得结构的，但在局部上满足欧式空间的性质。
-在三维球面上，利用极坐标表示的坐标系可以通过r、$\theta$、$\phi$三
+                            1. Graph Embedding &amp; Node Embedding 综述图嵌入是把高维的图数据映射为低维稠密向量的过程。
+图嵌入分为结点嵌入和图嵌入：
+
+结点嵌入：把高维结点嵌入到低维空间中，用于结点分类、结点相似度判断、结点分
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-16
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-19
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -646,7 +650,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

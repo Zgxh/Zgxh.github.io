@@ -463,7 +463,7 @@ C">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-16
+                    2021-04-29
                 </div>
                 
 
@@ -847,22 +847,20 @@ C">
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/12.%20%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/8.%20volatile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Java 线程池">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="8.volatile 关键字">
                         
-                        <span class="card-title">Java 线程池</span>
+                        <span class="card-title">8.volatile 关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            12. 线程池 Thread Pool12.1 线程池简介线程池 Thread Pool 是一种基于池化思想管理线程的工具，经常出现在多线程服务器中。
-
-如数据库连接池、httpClient连接池。
-Java 中的线程池是 ThreadPo
+                            8. volatile8.0 为什么存在内存可见性问题 -&gt; 缓存一致性问题可见性是指某线程修改了一个变量的值，新值对于其他线程是立即可见的。
+为了提高代码执行速度，CPU 先把资源从内存加载到 CPU 缓存中（L1， L2等），但操
                         
                     </div>
                     <div class="publish-info">
@@ -899,35 +897,35 @@ Java 中的线程池是 ThreadPo
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/22/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/0.%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Java 四种引用类型">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
                         
-                        <span class="card-title">Java 四种引用类型</span>
+                        <span class="card-title">进程与线程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            四种引用类型1. 强引用强引用就是最普通的引用方式。
-GC 时，只要堆中的对象实例存在强引用与之关联，则绝不会被垃圾回收。
-Object o = new Object();
-方法中的局部变量的强引用会在方法退出栈帧后自动销毁引用。
-对于类的
+                            0. 进程与线程进程是应用程序在某块独立内存上的运行活动，是系统进行资源分配的基本单位。各个进程之间互不干扰，包括程序段、数据、PCB。
+
+程序段：程序运行的代码；
+数据段：程序运行期的相关数据；
+PCB 进程控制块：描述进程的基本情况和运
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JVM/" class="post-category">
-                                    JVM
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    多线程与并发
                                 </a>
                             
                             
@@ -937,8 +935,8 @@ Object o = new Object();
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">多线程与并发</span>
                     </a>
                     
                 </div>

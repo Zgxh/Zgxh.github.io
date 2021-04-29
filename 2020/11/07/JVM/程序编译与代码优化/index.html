@@ -464,7 +464,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-16
+                    2021-04-29
                 </div>
                 
 
@@ -644,21 +644,22 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/21/Java%20%E5%9F%BA%E7%A1%80/hashmap/">
+                <a href="/2021/02/21/Java%20%E5%9F%BA%E7%A1%80/concurrenthashmap/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="HashMap 源码分析">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="ConcurrentHashMap 源码分析">
                         
-                        <span class="card-title">HashMap 源码分析</span>
+                        <span class="card-title">ConcurrentHashMap 源码分析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            HashMap 源码分析1. HashMap 概述HashMap 与 HashTable 对比
-继承关系：HashTable 继承自 Dictionary 类，HashMap 继承自 AbstractMap 类
-线程安全性：HashMap 
+                            ConcurrentHashMap0. 为什么 HashMap 线程不安全
+多线程插入数据导致数据被覆盖
+在 JDK 1.7 时，采用的头插法，多线程同时执行 resize() 可能造成环形链表，造成死循环
+JDK 1.8 中代替为尾插法，
                         
                     </div>
                     <div class="publish-info">
@@ -695,23 +696,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/3.%20%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%85%B6%E8%BD%AC%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2.线程组 与 优先级">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="3.线程状态及其转化">
                         
-                        <span class="card-title">2.线程组 与 优先级</span>
+                        <span class="card-title">3.线程状态及其转化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
+                            3. 线程状态及其转化线程是轻量级进程，所以线程和进程状态一致。
+Java 线程状态转化图：
 
-线程依赖于线程组而存在。
-线程组可以统一控制线程的优先级和检查线程的权限。
-线程组中的线程只允许访问自己所在线
+3.1 Java 线程的 6 个状态Thread.State 源码:
+public enum State {
+    NEW,         
                         
                     </div>
                     <div class="publish-info">

@@ -462,7 +462,7 @@ Java 中的并发包： java.util.concurrent , 又叫 JUC。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-16
+                    2021-04-29
                 </div>
                 
 
@@ -744,26 +744,23 @@ atomicInteger<span class="token punctuation">.</span><span class="token function
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/1.%20Java%20%E4%B8%AD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/2.%20%E7%BA%BF%E7%A8%8B%E7%BB%84%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="1.Java 中多线程的实现">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="2.线程组 与 优先级">
                         
-                        <span class="card-title">1.Java 中多线程的实现</span>
+                        <span class="card-title">2.线程组 与 优先级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. Java 中多线程的实现主要有三种方案：
+                            2. 线程组 与 优先级2.1 线程组 ThreadGroup线程组是一个树状的结构，每个线程组下面可以有很多线程或者线程组。
 
-继承 Thread 类，并重写 run() 方法
-实现 Runnable 接口，并重写 run() 方法
-实现 Callable 接口，并重写 call() 方法
-
-其中前两种比较常见。
-1
+线程依赖于线程组而存在。
+线程组可以统一控制线程的优先级和检查线程的权限。
+线程组中的线程只允许访问自己所在线
                         
                     </div>
                     <div class="publish-info">
@@ -800,24 +797,23 @@ atomicInteger<span class="token punctuation">.</span><span class="token function
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/10.%20CAS%20%E4%B8%8E%20%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">
+                <a href="/2020/11/06/Java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/9.%20%E5%AF%B9%E8%B1%A1%E9%94%81/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="10.CAS 与 原子操作">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="9.Java 对象锁">
                         
-                        <span class="card-title">10.CAS 与 原子操作</span>
+                        <span class="card-title">9.Java 对象锁</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            10. CAS 与 原子操作10.1 原子性原子操作就是最小的不可拆分的操作，操作一旦开始，就不能被打断，直到操作完成。
+                            9. 锁Java中的锁都是对象锁，Class 类是特殊的 Java 对象，所以类锁也是对象锁。
 
-要么全部成功，要么全部失败。
-原子操作能保证线程安全性。
+每个类只有一个 Class 对象，类锁就是 Class 对象的锁。
 
-10.1.1 Java 中的原子类java.util.c
+为什么任意一个 Java 对象都能成为锁对象？对象派生自 Object，
                         
                     </div>
                     <div class="publish-info">
